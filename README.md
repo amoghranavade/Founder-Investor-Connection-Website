@@ -10,7 +10,7 @@ Ria Patole**
 
 ## Pre-requisites
 
-Get the latest Node JS here - https://nodejs.org/en/download/
-`npx create-react-app growth-cap` and copy all the folders present here to that directory or `clone this repo` from github desktop.
+Get the latest Node JS here - https://nodejs.org/en/download/  
+`npx create-react-app growth-cap` and copy all the folders present here to that directory or `clone this repo` from github desktop.  
 `npm start` to start with the project!
 
