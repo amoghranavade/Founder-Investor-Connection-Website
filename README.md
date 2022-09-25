@@ -1,6 +1,11 @@
 # GrowthCAP - SEM VII Major Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a project for Computer Engineering, SEM VII Major Project.
+Project Contributors:-
+**Amogh Ranavade
+Siddhi Chaudhari
+Ved Thakur
+Ria Patole**
 
 ## Available Scripts
 
