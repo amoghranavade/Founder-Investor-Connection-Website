@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          GrowthCAP <code>src/App.js</code> and save to reload.
+          GrowthCAP <code>- founder and investor connection</code>
         </p>
         <a
           className="App-link"
