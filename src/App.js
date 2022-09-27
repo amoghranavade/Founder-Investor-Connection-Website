@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          GrowthCAP <code>- founder and investor connection</code>
+          GrowthCAP Siddhi <code>- founder and investor connection</code>
         </p>
         <a
           className="App-link"
