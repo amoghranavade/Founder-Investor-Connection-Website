@@ -21,6 +21,5 @@ After making changes in the code and while pushing changes to repo, make sure th
 Finally, after making changes, open terminal and run `npm start` to view the project!
 
 ## Important Command Lines  
-`npm install react-router-dom --save`
-
-
+`npm install react-router-dom --save`- https://www.w3schools.com/react/react_router.asp
+`npm install bootstrap`
