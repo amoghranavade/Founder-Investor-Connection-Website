@@ -20,3 +20,7 @@ Once cloned, open the project in VSCode & open terminal and run `npm install` to
 After making changes in the code and while pushing changes to repo, make sure that `node_modules` is present in the .gitignore file.  
 Finally, after making changes, open terminal and run `npm start` to view the project!
 
+## Important Command Lines  
+`npm install react-router-dom --save`
+
+
