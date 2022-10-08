@@ -2,13 +2,14 @@ import './homepage.css';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Button, Icon, Rating, Step } from 'semantic-ui-react';
-import React, { useEffect } from 'react';
+import { Button, Icon, Rating, Step, Confirm} from 'semantic-ui-react';
+import React, { useEffect, Component } from 'react';
 
 
 
 
 function Homepage() {
+  
   const navigate = useNavigate();
   const navigateToLogin = () => {
     navigate("/login");
@@ -16,7 +17,9 @@ function Homepage() {
   useEffect(() => {
     document.title = 'GrowthCAP - Home';
   });
+  
   return (
+    
     
     <div className="Homepage">
       <header className="Homepage-header">
@@ -24,6 +27,7 @@ function Homepage() {
         <p>
           GrowthCAP Inc. <code>- Website Progress Bar</code>
         </p>
+        
 
         <Step.Group size='small'>
     <Step active>
@@ -62,7 +66,13 @@ function Homepage() {
 
 
         <Button.Group>
-        <Button>Save Code</Button>
+        <Button animated='vertical'>
+       
+        <Button.Content visible>Save Code</Button.Content>
+        <Button.Content hidden>
+            <Icon name='code branch' />
+          </Button.Content>
+        </Button>
         <Button.Or />
         <Button style = {{width: '80px'}} color='red' animated='vertical' onClick={navigateToLogin}>
           <Button.Content hidden>Logout</Button.Content>
@@ -81,5 +91,6 @@ function Homepage() {
     </div>
   );
 }
+
 
 export default Homepage;
