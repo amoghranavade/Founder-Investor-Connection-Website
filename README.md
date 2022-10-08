@@ -20,7 +20,7 @@ Once cloned, open the project in VSCode & open terminal and run `npm install` to
 After making changes in the code and while pushing changes to repo, make sure that `node_modules` is present in the .gitignore file.  
 Finally, after making changes, open terminal and run `npm start` to view the project!
 
-## Important Command Lines  
+## Important Tools  
 `npm install react-router-dom --save`- https://www.w3schools.com/react/react_router.asp  
 `npm install bootstrap`  
 `npm install semantic-ui-react semantic-ui-css` - https://react.semantic-ui.com/  
