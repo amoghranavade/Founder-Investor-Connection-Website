@@ -6,8 +6,9 @@ import { Routes, Route } from 'react-router-dom';
 // import Homepage from "../Homepage/homepage";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Button, Icon, Rating } from 'semantic-ui-react';
+import { Button, Icon, Rating, Input } from 'semantic-ui-react';
 import React, { useEffect } from 'react';
+
 
 
 function Login() {
@@ -30,10 +31,13 @@ function Login() {
       <header className="App-header">
         
         <p>
-          GrowthCAP Inc. <code>- Login Portal</code>
+          GrowthCAP - Login
         </p>
-        
-        <Button color='green' animated onClick={navigateToHomepage}>
+        <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='username' />
+        <br/>
+        <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='password' type='password' />
+        <br/>
+        <Button style={{width: "300px", height: '40px'}} color='green' animated onClick={navigateToHomepage}>
           <Button.Content visible>Developer Login</Button.Content>
            <Button.Content hidden>
             <Icon name='arrow right' />
