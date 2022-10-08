@@ -1,4 +1,3 @@
-
 import './homepage.css';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,7 +6,7 @@ import React, { useEffect } from 'react';
 
 
 
-function App() {
+function Homepage() {
   useEffect(() => {
     document.title = 'GrowthCAP - Home';
   });
@@ -31,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default Homepage;

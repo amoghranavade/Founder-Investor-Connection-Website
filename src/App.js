@@ -1,17 +1,20 @@
-import ReactDOM from "react-dom/client";
+import React from "react";
+// import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./Homepage/homepage";
-import Login from "./Login/login";
+import Homepage from "../src/Homepage/homepage";
+import Login from "../src/Login/login";
 // import Blogs from "./pages/Blogs";
 // import Contact from "./pages/Contact";
 
 
-export default function App() {
+function App() {
+
   return (
+    <>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />}>
-          <Route index element={<Homepage />} />
+        <Route exact path="/" element={<Login/>}>
+        <Route path="/home" element={<Homepage/>} />
           
           {/* <Route path="../Login/login" element={<Login />} /> */}
            {/* <Route path="contact" element={<Contact />} /> */}
@@ -19,8 +22,11 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+export default App;
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(<App />);
