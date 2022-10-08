@@ -1,6 +1,6 @@
 import React from "react";
 // import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Homepage from "../src/Homepage/homepage";
 import Login from "../src/Login/login";
 // import Blogs from "./pages/Blogs";
@@ -10,11 +10,12 @@ import Login from "../src/Login/login";
 function App() {
 
   return (
-    <>
+   
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Login/>}>
-        <Route path="/home" element={<Homepage/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route exact path="/" element={<Homepage/>}>
+        
           
           {/* <Route path="../Login/login" element={<Login />} /> */}
            {/* <Route path="contact" element={<Contact />} /> */}
@@ -22,7 +23,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    </>
+   
   );
 }
 

@@ -13,7 +13,7 @@ import React, { useEffect } from 'react';
 function Login() {
   const navigate = useNavigate();
   const navigateToHomepage = () => {
-    navigate("/home");
+    navigate(-1);
   };
  
     
@@ -33,7 +33,7 @@ function Login() {
           GrowthCAP Inc. <code>- Login Portal</code>
         </p>
         
-        <Button animated  onClick={navigateToHomepage}>
+        <Button animated onClick={navigateToHomepage}>
           <Button.Content visible>Developer Login</Button.Content>
            <Button.Content hidden>
             <Icon name='arrow right' />
