@@ -18,8 +18,8 @@ function Homepage() {
   });
   return (
     
-    <div className="App">
-      <header className="App-header">
+    <div className="Homepage">
+      <header className="Homepage-header">
         
         <p>
           GrowthCAP Inc. <code>- Website Progress Bar</code>
@@ -64,14 +64,14 @@ function Homepage() {
         <Button.Group>
         <Button>Save Code</Button>
         <Button.Or />
-        <Button color='red' animated onClick={navigateToLogin}>
-          <Button.Content visible>Logout</Button.Content>
-           <Button.Content hidden>
-            <Icon name='arrow left' />
+        <Button style = {{width: '80px'}} color='red' animated='vertical' onClick={navigateToLogin}>
+          <Button.Content hidden>Logout</Button.Content>
+           <Button.Content visible>
+            <Icon name='sign-out' />
           </Button.Content>
         </Button>
         </Button.Group>
-        
+          
     
         
     
