@@ -1,12 +1,9 @@
 .Login {
     text-align: center;
-    /* background-color: #0D1117; */
+    background-color: #0D1117;
   }
 
-  .passwordField {
-    font-size: 100;
-  }
-  
+
   .Login-logo {
     height: 40vmin;
     pointer-events: none;
@@ -39,10 +36,10 @@
 
   .Card {
     background-color: #082038;
-    min-height: 50vh;
-    min-width: 50vh;
+    min-height: 40vh;
+    min-width: 40vh;
     display: flex;
-    border-radius: 2%;
+    border-radius: 3%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -50,12 +47,5 @@
     color: white;
   }
   
-  @keyframes Login-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+ 
   
