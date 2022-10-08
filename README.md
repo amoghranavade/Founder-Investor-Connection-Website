@@ -22,4 +22,5 @@ Finally, after making changes, open terminal and run `npm start` to view the pro
 
 ## Important Command Lines  
 `npm install react-router-dom --save`- https://www.w3schools.com/react/react_router.asp  
-`npm install bootstrap`
+`npm install bootstrap`  
+`npm install semantic-ui-react semantic-ui-css` - https://react.semantic-ui.com/
