@@ -33,7 +33,7 @@ function Login() {
           GrowthCAP Inc. <code>- Login Portal</code>
         </p>
         
-        <Button animated onClick={navigateToHomepage}>
+        <Button color='green' animated onClick={navigateToHomepage}>
           <Button.Content visible>Developer Login</Button.Content>
            <Button.Content hidden>
             <Icon name='arrow right' />
