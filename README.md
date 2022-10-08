@@ -24,4 +24,5 @@ Finally, after making changes, open terminal and run `npm start` to view the pro
 `npm install react-router-dom --save`- https://www.w3schools.com/react/react_router.asp  
 `npm install bootstrap`  
 `npm install semantic-ui-react semantic-ui-css` - https://react.semantic-ui.com/  
-**Icons from Semantic** - https://semantic-ui.com/elements/icon.html#/icon
+**Icons from Semantic** - https://semantic-ui.com/elements/icon.html#/icon  
+`npm install @mui/material @emotion/react @emotion/styled` - https://mui.com/material-ui/getting-started/overview/
