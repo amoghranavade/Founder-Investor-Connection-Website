@@ -1,28 +1,18 @@
-
 import './register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
-import { Routes, Route } from 'react-router-dom';
-// import Homepage from "../Homepage/homepage";
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
 import { Button,Label, Icon, Input } from 'semantic-ui-react';
 import React, { useEffect } from 'react';
-
-
 
 function Register() {
 //   const navigate = useNavigate();
 //   const navigateToHomepage = () => {
 //     navigate(-1);
 //   };
- 
-    
-  
+
   useEffect(() => {
     document.title = 'GrowthCAP - Register';
   });
- 
  
   return (
     

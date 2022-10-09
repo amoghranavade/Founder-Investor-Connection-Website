@@ -1,17 +1,8 @@
-
 import './login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
-import { Routes, Route } from 'react-router-dom';
-// import Homepage from "../Homepage/homepage";
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
 import { Label, Button, Icon, Rating, Input } from 'semantic-ui-react';
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-
-
 
 function Login() {
   const navigate = useNavigate();
@@ -19,15 +10,11 @@ function Login() {
     navigate("/");
   };
  
-    
-  
   useEffect(() => {
     document.title = 'GrowthCAP - Login';
   });
  
- 
   return (
-    
     <div className="Login">
     
       <header className="Login-header">
@@ -39,16 +26,14 @@ function Login() {
         {/* <Label basic color='green' pointing='below'>
         Please enter a value
       </Label> */}
-   
-       
-   
+
         <Input style={{width:'80%', fontSize:'18px'}} icon='users' iconPosition='left' placeholder='Username' />
         <br/>
         <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' />
         <br/>
       
       
-       <br/>
+        <br/>
       
 
         <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF'}}  animated onClick={navigateToHomepage}>
