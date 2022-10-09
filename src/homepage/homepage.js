@@ -2,7 +2,7 @@ import './homepage.css';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Button, Icon, Rating, Step, Confirm} from 'semantic-ui-react';
+import { Button, Icon, Rating, Step, Confirm, Card, Image} from 'semantic-ui-react';
 import React, { useEffect, Component } from 'react';
 
 
@@ -81,14 +81,18 @@ function Homepage() {
           </Button.Content>
         </Button>
         </Button.Group>
-          
-    
+        <br/>
+       
         
     
     
     
       </header>
+
+     
+    
     </div>
+    
   );
 }
 
