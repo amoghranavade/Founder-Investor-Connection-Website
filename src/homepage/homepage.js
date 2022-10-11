@@ -1,14 +1,30 @@
 import './homepage.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, Icon, Rating, Step, Confirm, Card, Image} from 'semantic-ui-react';
-import React, { useEffect, Component } from 'react';
+import 'semantic-ui-css/semantic.min.css'
+import React, { useEffect, useState } from 'react';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import { auth } from '../Assets/Database/firebase-config';
 
 function Homepage() {
-  
-  const navigate = useNavigate();
-  const navigateToLogin = () => {
-    navigate("/login");
+
+  const [user, setUser] = useState({});
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  const logout = async () => {
+    await signOut(auth);
   };
+  const navigate = useNavigate();
+  // const navigateToLogin = () => {
+  //   navigate("/login");
+  // };
   useEffect(() => {
     document.title = 'GrowthCAP - Home';
   });
@@ -21,6 +37,8 @@ function Homepage() {
         
         <p>
           GrowthCAP Inc. <code>- Website Progress Bar</code>
+          <h4> User Logged In: {user?.email} </h4>
+          
         </p>
         
 
@@ -69,7 +87,7 @@ function Homepage() {
           </Button.Content>
         </Button>
         <Button.Or />
-        <Button style = {{width: '80px'}} color='red' animated='vertical' onClick={navigateToLogin}>
+        <Button style = {{width: '80px'}} color='red' animated='vertical'  async onClick={logout}>
           <Button.Content hidden>Logout</Button.Content>
            <Button.Content visible>
             <Icon name='sign-out' />
