@@ -26,4 +26,5 @@ Finally, after making changes, open terminal and run `npm start` to view the pro
 `npm install bootstrap`  
 `npm install semantic-ui-react semantic-ui-css` - https://react.semantic-ui.com/  
 **Icons from Semantic** - https://semantic-ui.com/elements/icon.html#/icon  
-`npm install @mui/material @emotion/react @emotion/styled` - https://mui.com/material-ui/getting-started/overview/
+`npm install @mui/material @emotion/react @emotion/styled` - https://mui.com/material-ui/getting-started/overview/  
+`npm install react-icons --save` - https://react-icons.github.io/react-icons/search?q=s
