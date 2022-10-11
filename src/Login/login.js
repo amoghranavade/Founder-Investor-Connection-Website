@@ -3,7 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import { Button, Container, Icon,Input } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
 import {Alert} from 'react-bootstrap'  
 import { auth } from '../Assets/Database/firebase-config';
 import { ImCross } from "react-icons/im";
@@ -13,6 +18,15 @@ const Login = () => {
   useEffect(() => {
     document.title = 'GrowthCAP - Login';
   });
+
+  
+  onAuthStateChanged(auth, (user) => {
+    if(user) {
+      navigate('/');
+  }
+
+  });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

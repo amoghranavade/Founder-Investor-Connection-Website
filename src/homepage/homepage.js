@@ -15,11 +15,18 @@ function Homepage() {
 
   const [user, setUser] = useState({});
   onAuthStateChanged(auth, (currentUser) => {
+    if(user) {
     setUser(currentUser);
+  }
+
+  else {
+    navigate('/login')
+  }
   });
 
   const logout = async () => {
     await signOut(auth);
+    navigate('/login')
   };
   const navigate = useNavigate();
   // const navigateToLogin = () => {
@@ -36,10 +43,9 @@ function Homepage() {
       <header className="Homepage-header">
         
         <p>
-          GrowthCAP Inc. <code>- Website Progress Bar</code>
-          <h4> User Logged In: {user?.email} </h4>
-          
+          GrowthCAP Inc. <code>- Website Progress Bar</code>  
         </p>
+        <h4> User Logged In: {user?.email} </h4>
         
 
         <Step.Group size='small'>
