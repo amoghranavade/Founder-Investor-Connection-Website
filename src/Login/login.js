@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import mainLogo from'../Assets/Images/image.png';
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
@@ -30,11 +31,18 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errorInvalidCred, setError] = useState(false);
+  const [resetMailSent, setReset] = useState(false);
+  const [labelForgot, setLabel] = useState(false);
   // const {logIn, googleSignIn}  = useUserAuth();
   const navigate = useNavigate();
  
-
+  const reset = async () => {
+    sendPasswordResetEmail(auth, email)
+    setReset(true);
+    setLabel(false);
+    setError(false);
+  }
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(
@@ -44,7 +52,9 @@ const Login = () => {
       );
       navigate("/");
     } catch (error) {
-      setError(error.message);
+      setError(true);
+      setLabel(true);
+      setReset(false);
     }
   };
   
@@ -77,8 +87,14 @@ const Login = () => {
           Login to GrowthCAP
         </p>
        
-        {error &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        {
+        errorInvalidCred &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
         <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Invalid credentials</p>
+        </div>
+        }
+        {
+        resetMailSent &&<div style={{ border: '1px solid green', borderRadius: '5px', width:'80%', backgroundColor:'#D8FEDD', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#17912D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Password reset mail sent!</p>
         </div>
         }
 
@@ -86,6 +102,10 @@ const Login = () => {
         <br/>
         <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)} />
         <br/>
+        {
+        labelForgot &&  
+        <text style={{fontSize: '15px', color:'#F56568',textAlign: 'center', marginBottom: 5, marginTop: 5, cursor: 'pointer'}} onClick={reset}>Forgot Password?</text>
+        }
         <br/>
 
         <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF'}}  animated='vertical' async onClick={login}>
