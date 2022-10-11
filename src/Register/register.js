@@ -32,7 +32,7 @@ function Register() {
         <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='password' type='password' />
         <br/> */}
      
-        <Input style={{width:'80%', fontSize:'18px'}} icon='users' iconPosition='left' placeholder='Email' />
+        <Input style={{width:'80%', fontSize:'18px'}} icon='envelope' iconPosition='left' placeholder='Email' />
         <br/>
         <Input style={{width:'80%', fontSize:'18px'}} icon='users' iconPosition='left' placeholder='Username' />
         <br/>

@@ -16,14 +16,20 @@
     color: white;
   }
 
-  .usernameText{
-    font-size: 1;
-  }
+  /* .username{
+    font-size: 20px;
+    height: "100%";
+    width: "100%";
+    border-radius: '10%';
+    border-color: "red";
+    
+  } */
   
 
   .Card {
     background-color: #082038;
     min-height: 40vh;
+    
     min-width: 40vh;
     display: flex;
     border-radius: 3%;
