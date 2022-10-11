@@ -22,20 +22,74 @@ function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [repassword, setRPassword] = useState("");
+  const [fullname, setFullName] = useState("");
+  const [errorUniqueEmail, setErrorOne] = useState(false);
+  const [errorPasswordMatch, setErrorTwo] = useState(false);
+  const [errorEmptyFields, setErrorThree] = useState(false);
+  const [errorSmallPassword, setErrorFour] = useState(false);
+ 
   
 
   const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
+  //   if(password === repassword || password !== null){
+  //   auth.createUserWithEmailAndPassword(email,password).then((userCredential) => {
+  //     navigate("/");
+  //   })
+  //   .catch((error)=>{
+  //     setErrorOne(true);
+  //   })
+  // }
+
+  // else {
+  //   setErrorTwo(true);
+  // }
+      
+    
+    if(password.trim().length === 0 || repassword.trim().length === 0 || fullname.trim().length === 0 || email.trim().length === 0)
+    {
+     setErrorThree(true);
+     setErrorOne(false);
+     setErrorTwo(false);
+     setErrorFour(false);
     }
+    else
+    {
+      if(password === repassword){
+        if(password.trim().length > 5){
+        try {
+         const user = await createUserWithEmailAndPassword(
+         auth,
+         email,
+         password
+         );
+        navigate("/");
+            } catch (error) {
+        setErrorThree(false);
+        setErrorOne(true);
+        setErrorTwo(false);
+        setErrorFour(false);
+      // setErrorTwo(errorPasswordMatch.message);
+          }
+        }
+        else{
+            setErrorFour(true);
+            setErrorThree(false);
+            setErrorOne(false);
+            setErrorTwo(false);
+        }
+      }
+
+      else {
+        setErrorThree(false);
+        setErrorOne(false);
+        setErrorTwo(true);
+        setErrorFour(false);
+      }
+    }
+   
+
+   
   };
  
   return (
@@ -48,7 +102,7 @@ function Register() {
         <br/>
         <br/>
         <p>
-          GrowthCAP - Register
+          Register to GrowthCAP
         </p>
         {/* <text style={{fontSize: 16, alignItems: 'top'}}>Username</text>
         <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='username' />
@@ -56,18 +110,35 @@ function Register() {
         <br/>
         <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='password' type='password' />
         <br/> */}
-     
+        {
+        errorUniqueEmail ? <div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Email already registered!</p>
+        </div>:null
+        }
+        {errorPasswordMatch &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Passwords Dont Match!</p>
+        </div>
+        }
+        {errorEmptyFields &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Please fill all the details!</p>
+        </div>
+        }
+        {errorSmallPassword &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Password to be more than 6 chars!</p>
+        </div>
+        }
+        
         <Input style={{width:'80%', fontSize:'18px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
-        <Input style={{width:'80%', fontSize:'18px'}} icon='users' iconPosition='left' placeholder='Username' />
+        <Input style={{width:'80%', fontSize:'18px'}} icon='user' iconPosition='left' placeholder='Full Name' onChange = {(e) => setFullName(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' />
+        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='re-enter password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
         <br/>
         <br/>
-        <Button style={{width: "80%", height: '40px',backgroundColor: '#238636', color : '#FFF'}}  animated async onClick={register}>
-          <Button.Content style={{fontSize: 18}}  visible>Register</Button.Content>
+        <Button style={{width: "80%",backgroundColor: '#238636', color : '#FFF'}}  animated async onClick={register}>
+          <Button.Content style={{fontSize: 18, fontFamily:'Poppins', fontWeight:500}}  visible>Register</Button.Content>
            <Button.Content hidden>
             <Icon name='arrow right' />
           </Button.Content>

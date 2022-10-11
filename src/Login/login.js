@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import { Button, Container, Icon,Input } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
+import mainLogo from'../Assets/Images/image.png';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -68,15 +69,19 @@ const Login = () => {
     <div className="Login">
     
       <header className="Login-header">
-      <div className="Card">
-        <p style={{fontSize: '30px'}}>
-          GrowthCAP - Login
-        </p>
-        {error &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
-        <p style={{fontSize: '20px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Invalid credentials</p>
-        </div>
+      
         
+      <div className="Card">
+      <img  style={{height:'170px', width:'100px', top:'100px'}} src={mainLogo}  alt="fireSpot"/>
+        <p style={{fontSize: '30px'}}>
+          Login to GrowthCAP
+        </p>
+       
+        {error &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Invalid credentials</p>
+        </div>
         }
+
         <Input style={{width:'80%', fontSize:'18px'}} icon='users' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
         <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)} />
@@ -84,7 +89,7 @@ const Login = () => {
         <br/>
 
         <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF'}}  animated='vertical' async onClick={login}>
-          <Button.Content style={{fontSize: 18}}  visible>Login</Button.Content>
+          <Button.Content style={{fontSize: 18, fontFamily:'Poppins', fontWeight:500}}  visible>Login</Button.Content>
            <Button.Content hidden>
             <Icon name='arrow right' />
           </Button.Content>
