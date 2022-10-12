@@ -151,6 +151,8 @@ function Register() {
 
        
         </div>
+        {/* <div className="CardTwo">
+        </div> */}
       </header>
     </div>
   );
