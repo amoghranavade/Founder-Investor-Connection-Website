@@ -29,7 +29,7 @@ Finally, after making changes, open terminal and run `npm start` to view the pro
 `npm install @mui/material @emotion/react @emotion/styled` - https://mui.com/material-ui/getting-started/overview/  
 `npm install react-icons --save` - https://react-icons.github.io/react-icons/search?q=s  
 
-##Firebase Deploying  
+## Firebase Deploying  
 
 1--> `firebase login`  
 2--> `firebase init`  
