@@ -35,4 +35,6 @@ Finally, after making changes, open terminal and run `npm start` to view the pro
 2--> `firebase init`  
 3--> Choose Deploy option and hit enter  
 4--> `npm run build`  
-5--> `firebase deploy`
+5--> `firebase deploy`  
+
+6--> Disable by `firebase hosting:disable`
