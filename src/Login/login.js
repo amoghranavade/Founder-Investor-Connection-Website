@@ -40,7 +40,7 @@ const Login = () => {
   const reset = async () => {
     sendPasswordResetEmail(auth, email)
     setReset(true);
-    setLabel(false);
+    // setLabel(false);
     setError(false);
   }
   const login = async () => {
@@ -50,10 +50,10 @@ const Login = () => {
         email,
         password
       );
-      navigate("/");
+      navigate("/maintenance");
     } catch (error) {
       setError(true);
-      setLabel(true);
+      // setLabel(true);
       setReset(false);
     }
   };
@@ -80,16 +80,17 @@ const Login = () => {
     
       <header className="Login-header">
       
-        
+          
       <div className="Card">
-      <img  style={{height:'170px', width:'100px', top:'100px'}} src={mainLogo}  alt="fireSpot"/>
-        <p style={{fontSize: '30px'}}>
-          Login to GrowthCAP
+      <img  style={{ height:'170px', width:'100px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+      <p style={{fontSize: '28px'}}>
+          GrowthCAP - Login
         </p>
+       
        
         {
         errorInvalidCred &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
-        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Invalid credentials</p>
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5, cursor:'pointer'}} onClick= {reset} >Invalid! Forgot Password?</p>
         </div>
         }
         {
@@ -98,15 +99,15 @@ const Login = () => {
         </div>
         }
 
-        <Input style={{width:'80%', fontSize:'18px'}} icon='users' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
+        <Input style={{width:'80%', fontSize:'16px'}} icon='users' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)} />
+        <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)} />
         <br/>
-        {
+        {/* {
         labelForgot &&  
         <text style={{fontSize: '15px', color:'#F56568',textAlign: 'center', marginBottom: 5, marginTop: 5, cursor: 'pointer'}} onClick={reset}>Forgot Password?</text>
-        }
-        <br/>
+        } */}
+       
 
         <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF'}}  animated='vertical' async onClick={login}>
           <Button.Content style={{fontSize: 18, fontFamily:'Poppins', fontWeight:500}}  visible>Login</Button.Content>
@@ -115,7 +116,7 @@ const Login = () => {
           </Button.Content>
         </Button>
         <br/>
-        <text style={{fontSize: 17}}>New here?<Link to="/register"> Register now!</Link></text>
+        <text style={{fontSize: 17, position: 'relative', top:'50%'}}>New here?<Link to="/register"> Register now!</Link></text>
         {/* lineHeight: 30 */}
        
         </div>

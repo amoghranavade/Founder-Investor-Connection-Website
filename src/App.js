@@ -4,14 +4,16 @@ import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Homepage from "../src/Homepage/homepage";
 import Register from "../src/Register/register";
 import Login from "../src/Login/login";
+import Misc from "../src/Misc/maintenance";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login/>} />
         <Route exact path="/" element={<Homepage/>}/>
+        <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} /> 
+        <Route path='/maintenance' element={<Misc/>} />
       </Routes>
     </BrowserRouter>
   );

@@ -20,6 +20,13 @@ function Register() {
     document.title = 'GrowthCAP - Register';
   });
 
+  onAuthStateChanged(auth, (user) => {
+    if(user) {
+      navigate('/');
+  }
+
+  });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRPassword] = useState("");
@@ -98,10 +105,10 @@ function Register() {
     <div className="Register">
     
       <header className="Register-header">
-      <div className="Card">
+      <div className="RegisterCard">
         <br/>
         <br/>
-        <p>
+        <p style={{fontSize: '28px'}}>
           Register to GrowthCAP
         </p>
         {/* <text style={{fontSize: 16, alignItems: 'top'}}>Username</text>
@@ -128,13 +135,13 @@ function Register() {
         </div>
         }
         
-        <Input style={{width:'80%', fontSize:'18px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
+        <Input style={{width:'80%', fontSize:'17px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
-        <Input style={{width:'80%', fontSize:'18px'}} icon='user' iconPosition='left' placeholder='Full Name' onChange = {(e) => setFullName(e.target.value)}/>
+        <Input style={{width:'80%', fontSize:'17px'}} icon='user' iconPosition='left' placeholder='Full Name' onChange = {(e) => setFullName(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '18px'}} icon='key' iconPosition='left' placeholder='re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
         <br/>
         <br/>
         <Button style={{width: "80%",backgroundColor: '#238636', color : '#FFF'}}  animated async onClick={register}>
