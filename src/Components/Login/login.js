@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import { Button, Container, Icon,Input } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
-import mainLogo from'../Assets/Images/image.png';
+import mainLogo from'../Assets/Images/mainlogo.png';
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,

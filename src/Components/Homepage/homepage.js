@@ -19,9 +19,9 @@ function Homepage() {
     setUser(currentUser);
   }
 
-  else {
-    navigate('/login')
-  }
+  // else {
+  //   navigate('/login')
+  // }
   });
 
   const logout = async () => {

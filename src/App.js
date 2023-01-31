@@ -1,10 +1,10 @@
 import React from "react";
 // import ReactDOM from "react-dom/client";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
-import Homepage from "../src/Homepage/homepage";
-import Register from "../src/Register/register";
-import Login from "../src/Login/login";
-import Misc from "../src/Misc/maintenance";
+import Homepage from "./Components/Homepage/homepage";
+import Register from "./Components/Register/register";
+import Login from "./Components/Login/login";
+import Misc from "./Components/Misc/maintenance";
 
 function App() {
   return (
