@@ -30,12 +30,16 @@ function Homepage() {
     await signOut(auth);
     navigate('/login')
   };
+
+  const refresh = async() => {
+    window.location.reload();
+  }
   const navigate = useNavigate();
   // const navigateToLogin = () => {
   //   navigate("/login");
   // };
   useEffect(() => {
-    document.title = 'GrowthCAP - Home';
+    document.title = 'GrowthCAP - Whoops! Under Maintenance';
   });
   
   return (
@@ -45,7 +49,7 @@ function Homepage() {
       <header className="Homepage-header">
       
         <p>
-        <img  style={{ height:'100px', width:'100px'}} src={santaHat}  alt="GrowthCAP-logo"/>
+        {/* <img  style={{ height:'100px', width:'100px'}} src={santaHat}  alt="GrowthCAP-logo"/> */}
           GrowthCAP Inc. - <span style= {{color:'Orange'}}>Website Under Maintenance</span>
         </p>
         <h4> Logged in as: {user?.email} </h4>
@@ -88,7 +92,7 @@ function Homepage() {
 
 
         <Button.Group>
-        <Button animated='vertical'>
+        <Button animated='vertical'  async onClick={refresh}>
        
         <Button.Content visible>Refresh</Button.Content>
         <Button.Content hidden>

@@ -50,7 +50,7 @@ const Login = () => {
         email,
         password
       );
-      navigate("/maintenance");
+      navigate("/");
     } catch (error) {
       setError(true);
       // setLabel(true);
