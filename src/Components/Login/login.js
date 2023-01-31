@@ -82,7 +82,7 @@ const Login = () => {
       
           
       <div className="Card">
-      <img  style={{ height:'170px', width:'100px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+      <img  style={{ height:'160px', width:'130px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
       <p style={{fontSize: '28px'}}>
           GrowthCAP - Login
         </p>
