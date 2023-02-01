@@ -169,9 +169,9 @@ function Register() {
         <br/>
         <Input style={{width:'80%', fontSize:'17px'}} icon='user' iconPosition='left' placeholder='Full Name' onChange = {(e) => setFullName(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='Re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
         <br/>
         
 

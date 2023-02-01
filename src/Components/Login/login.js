@@ -110,7 +110,7 @@ const Login = () => {
 
         <Input style={{width:'80%', fontSize:'16px'}} icon='users' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='password' type='password' onChange = {(e) => setPassword(e.target.value)} />
+        <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)} />
         <br/>
         {/* {
         labelForgot &&  
