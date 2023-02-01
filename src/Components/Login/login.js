@@ -23,14 +23,19 @@ const Login = () => {
 
   
   onAuthStateChanged(auth, (user) => {
-    if(user) {
-      navigate('/');
+    if(user.emailVerified) {
+     
+      // navigate('/');
+  }
+  else {
+    setMailVerifyError(true);
   }
 
   });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mailNotVerified, setMailVerifyError] = useState(false);
   const [errorInvalidCred, setError] = useState(false);
   const [resetMailSent, setReset] = useState(false);
   const [labelForgot, setLabel] = useState(false);
@@ -45,15 +50,10 @@ const Login = () => {
   }
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      navigate("/");
+      const user = await signInWithEmailAndPassword(auth, email, password)
+      
     } catch (error) {
       setError(true);
-      // setLabel(true);
       setReset(false);
     }
   };
@@ -82,7 +82,7 @@ const Login = () => {
       
           
       <div className="Card">
-      <img  style={{ height:'160px', width:'130px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+      <img  style={{ height:'160px', width:'120px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
       <p style={{fontSize: '28px'}}>
           GrowthCAP - Login
         </p>
@@ -96,6 +96,11 @@ const Login = () => {
         {
         resetMailSent &&<div style={{ border: '1px solid green', borderRadius: '5px', width:'80%', backgroundColor:'#D8FEDD', marginBottom: 20}} >  
         <p style={{fontSize: '15px', color:'#17912D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Password reset mail sent!</p>
+        </div>
+        }
+        {
+        mailNotVerified &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Mail is not verified!</p>
         </div>
         }
 

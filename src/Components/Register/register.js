@@ -1,6 +1,8 @@
 import './register.css';
+
 import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
+
 import { Button,Label, Icon, Input } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import {
@@ -12,6 +14,7 @@ import {
 import { auth } from '../Assets/Database/firebase-config';
 
 function Register() {
+  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 //   const navigateToHomepage = () => {
 //     navigate(-1);
@@ -22,7 +25,7 @@ function Register() {
 
   onAuthStateChanged(auth, (user) => {
     if(user) {
-      navigate('/');
+      navigate('/login');
   }
 
   });
@@ -35,8 +38,13 @@ function Register() {
   const [errorPasswordMatch, setErrorTwo] = useState(false);
   const [errorEmptyFields, setErrorThree] = useState(false);
   const [errorSmallPassword, setErrorFour] = useState(false);
+  const [errorInvalidMail, setErrorFive] = useState(false);
  
-  
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const isEmailValid = (email) => {
+    return emailRegex.test(email);
+  }
 
   const register = async () => {
   //   if(password === repassword || password !== null){
@@ -59,9 +67,11 @@ function Register() {
      setErrorOne(false);
      setErrorTwo(false);
      setErrorFour(false);
+     setErrorFive(false);
     }
     else
     {
+      
       if(password === repassword){
         if(password.trim().length > 5){
         try {
@@ -69,34 +79,44 @@ function Register() {
          auth,
          email,
          password
-         );
-        navigate("/");
+         ).then((userCredential)=>{
+          // send verification mail.
+          var user = userCredential.user;
+          user.sendEmailVerification();
+       
+        alert("Email sent");
+      })
+            
+       
+        navigate("/login");
             } catch (error) {
         setErrorThree(false);
-        setErrorOne(true);
+        setErrorOne(false);
         setErrorTwo(false);
         setErrorFour(false);
-      // setErrorTwo(errorPasswordMatch.message);
+        setErrorFive(true);
+ 
           }
         }
-        else{
+        else if(password.trim().length<5){
             setErrorFour(true);
             setErrorThree(false);
             setErrorOne(false);
             setErrorTwo(false);
+            setErrorFive(false);
         }
+
+        
       }
 
-      else {
+      else if(password !== repassword) {
         setErrorThree(false);
         setErrorOne(false);
         setErrorTwo(true);
         setErrorFour(false);
+        setErrorFive(false);
       }
     }
-   
-
-   
   };
  
   return (
@@ -134,6 +154,10 @@ function Register() {
         <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Password to be more than 6 chars!</p>
         </div>
         }
+        {errorInvalidMail &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Please enter a valid mail!</p>
+        </div>
+        }
         
         <Input style={{width:'80%', fontSize:'17px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
@@ -143,13 +167,42 @@ function Register() {
         <br/>
         <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
         <br/>
+        
+
+
+        <label style={{display: "flex", alignItems: "center", fontSize: "16px"}}>
+      <input
+        type="checkbox"
+        style={{width: "20px", height: "20px", marginRight: "10px"}}
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+      />
+      I Accept the &nbsp; <a href="https://example.com/terms" target="_blank" rel="noopener noreferrer">
+         Terms & Conditions
+      </a>
+    </label>
+
+
         <br/>
-        <Button style={{width: "80%",backgroundColor: '#238636', color : '#FFF'}}  animated async onClick={register}>
-          <Button.Content style={{fontSize: 18, fontFamily:'Poppins', fontWeight:500}}  visible>Register</Button.Content>
-           <Button.Content hidden>
-            <Icon name='arrow right' />
-          </Button.Content>
-        </Button>
+        <Button
+        style={{
+          width: "80%",
+          backgroundColor: "#238636",
+          color: "#FFF",
+          fontSize: 18,
+          fontFamily: "Poppins",
+          fontWeight: 500,
+          cursor: checked ? "pointer" : "not-allowed",
+        }}
+        animated
+        disabled={!checked}
+        onClick={register}
+      >
+        <Button.Content visible>Register</Button.Content>
+        <Button.Content hidden>
+          <Icon name="arrow right" />
+        </Button.Content>
+      </Button>
         <br/>
         <text style={{fontSize: 17}}>Already a member?<Link to="/login"> Login now!</Link></text>
         <br/>
