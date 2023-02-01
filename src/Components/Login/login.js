@@ -23,13 +23,9 @@ const Login = () => {
 
   
   onAuthStateChanged(auth, (user) => {
-    if(user.emailVerified) {
-     
-      // navigate('/');
-  }
-  else {
-    setMailVerifyError(true);
-  }
+    if(user) {
+      navigate('/');
+    }
 
   });
 
