@@ -21,11 +21,16 @@ const Login = () => {
     document.title = 'GrowthCAP - Login';
   });
 
+
+
+
   
   onAuthStateChanged(auth, (user) => {
     if(user) {
+     
       navigate('/');
-    }
+  }
+  
 
   });
 
@@ -44,7 +49,9 @@ const Login = () => {
     // setLabel(false);
     setError(false);
   }
+
   const login = async () => {
+   
     try {
       const user = await signInWithEmailAndPassword(auth, email, password)
       
@@ -53,6 +60,7 @@ const Login = () => {
       setReset(false);
     }
   };
+  
   
   // const handleGoogleSignIn = async (e) => {
   //   e.preventDefault();

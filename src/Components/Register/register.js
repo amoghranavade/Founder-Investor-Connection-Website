@@ -23,13 +23,13 @@ function Register() {
     document.title = 'GrowthCAP - Register';
   });
 
-  onAuthStateChanged(auth, (user) => {
-    if(user) {
-      navigate('/login');
-  }
+  // onAuthStateChanged(auth, (user) => {
+  //   if(user) {
+  //     navigate('/verifymail');
+  // }
 
-  });
-
+  // });
+ 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRPassword] = useState("");
@@ -39,28 +39,16 @@ function Register() {
   const [errorEmptyFields, setErrorThree] = useState(false);
   const [errorSmallPassword, setErrorFour] = useState(false);
   const [errorInvalidMail, setErrorFive] = useState(false);
+  const [errorInvalidName, setErrorSix] = useState(false);
  
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+  const nameRegex = /^[a-zA-Z]+ [a-zA-Z]+$/; 
   const isEmailValid = (email) => {
     return emailRegex.test(email);
   }
 
   const register = async () => {
-  //   if(password === repassword || password !== null){
-  //   auth.createUserWithEmailAndPassword(email,password).then((userCredential) => {
-  //     navigate("/");
-  //   })
-  //   .catch((error)=>{
-  //     setErrorOne(true);
-  //   })
-  // }
-
-  // else {
-  //   setErrorTwo(true);
-  // }
-      
-    
+  
     if(password.trim().length === 0 || repassword.trim().length === 0 || fullname.trim().length === 0 || email.trim().length === 0)
     {
      setErrorThree(true);
@@ -68,33 +56,44 @@ function Register() {
      setErrorTwo(false);
      setErrorFour(false);
      setErrorFive(false);
+     setErrorSix(false);
     }
     else
     {
+      if(!nameRegex.test(fullname)) {
+        setErrorSix(true);
+        setErrorThree(false);
+        setErrorOne(false);
+        setErrorTwo(false);
+        setErrorFour(false);
+        setErrorFive(false);
+      }
+    
       
-      if(password === repassword){
+      else if(password === repassword){
         if(password.trim().length > 5){
         try {
          const user = await createUserWithEmailAndPassword(
          auth,
          email,
          password
-         ).then((userCredential)=>{
-          // send verification mail.
-          var user = userCredential.user;
-          user.sendEmailVerification();
-       
-        alert("Email sent");
-      })
+         )
             
        
-        navigate("/login");
+        navigate("/verifymail");
             } catch (error) {
         setErrorThree(false);
         setErrorOne(false);
         setErrorTwo(false);
         setErrorFour(false);
-        setErrorFive(true);
+        setErrorSix(false);
+        setErrorFive(false);
+       
+        if (error.code === 'auth/email-already-in-use') {
+          setErrorOne(true);
+        } else {
+          setErrorFive(true);
+        }
  
           }
         }
@@ -104,6 +103,7 @@ function Register() {
             setErrorOne(false);
             setErrorTwo(false);
             setErrorFive(false);
+            setErrorSix(false);
         }
 
         
@@ -115,10 +115,11 @@ function Register() {
         setErrorTwo(true);
         setErrorFour(false);
         setErrorFive(false);
+        setErrorSix(false);
       }
     }
   };
- 
+
   return (
     
     
@@ -158,6 +159,11 @@ function Register() {
         <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Please enter a valid mail!</p>
         </div>
         }
+        {errorInvalidName &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Please enter a valid fullname!</p>
+        </div>
+        }
+        
         
         <Input style={{width:'80%', fontSize:'17px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
