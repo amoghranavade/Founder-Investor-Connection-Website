@@ -52,13 +52,25 @@ const Login = () => {
 
   const login = async () => {
    
-    try {
-      const user = await signInWithEmailAndPassword(auth, email, password)
+    // try {
+    //   const user = await signInWithEmailAndPassword(auth, email, password)
       
-    } catch (error) {
-      setError(true);
-      setReset(false);
-    }
+    // } catch (error) {
+    //   setError(true);
+    //   setReset(false);
+    // }
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    .then((user) => {
+      if (!user.emailVerified) {
+        setReset(true)
+      }
+      navigate('/');
+    })
+    .catch((error) => {
+          setError(true);
+          setReset(false);
+    });
+
   };
   
   

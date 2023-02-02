@@ -1,5 +1,6 @@
 import './verifymail.css';
 
+
 import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 
@@ -75,20 +76,74 @@ function VerifyMail() {
       document.title = 'GrowthCAP - Register';
     }, []);
 
+
+    // const [emailVerified, setEmailVerified] = useState(false);
+    // useEffect(() => {
+    //   const checkVerificationStatus = async () => {
+    //     try {
+    //       const response = await fetch('https://growthcap-bed92.firebaseapp.com/users/${user.uid}/emailVerified.json');
+    //       const data = await response.json();
+    //       if (data.emailVerified) {
+    //         setEmailVerified(true);
+    //       }
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+    
+    //   const intervalId = setInterval(checkVerificationStatus, 3000);
+    //   return () => clearInterval(intervalId);
+    // }, []);
+    
+    // if (emailVerified) {
+    //   navigate('/');
+    // }
+    
+    // return <div>Waiting for email verification...</div>;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // useEffect(() => {
+    //   if (user?.emailVerified) {
+    //     navigate('/');
+    //   }
+    // }, [user]);
+
     useEffect(() => {
-      if (user?.emailVerified) {
-        navigate('/');
-      }
-    }, [user]);
-  
-    // const sendVerificationMail = () => {
-    //   const user = auth.currentUser;
-    //   user.sendEmailVerification().then(() => {
-    //     console.log("Verification email sent");
-    //   }).catch(error => {
-    //     console.error(error);
-    //   });
-    // };
+      const emailVerificationListener = onAuthStateChanged(auth, (user) => {
+        if (user?.emailVerified) {
+          navigate('/');
+        }
+      });
+    
+      return () => {
+        emailVerificationListener();
+      };
+    }, [navigate]);
+
+    // useEffect(() => {
+    //   const intervalId = setInterval(() => {
+    //     window.location.reload();
+    //   }, 5000);
+    
+    //   return () => clearInterval(intervalId);
+    // }, []);
+   
   
     return (
       <div className="VerifyMail">
