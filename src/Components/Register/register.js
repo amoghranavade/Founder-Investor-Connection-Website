@@ -130,7 +130,7 @@ function Register() {
         <br/>
         <br/>
         <p style={{fontSize: '28px'}}>
-          Register to GrowthCAP
+          Register - GrowthCAP
         </p>
         {/* <text style={{fontSize: 16, alignItems: 'top'}}>Username</text>
         <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='username' />
@@ -165,13 +165,13 @@ function Register() {
         }
         
         
-        <Input style={{width:'80%', fontSize:'17px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
+        <Input style={{width:'80%', fontSize:'16px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
         <br/>
-        <Input style={{width:'80%', fontSize:'17px'}} icon='user' iconPosition='left' placeholder='Full Name' onChange = {(e) => setFullName(e.target.value)}/>
+        <Input style={{width:'80%', fontSize:'16px'}} icon='user' iconPosition='left' placeholder='Full Name' onChange = {(e) => setFullName(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
         <br/>
-        <Input style={{width: "80%", fontSize: '17px'}} icon='key' iconPosition='left' placeholder='Re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
+        <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
         <br/>
         
 
@@ -183,7 +183,7 @@ function Register() {
         checked={checked}
         onChange={() => setChecked(!checked)}
       />
-      I Accept the &nbsp; <a href="https://example.com/terms" target="_blank" rel="noopener noreferrer">
+      I Accept the &nbsp; <a href="./terms" target="_blank" rel="noopener noreferrer">
          Terms & Conditions
       </a>
     </label>

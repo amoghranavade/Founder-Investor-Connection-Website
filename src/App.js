@@ -6,6 +6,7 @@ import Register from "./Components/Register/register";
 import Login from "./Components/Login/login";
 import Misc from "./Components/Misc/maintenance";
 import VerifyMail from './Components/Register/verifymail'
+import Terms from "./Components/Misc/terms"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register/>} /> 
         <Route path='/maintenance' element={<Misc/>} />
         <Route path='/verifymail' element={<VerifyMail/>} />
+        <Route path='/terms' element={<Terms/>} />
       </Routes>
     </BrowserRouter>
   );

@@ -31,9 +31,9 @@ function VerifyMail() {
       setUser(currentUser);
     }
   
-    // else {
-    //   navigate('/login')
-    // }
+    else {
+      navigate('/register')
+    }
     });
     const [checked, setChecked] = useState(false);
     const [disabled, setDisabled] = useState(false);
