@@ -16,22 +16,23 @@ import {
 import { auth } from '../Assets/Database/firebase-config';
 
 function Register() {
+
+  
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
-  const usersCollectionRef = collection(db, 'users');
-//   const navigateToHomepage = () => {
-//     navigate(-1);
-//   };
+
+  //  onAuthStateChanged(auth, (user) => {
+  //   if(user) { 
+  //     const usersCollectionRef = collection(db, 'users/'+ user.uid);  
+  // }
+  // });
+ 
+  // const usersCollectionRef = db.collection('users').doc(user.uid);
+
   useEffect(() => {
     document.title = 'GrowthCAP - Register';
   });
 
-  // onAuthStateChanged(auth, (user) => {
-  //   if(user) {
-  //     navigate('/verifymail');
-  // }
-
-  // });
  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,6 +45,15 @@ function Register() {
   const [errorInvalidMail, setErrorFive] = useState(false);
   const [errorInvalidName, setErrorSix] = useState(false);
  
+  let usersCollectionRef = null;
+
+  onAuthStateChanged(auth, (user) => {
+    if(user) { 
+      
+      usersCollectionRef = collection(db, 'app', 'users', user.uid)
+    }
+  });
+
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const nameRegex = /^[a-zA-Z]+ [a-zA-Z]+$/; 
   const isEmailValid = (email) => {
@@ -82,8 +92,9 @@ function Register() {
          password
          )
          const user = result.user;
-         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email});
        
+         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email});
+      
             
         navigate("/verifymail");
         
@@ -98,7 +109,8 @@ function Register() {
        
         if (error.code === 'auth/email-already-in-use') {
           setErrorOne(true);
-        } else {
+        } 
+        else {
           setErrorFive(true);
         }
  
