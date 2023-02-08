@@ -17,28 +17,27 @@ import { ImCross } from "react-icons/im";
 
 
 const Login = () => {
+  <link rel="icon" type="image/x-icon" href="../Assets/Images/mainlogo.ico" />
   useEffect(() => {
     document.title = 'GrowthCAP - Login';
   });
 
 
-
-
-  
   onAuthStateChanged(auth, (user) => {
     if(user) {
      
       navigate('/');
   }
-  
-
   });
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [resetMailSent, setReset] = useState(false);
   const [mailNotVerified, setMailVerifyError] = useState(false);
   const [errorInvalidCred, setError] = useState(false);
-  const [resetMailSent, setReset] = useState(false);
+  const [errorEmptyFields, setErrorEmpty] = useState(false);
+
   const [labelForgot, setLabel] = useState(false);
   // const {logIn, googleSignIn}  = useUserAuth();
   const navigate = useNavigate();
@@ -46,51 +45,47 @@ const Login = () => {
   const reset = async () => {
     sendPasswordResetEmail(auth, email)
     setReset(true);
+    setErrorEmpty(false);
+    
     // setLabel(false);
     setError(false);
+    setErrorEmpty(false);
   }
 
   const login = async () => {
    
-    // try {
-    //   const user = await signInWithEmailAndPassword(auth, email, password)
+    if(email.trim().length === 0) {
+          setErrorEmpty(true);
+          setError(false);
+          setReset(false);
+    }
+
+    else {
+     await signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+     
+        onAuthStateChanged(auth, (user) => {
+          if (user?.emailVerified) {
+            navigate('/');
+          }
+
+          else {
+            navigate('/verifymail');
+          }
+        });
       
-    // } catch (error) {
-    //   setError(true);
-    //   setReset(false);
-    // }
-    const user = await signInWithEmailAndPassword(auth, email, password)
-    .then((user) => {
-      if (!user.emailVerified) {
-        setReset(true)
-      }
-      navigate('/');
+        
+     
     })
     .catch((error) => {
           setError(true);
           setReset(false);
+          setErrorEmpty(false);
+        
     });
 
-  };
+  }; }
   
-  
-  // const handleGoogleSignIn = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await googleSignIn();
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
-
-
-
-  // const navigateToHomepage = () => {
-  //   // navigate("/");
-  //   console.log(email);
-  //   console.log(password);
-  // };
   return (
     <div className="Login">
     
@@ -114,6 +109,10 @@ const Login = () => {
         <p style={{fontSize: '15px', color:'#17912D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Password reset mail sent!</p>
         </div>
         }
+        {errorEmptyFields &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
+        <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Please fill all the details!</p>
+        </div>
+        }
         {
         mailNotVerified &&<div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
         <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Mail is not verified!</p>
@@ -124,11 +123,7 @@ const Login = () => {
         <br/>
         <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)} />
         <br/>
-        {/* {
-        labelForgot &&  
-        <text style={{fontSize: '15px', color:'#F56568',textAlign: 'center', marginBottom: 5, marginTop: 5, cursor: 'pointer'}} onClick={reset}>Forgot Password?</text>
-        } */}
-       
+        
 
         <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF'}}  animated='vertical' async onClick={login}>
           <Button.Content style={{fontSize: 18, fontFamily:'Poppins', fontWeight:500}}  visible>Login</Button.Content>

@@ -19,131 +19,136 @@ import { convertLength } from '@mui/material/styles/cssUtils';
 
 
 
+// function VerifyMail() {
+//     const [user, setUser] = useState({});
+//     onAuthStateChanged(auth, (currentUser) => {
+//       if(user) {
+//       setUser(currentUser);
+//     }
+  
+//     else {
+//       navigate('/register')
+//     }
+//     });
+//     const [checked, setChecked] = useState(false);
+//     const [disabled, setDisabled] = useState(false);
+//     const [timeLeft, setTimeLeft] = useState(120);
+//     const navigate = useNavigate();
 
+//     useEffect(() => {
+//       if (disabled) {
+//         const intervalId = setInterval(() => {
+//           setTimeLeft(timeLeft - 1);
+//         }, 1000);
+//         return () => clearInterval(intervalId);
+//       }
+//     }, [disabled, timeLeft]);
   
+//     useEffect(() => {
+//       if (timeLeft === 0) {
+//         setDisabled(false);
+//         setTimeLeft(120);
+//       }
+//     }, [timeLeft]);
+
+//     const sendVerificationMail = () => {
+    
+   
+//       sendEmailVerification(auth.currentUser)
+//            .then(() => {
+//                console.log("Sent");  
+//                setDisabled(true);        
+//            })
+//            .catch((error) => {
+//                console.log('Email verification error', error);
+//            });
+//       // console.log("test");
+//       // setDisabled(true);  
+ 
+//   }
   
-  
+//     useEffect(() => {
+//       document.title = 'GrowthCAP - Register';
+//     }, []);
+
+
+//     useEffect(() => {
+//       const emailVerificationListener = onAuthStateChanged(auth, (user) => {
+//         if (user?.emailVerified) {
+//           navigate('/who');
+//         }
+//       });
+    
+//       return () => {
+//         emailVerificationListener();
+//       };
+//     }, [navigate]);
+
+
+
 
 function VerifyMail() {
-    const [user, setUser] = useState({});
-    onAuthStateChanged(auth, (currentUser) => {
-      if(user) {
-      setUser(currentUser);
-    }
-  
-    else {
-      navigate('/register')
-    }
-    });
-    const [checked, setChecked] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(120);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-      if (disabled) {
-        const intervalId = setInterval(() => {
-          setTimeLeft(timeLeft - 1);
-        }, 1000);
-        return () => clearInterval(intervalId);
-      }
-    }, [disabled, timeLeft]);
-  
-    useEffect(() => {
-      if (timeLeft === 0) {
-        setDisabled(false);
-        setTimeLeft(120);
-      }
-    }, [timeLeft]);
-
-    const sendVerificationMail = () => {
-    
-   
-      sendEmailVerification(auth.currentUser)
-           .then(() => {
-               console.log("Sent");  
-               setDisabled(true);        
-           })
-           .catch((error) => {
-               console.log('Email verification error', error);
-           });
-      // console.log("test");
-      // setDisabled(true);  
- 
+  const [user, setUser] = useState({});
+  onAuthStateChanged(auth, (currentUser) => {
+    if(user) {
+    setUser(currentUser);
   }
-  
-    useEffect(() => {
-      document.title = 'GrowthCAP - Register';
-    }, []);
+  else {
+    navigate('/register')
+  }
+  });
+  const [checked, setChecked] = useState(false);
+  const [disabled, setDisabled] = useState(JSON.parse(localStorage.getItem('disabled')) || false);
+  const [timeLeft, setTimeLeft] = useState(JSON.parse(localStorage.getItem('timeLeft')) || 120);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (disabled) {
+      const intervalId = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+  }, [disabled, timeLeft]);
 
-    // const [emailVerified, setEmailVerified] = useState(false);
-    // useEffect(() => {
-    //   const checkVerificationStatus = async () => {
-    //     try {
-    //       const response = await fetch('https://growthcap-bed92.firebaseapp.com/users/${user.uid}/emailVerified.json');
-    //       const data = await response.json();
-    //       if (data.emailVerified) {
-    //         setEmailVerified(true);
-    //       }
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   };
-    
-    //   const intervalId = setInterval(checkVerificationStatus, 3000);
-    //   return () => clearInterval(intervalId);
-    // }, []);
-    
-    // if (emailVerified) {
-    //   navigate('/');
-    // }
-    
-    // return <div>Waiting for email verification...</div>;
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setDisabled(false);
+      setTimeLeft(120);
+    }
+  }, [timeLeft]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // useEffect(() => {
-    //   if (user?.emailVerified) {
-    //     navigate('/');
-    //   }
-    // }, [user]);
-
-    useEffect(() => {
-      const emailVerificationListener = onAuthStateChanged(auth, (user) => {
-        if (user?.emailVerified) {
-          navigate('/');
-        }
+  const sendVerificationMail = () => {
+    sendEmailVerification(auth.currentUser)
+      .then(() => {
+        console.log("Sent");  
+        setDisabled(true);
+        localStorage.setItem('disabled', true);
+      })
+      .catch((error) => {
+        console.log('Email verification error', error);
       });
-    
-      return () => {
-        emailVerificationListener();
-      };
-    }, [navigate]);
+  }
 
-    // useEffect(() => {
-    //   const intervalId = setInterval(() => {
-    //     window.location.reload();
-    //   }, 5000);
-    
-    //   return () => clearInterval(intervalId);
-    // }, []);
-   
+  useEffect(() => {
+    document.title = 'GrowthCAP - Register';
+  }, []);
+
+  useEffect(() => {
+    const emailVerificationListener = onAuthStateChanged(auth, (user) => {
+      if (user?.emailVerified) {
+        navigate('/who');
+      }
+    });
+  
+    return () => {
+      emailVerificationListener();
+    };
+  }, [navigate]);
+
+  useEffect(() => {
+    localStorage.setItem('timeLeft', timeLeft);
+  }, [timeLeft]);
   
     return (
       <div className="VerifyMail">

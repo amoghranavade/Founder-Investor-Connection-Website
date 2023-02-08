@@ -1,5 +1,7 @@
 import './register.css';
+import { db } from '../Assets/Database/firebase-config';
 
+import { addDoc, getDocs, collection, query, where, onSnapshot } from "firebase/firestore"; 
 import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 
@@ -16,6 +18,7 @@ import { auth } from '../Assets/Database/firebase-config';
 function Register() {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
+  const usersCollectionRef = collection(db, 'users');
 //   const navigateToHomepage = () => {
 //     navigate(-1);
 //   };
@@ -33,7 +36,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRPassword] = useState("");
-  const [fullname, setFullName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [errorUniqueEmail, setErrorOne] = useState(false);
   const [errorPasswordMatch, setErrorTwo] = useState(false);
   const [errorEmptyFields, setErrorThree] = useState(false);
@@ -49,7 +52,7 @@ function Register() {
 
   const register = async () => {
   
-    if(password.trim().length === 0 || repassword.trim().length === 0 || fullname.trim().length === 0 || email.trim().length === 0)
+    if(password.trim().length === 0 || repassword.trim().length === 0 || fullName.trim().length === 0 || email.trim().length === 0)
     {
      setErrorThree(true);
      setErrorOne(false);
@@ -60,7 +63,7 @@ function Register() {
     }
     else
     {
-      if(!nameRegex.test(fullname)) {
+      if(!nameRegex.test(fullName)) {
         setErrorSix(true);
         setErrorThree(false);
         setErrorOne(false);
@@ -73,14 +76,18 @@ function Register() {
       else if(password === repassword){
         if(password.trim().length > 5){
         try {
-         const user = await createUserWithEmailAndPassword(
+         const result = await createUserWithEmailAndPassword(
          auth,
          email,
          password
          )
-            
+         const user = result.user;
+         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email});
        
+            
         navigate("/verifymail");
+        
+        
             } catch (error) {
         setErrorThree(false);
         setErrorOne(false);
@@ -118,7 +125,17 @@ function Register() {
         setErrorSix(false);
       }
     }
+
+
+    
+  
+       
+     
+   
   };
+
+
+  
 
   return (
     
