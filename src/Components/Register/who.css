@@ -33,6 +33,7 @@
     justify-content: space-between;
   
   }
+  
 
   .Question {
     font-family: 'Poppins', sans-serif;
@@ -45,6 +46,12 @@
     .Question span {
     font-weight: 600;
     }
+
+    .FounderButton:hover, .InvestorButton:hover {
+      cursor: pointer;
+    }
+
+    
   .Intro {
     font-family: 'Poppins', sans-serif;
     font-weight: bold;

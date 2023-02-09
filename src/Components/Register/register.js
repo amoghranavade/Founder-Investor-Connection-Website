@@ -147,12 +147,6 @@ function Register() {
       }
     }
 
-
-    
-  
-       
-     
-   
   };
 
 

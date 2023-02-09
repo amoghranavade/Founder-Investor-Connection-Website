@@ -17,7 +17,7 @@ import { ImCross } from "react-icons/im";
 
 
 const Login = () => {
-  <link rel="icon" type="image/x-icon" href="../Assets/Images/mainlogo.ico" />
+  // <link rel="icon" type="image/x-icon" href="../Assets/Images/mainlogo.ico" />
   useEffect(() => {
     document.title = 'GrowthCAP - Login';
   });
@@ -66,7 +66,7 @@ const Login = () => {
      
         onAuthStateChanged(auth, (user) => {
           if (user?.emailVerified) {
-            navigate('/');
+            navigate('/homepagei');
           }
 
           else {

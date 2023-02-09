@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../Assets/Images/mainlogo.png';
+
 import ai from '../Assets/Images/ai.png';
 import './header.css';
 import './navbar.css';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-
+  useEffect(() => {
+    document.title = 'GrowthCAP - Home';
+  });
   return (
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">

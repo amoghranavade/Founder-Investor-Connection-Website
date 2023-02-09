@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './who.css';
-import { collection, getDocs } from 'firebase/firestore';
+import './who.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import {  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db , auth} from '../Assets/Database/firebase-config';
 import mainLogo from'../Assets/Images/mainlogo.png';
 import { async } from '@firebase/util';
@@ -12,23 +14,46 @@ import {
 } from "firebase/auth";
 
 function Who() {
-
+  const navigate = useNavigate();
   const[users, setUsers] = useState([]);
   const user = auth.currentUser;
 
+  useEffect(() => {
+    document.title = 'GrowthCAP - PostRegister';
+  });
+  
 
   const usersCollectionRef = collection(db, 'app', 'users', user.uid);
+
+
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      console.log(data);
+      // console.log(data);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
         
-    
+  
 
     };
     getUsers();
   }, []);
+
+  
+  const userIsFounder = async (id) => {
+    // console.log("User assigned as a founder")
+    const userDoc = doc(db, 'app', 'users', user.uid, id)
+    const newFields = {type: 'founder'}
+    await updateDoc(userDoc, newFields)
+    navigate('/homepagef');
+      
+  }   
+
+  const userIsInvestor = async (id) => {
+    const userDoc = doc(db, 'app', 'users', user.uid, id)
+    const newFields = {type: 'investor'}
+    await updateDoc(userDoc, newFields)
+    navigate('/homepagei');
+  }   
 
 
   return (
@@ -45,9 +70,11 @@ function Who() {
         <p className="Question">Hello <span>{firstName}</span>, you are -</p>
    
     <div className="Buttons">
-      <button className="FounderButton">A Founder</button>
-      <button className="InvestorButton">An Investor</button>
+      <button className="FounderButton" onClick={() => userIsFounder(user.id)}>A Founder</button>
+      <button className="InvestorButton" onClick={() => userIsInvestor(user.id)}>An Investor</button>
     </div>
+{/* 
+<a href="#" class="button">Ooh, shiny!</a> */}
      
     </header>
         </div>

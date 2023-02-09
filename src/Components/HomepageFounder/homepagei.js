@@ -1,4 +1,4 @@
-import './homepage.css';
+import './homepagei.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, Icon, Rating, Step, Confirm, Card, Image} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
@@ -33,7 +33,7 @@ function Homepage() {
   //   navigate("/login");
   // };
   useEffect(() => {
-    document.title = 'GrowthCAP - Home';
+    document.title = 'GrowthCAP - Investor';
   });
   
   return (
@@ -43,7 +43,7 @@ function Homepage() {
       <header className="Homepage-header">
         
         <p>
-          GrowthCAP Inc. <code>- Website Progress Bar</code>  
+          GrowthCAP Inc. <code>- The Investor Module</code>  
         </p>
         <h4> User Logged In: {user?.email} </h4>
         
