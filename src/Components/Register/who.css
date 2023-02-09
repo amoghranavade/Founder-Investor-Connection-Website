@@ -36,12 +36,15 @@
 
   .Question {
     font-family: 'Poppins', sans-serif;
-    font-weight: bold;
     font-size: 40px;
+    font-weight: 300;
     justify-content: center;
     padding-top: 5%;
-  }
-
+    }
+    
+    .Question span {
+    font-weight: 600;
+    }
   .Intro {
     font-family: 'Poppins', sans-serif;
     font-weight: bold;

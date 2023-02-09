@@ -1,5 +1,5 @@
 import './register.css';
-import { db } from '../Assets/Database/firebase-config';
+import { db, auth} from '../Assets/Database/firebase-config';
 
 import { addDoc, getDocs, collection, query, where, onSnapshot } from "firebase/firestore"; 
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,19 +7,21 @@ import 'semantic-ui-css/semantic.min.css'
 
 import { Button,Label, Icon, Input } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { auth } from '../Assets/Database/firebase-config';
+
 
 function Register() {
 
   
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
+  // const usersCollectionRef = collection(db, 'users');
 
   //  onAuthStateChanged(auth, (user) => {
   //   if(user) { 
@@ -27,7 +29,7 @@ function Register() {
   // }
   // });
  
-  // const usersCollectionRef = db.collection('users').doc(user.uid);
+  
 
   useEffect(() => {
     document.title = 'GrowthCAP - Register';
@@ -53,6 +55,13 @@ function Register() {
       usersCollectionRef = collection(db, 'app', 'users', user.uid)
     }
   });
+
+  // onAuthStateChanged(auth, (user) => {
+  //   if(user) { 
+      
+  //     usersCollectionRef = collection(db, 'users').doc(user.uid);
+  //   }
+  // });
 
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const nameRegex = /^[a-zA-Z]+ [a-zA-Z]+$/; 
