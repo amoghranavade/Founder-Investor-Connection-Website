@@ -12,23 +12,40 @@ import {
   signOut,
 } from "firebase/auth";
 import {Alert} from 'react-bootstrap'  
-import { auth } from '../Assets/Database/firebase-config';
+import {  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import { db , auth} from '../Assets/Database/firebase-config';
 import { ImCross } from "react-icons/im";
+import { async } from '@firebase/util';
 
 
 const Login = () => {
-  // <link rel="icon" type="image/x-icon" href="../Assets/Images/mainlogo.ico" />
+  const[users, setUsers] = useState([]);
+ 
+
   useEffect(() => {
     document.title = 'GrowthCAP - Login';
   });
 
 
-  onAuthStateChanged(auth, (user) => {
-    if(user) {
-     
-      navigate('/');
-  }
-  });
+  const checkType = async (user) => {
+   
+    if (!user) return;
+
+      const usersCollectionRef = collection(db, 'app', 'users', user.uid);
+      // console.log(user.uid);
+      //  console.log(usersCollectionRef);
+      const data = await getDocs(usersCollectionRef);
+      // console.log(data)
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      // const [userType] = users.map((user) => user.type);
+     let userType = 'founder';
+     if (userType === 'founder') {
+        navigate('/homepagef');
+     } else if (userType === 'investor') {
+       navigate('/homepagei');
+      }
+  };
+
 
 
   const [email, setEmail] = useState("");
@@ -52,8 +69,10 @@ const Login = () => {
     setErrorEmpty(false);
   }
 
+ 
+
   const login = async () => {
-   
+
     if(email.trim().length === 0) {
           setErrorEmpty(true);
           setError(false);
@@ -66,7 +85,7 @@ const Login = () => {
      
         onAuthStateChanged(auth, (user) => {
           if (user?.emailVerified) {
-            navigate('/homepagei');
+            checkType(user);
           }
 
           else {
@@ -82,10 +101,11 @@ const Login = () => {
           setReset(false);
           setErrorEmpty(false);
         
-    });
-
-  }; }
+      });
+    };
+  }
   
+
   return (
     <div className="Login">
     
