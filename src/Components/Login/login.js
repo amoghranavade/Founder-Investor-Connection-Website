@@ -19,7 +19,7 @@ import { async } from '@firebase/util';
 
 
 const Login = () => {
-  const[users, setUsers] = useState([]);
+  let [users, setUsers] = useState([]);
  
 
   useEffect(() => {
@@ -32,13 +32,12 @@ const Login = () => {
     if (!user) return;
 
       const usersCollectionRef = collection(db, 'app', 'users', user.uid);
-      // console.log(user.uid);
-      //  console.log(usersCollectionRef);
+      
       const data = await getDocs(usersCollectionRef);
-      // console.log(data)
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      // const [userType] = users.map((user) => user.type);
-     let userType = 'founder';
+      
+      setUsers((users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))));
+      const [userType] = users.map((user) => user.type);
+    
      if (userType === 'founder') {
         navigate('/homepagef');
      } else if (userType === 'investor') {
