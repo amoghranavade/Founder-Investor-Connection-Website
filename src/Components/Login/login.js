@@ -20,6 +20,8 @@ import { async } from '@firebase/util';
 
 const Login = () => {
   let [users, setUsers] = useState([]);
+  const [emailFocus, setEmailFocus] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);  
  
 
   useEffect(() => {
@@ -138,13 +140,31 @@ const Login = () => {
         </div>
         }
 
-        <Input style={{width:'80%', fontSize:'16px'}} icon='users' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
-        <br/>
-        <Input style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)} />
-        <br/>
+        <Input
+            className={`input ${emailFocus ? 'focused' : ''}`}
+            style={{ width: '80%', fontSize: '16px' }}
+            icon='users'
+            iconPosition='left'
+            placeholder='Email'
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)}
+            onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <Input
+            className={`input ${passwordFocus ? 'focused' : ''}`}
+            style={{ width: '80%', fontSize: '16px' }}
+            icon='key'
+            iconPosition='left'
+            placeholder='Password'
+            type='password'
+            onFocus={() => setPasswordFocus(true)}
+            onBlur={() => setPasswordFocus(false)}
+            onChange={(e) => setPassword(e.target.value)}
+        />
         
 
-        <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF'}}  animated='vertical' async onClick={login}>
+        <Button style={{width: "80%", backgroundColor: '#238636', color : '#FFF',marginTop: '5%'}}  animated='vertical' async onClick={login}>
           <Button.Content style={{fontSize: 18, fontFamily:'Poppins', fontWeight:500}}  visible>Login</Button.Content>
            <Button.Content hidden>
             <Icon name='arrow right' />

@@ -28,10 +28,13 @@ function Homepage() {
     await signOut(auth);
     navigate('/login')
   };
+
+  const userSettings = async () => {
+    
+    navigate('/usersetting')
+  };
   const navigate = useNavigate();
-  // const navigateToLogin = () => {
-  //   navigate("/login");
-  // };
+ 
   useEffect(() => {
     document.title = 'GrowthCAP - Investor';
   });
@@ -85,11 +88,11 @@ function Homepage() {
 
 
         <Button.Group>
-        <Button animated='vertical'>
+        <Button animated='vertical' async onClick={userSettings}>
        
-        <Button.Content visible>Save Code</Button.Content>
+        <Button.Content visible>Settings</Button.Content>
         <Button.Content hidden>
-            <Icon name='code branch' />
+            <Icon name='settings' />
           </Button.Content>
         </Button>
         <Button.Or />

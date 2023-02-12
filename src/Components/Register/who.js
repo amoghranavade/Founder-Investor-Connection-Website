@@ -67,11 +67,12 @@ function Who() {
         <div>
         <header className="Register-header">
         <img  style={{ height:'160px', width:'120px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
-        <p className="Question">Hello <span>{firstName}</span>, you are -</p>
+        <p className="WelcomeText">Hello <span>{firstName}</span>, welcome to GrowthCAP. </p>
+        <p className='Question'>What brings you here?</p>
    
     <div className="Buttons">
-      <button className="FounderButton" onClick={() => userIsFounder(user.id)}>A Founder</button>
-      <button className="InvestorButton" onClick={() => userIsInvestor(user.id)}>An Investor</button>
+      <button className="FounderButton" onClick={() => userIsFounder(user.id)}>I have an idea</button>
+      <button className="InvestorButton" onClick={() => userIsInvestor(user.id)}>I like investing</button>
     </div>
 {/* 
 <a href="#" class="button">Ooh, shiny!</a> */}

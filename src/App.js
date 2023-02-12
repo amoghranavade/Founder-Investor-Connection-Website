@@ -1,8 +1,8 @@
 import React from "react";
 // import ReactDOM from "react-dom/client";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
-import HomepageInvestor from "./Components/HomepageFounder/homepagei";
-import HomepageFounder from "./Components/HomepageInvestor/homepagef";
+import HomepageInvestor from "./Components/HomepageInvestor/homepagei";
+import HomepageFounder from "./Components/HomepageFounder/homepagef";
 import HomepageGuest from "./Components/HomepageGuest/homepageg";
 import Register from "./Components/Register/register";
 import Login from "./Components/Login/login";
@@ -10,6 +10,7 @@ import Misc from "./Components/Misc/maintenance";
 import VerifyMail from './Components/Register/verifymail'
 import Terms from "./Components/Misc/terms"
 import Who from "./Components/Register/who"
+import UserSettings from "./Components/UserSettings/usersetting"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/terms' element={<Terms/>} />
         <Route path='/who' element={<Who/>} />
         <Route path='/maintenance' element={<Misc/>} />
+        <Route path='/usersetting' element={<UserSettings/>} />
         
       </Routes>
     </BrowserRouter>

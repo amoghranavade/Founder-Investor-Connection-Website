@@ -7,6 +7,9 @@ import 'semantic-ui-css/semantic.min.css'
 
 import { Button,Label, Icon, Input } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
+import founder from'../Assets/Images/founder.png';
+import mainLogo from'../Assets/Images/mainlogo.png';
+import investor from'../Assets/Images/investor.png';
 
 import {
   createUserWithEmailAndPassword,
@@ -62,6 +65,11 @@ function Register() {
   //     usersCollectionRef = collection(db, 'users').doc(user.uid);
   //   }
   // });
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const formattedDate = `${day}/${month}/${year}`;
 
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const nameRegex = /^[a-zA-Z]+ [a-zA-Z]+$/; 
@@ -102,7 +110,7 @@ function Register() {
          )
          const user = result.user;
        
-         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email});
+         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email, phone: 'Not registered', accountCreatedDate: formattedDate});
       
             
         navigate("/verifymail");
@@ -161,15 +169,18 @@ function Register() {
       <div className="RegisterCard">
         <br/>
         <br/>
-        <p style={{fontSize: '28px'}}>
-          Register - GrowthCAP
+        <p style={{fontSize: '28px', display: 'flex', alignItems: 'center'}}>
+          
+          <img style={{ height:'80px', width:'80px'}} src={founder}  alt="GrowthCAP-founder"/>
+           &nbsp; + 
+          <img style={{ height:'80px', width:'80px'}} src={investor}  alt="GrowthCAP-investor"/>
+          =
+          &nbsp;
+          <img style={{ height:'100px', width:'75px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+          
+          {/* <div style={{fontSize: '15px', transform: 'rotate(270deg)', margin: '0 10px'}}> = GrowthCAP</div> */}
         </p>
-        {/* <text style={{fontSize: 16, alignItems: 'top'}}>Username</text>
-        <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='username' />
-       
-        <br/>
-        <Input style={{width: "300px", height: '40px', fontSize: 16}}  placeholder='password' type='password' />
-        <br/> */}
+        
         {
         errorUniqueEmail ? <div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
         <p style={{fontSize: '15px', color:'#8F181D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >Email already registered!</p>
@@ -211,11 +222,11 @@ function Register() {
         <label style={{display: "flex", alignItems: "center", fontSize: "16px"}}>
       <input
         type="checkbox"
-        style={{width: "20px", height: "20px", marginRight: "10px"}}
+        style={{width: "17px", height: "17px", marginRight: "10px"}}
         checked={checked}
         onChange={() => setChecked(!checked)}
       />
-      I Accept the &nbsp; <a href="./terms" target="_blank" rel="noopener noreferrer">
+      I accept the&nbsp; <a href="./terms" target="_blank" rel="noopener noreferrer">
          Terms & Conditions
       </a>
     </label>
@@ -225,7 +236,7 @@ function Register() {
         <Button
         style={{
           width: "80%",
-          backgroundColor: "#238636",
+          backgroundColor: "#4A45FF",
           color: "#FFF",
           fontSize: 18,
           fontFamily: "Poppins",
@@ -236,7 +247,7 @@ function Register() {
         disabled={!checked}
         onClick={register}
       >
-        <Button.Content visible>Register</Button.Content>
+        <Button.Content visible>Let's go</Button.Content>
         <Button.Content hidden>
           <Icon name="arrow right" />
         </Button.Content>
