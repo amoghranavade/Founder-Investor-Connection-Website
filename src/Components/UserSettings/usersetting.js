@@ -14,6 +14,7 @@ import {
   signInWithPhoneNumber,
   onAuthStateChanged,
   PhoneAuthCredential,
+  linkWithPhoneNumber,
   signOut,
 } from "firebase/auth";
 import { db , auth} from '../Assets/Database/firebase-config';
@@ -54,6 +55,26 @@ function UserSettings() {
   const navigate = useNavigate();
 
   const user = auth.currentUser;
+
+  useEffect(() => {
+    document.title = 'GrowthCAP - Settings';
+  });
+
+  const usersCollectionRef = collection(db, 'app', 'users', user.uid);
+
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      // console.log(data);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      // setUsers(data.docs.map((doc) => (doc.data())));
+        
+  
+
+    };
+    getUsers();
+  }, []);
   
   const style = {
     borderRadius: 0,
@@ -80,7 +101,7 @@ function UserSettings() {
       setErrorOne(false);
       console.log(phoneNumber);
       // setSuccessTwo(true);
-      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      linkWithPhoneNumber(user, phoneNumber, appVerifier)
     .then((confirmationResult) => {
         setShowNumberInput(false);
         setShowOtpInput(true);
@@ -98,6 +119,21 @@ function UserSettings() {
     }
   }
 
+  const verifyOtp = () => {
+    window.confirmationResult.confirm(code).then(async result => {
+      // const phoneNumber = '+91' + number;
+      // const userDoc = doc(db, 'app', 'users', user.uid, id)
+      // const newFields = {number: phoneNumber}
+      // await updateDoc(userDoc, newFields)
+      // navigate('/usersetting');
+      console.log("Correct OTP");
+
+    }).catch((error) => {
+      console.log(error);
+      console.log("Invalid OTP");
+    });
+  }
+
   const closeDiv = () => {
     setShowNumberInput(true);
     setShowOtpInput(false);
@@ -112,57 +148,9 @@ function UserSettings() {
     configureCaptcha()
   }
 
-  const verifyOtp = () => {
-    window.confirmationResult.confirm(code).then(async result => {
-      
-      
-      // const credential = PhoneAuthProvider.credential(
-      //   window.confirmationResult.verificationId,
-      //   code
-      // );
-      
-      // const cred = await auth.signInWithCredential(credential);
-      // const user = cred.user
-      
-      // await user.linkWithCredential(credential);
-        
-     
-      // const credential = auth.PhoneAuthProvider.credential(window.confirmationResult.verificationId, code);
-      // user.linkWithCredential(credential)
-      //   .then(function(usercred) {
-      //     console.log("Phone number successfully linked to user account.");
-      //   })
-      //   .catch(function(error) {
-      //     console.error("Error linking phone number to user account:", error);
-      //   });
-
-      console.log("Correct OTP");
-
-    }).catch((error) => {
-      console.log(error);
-      console.log("Invalid OTP");
-    });
-  }
-
-  useEffect(() => {
-    document.title = 'GrowthCAP - Settings';
-  });
-
-  const usersCollectionRef = collection(db, 'app', 'users', user.uid);
-
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      // console.log(data);
-      // setUsers((users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))));
-      setUsers(data.docs.map((doc) => (doc.data())));
-        
   
 
-    };
-    getUsers();
-  }, []);
+  
 
   
   return (
