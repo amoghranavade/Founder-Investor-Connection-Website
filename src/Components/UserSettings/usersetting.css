@@ -43,6 +43,94 @@
     margin-top: 2%;
   }
 
+
+
+
+   .phoneAuthDiv {
+      font-family: Poppins;
+      /* font-size: 15px; */
+      background-color: #20212C;
+      width: 30%;
+      min-height: 30vh;
+      border-radius: 10px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border:1px solid whitesmoke;
+    
+    
+    }
+
+    .phoneAuthHeader {
+      font-size: 27px;
+      margin-left: 18%;
+      padding-top: 2%;
+      margin-bottom: 0%;
+    }
+
+    .phoneText{
+      font-family: Poppins;
+ 
+      font-size: 18px;
+      margin-left: 24%;
+      margin-top: 5%;
+    }
+
+    .sendOTP{
+      font-family: Poppins;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4A45FF;
+      color: whitesmoke;
+      padding: 10px 10px 10px 10px;
+      border: none;
+      border-radius: 10px;
+      margin-left: 32%;
+      margin-top: 5%;
+      margin-right: 2%;
+
+    }
+
+    .verifyOTP {
+
+      font-family: Poppins;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #238636;
+      color: whitesmoke;
+      padding: 10px 10px 10px 10px;
+      border: none;
+      border-radius: 10px;
+      margin-left: 32%;
+      margin-top: 5%;
+      margin-right: 2%;
+
+    }
+
+    .closePhoneAuthDiv{
+      font-family: Poppins;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #FF4242;
+      color: whitesmoke;
+      padding: 10px 10px 10px 10px;
+      border: none;
+      border-radius: 10px;
+
+    }
+
+    .blur {
+      filter: blur(5px);
+    }
+
+
+
+
+
   .mainName {
     font-size: 25px;
     margin-bottom: 40px;
@@ -70,7 +158,7 @@
   }
 
   .nameTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: -3px;
     margin-left: 30px;
@@ -78,13 +166,13 @@
     }
 
   .nameContent {
-    font-size: 17px;
+    font-size: 16px;
     margin-bottom: 30px;
     margin-left: 30px;
   }
 
   .emailTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: -3px;
     margin-left: 30px;
@@ -93,13 +181,13 @@
     }
 
   .emailContent {
-    font-size: 17px;
+    font-size: 16px;
     margin-bottom: 30px;
     margin-left: 30px;
   }
 
   .passwordTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: 5px;
     margin-left: 30px;
@@ -115,21 +203,21 @@
 
 
   .phoneTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: -3px;
     margin-left: 30px;
   }
 
 .phoneContentNotRegistered {
-    font-size: 17px;
+    font-size: 16px;
     color: rgb(217, 132, 52);
     margin-bottom: 30px;
     margin-left: 30px;
   }
 
 .phoneContent {
-    font-size: 17px;
+    font-size: 16px;
     color: white;
     margin-bottom: 30px;
     margin-left: 30px;
@@ -169,18 +257,19 @@
 
   .updateButton {
     position: relative;
-    top: -25px;
+    top: -20px;
     left: -40px;
- 
     background-color: #5c5c66;
     border-radius: 12px;
     border: #5c5c66;
     color: whitesmoke;
-    font-size: 18px;
+    font-size: 16px;
     font-family: Poppins;
-    padding: 7px;
-    padding-left: 15px;
-    padding-right: 15px;
+    /* padding: 7px; */
+    width: 80px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 70px;
     cursor: pointer;
   }
   .resetButton {
@@ -195,8 +284,8 @@
     font-size: 18px;
     font-family: Poppins;
     padding: 7px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 16px;
+    padding-right: 16px;
     cursor: pointer;
   }
 
@@ -205,7 +294,7 @@
 
 
   .uidTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: -2px;
     margin-left: 30px;
@@ -220,14 +309,14 @@
       }
 
   .uidContent {
-    font-size: 17px;
+    font-size: 16px;
     margin-top: 5px;
     margin-bottom: 20px;
     margin-left: 30px;
   }
 
   .typeTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: -6px;
     margin-left: 30px;
@@ -235,14 +324,14 @@
     }
 
   .typeContent {
-    font-size: 17px;
+    font-size: 16px;
     margin-top: 5px;
     margin-bottom: 20px;
     margin-left: 30px;
   }
 
   .statusTag {
-    font-size: 17px;
+    font-size: 16px;
     color: #7E839A;
     margin-bottom: 5px;
     margin-left: 30px;
@@ -250,7 +339,7 @@
     }
 
   .statusContent {
-    font-size: 17px;
+    font-size: 16px;
     margin-bottom: 30px;
     margin-left: 30px;
     /* color: rgb(217, 52, 52); */

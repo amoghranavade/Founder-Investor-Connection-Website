@@ -1,6 +1,6 @@
 import './usersetting.css';
 import { useNavigate } from 'react-router-dom';
-import { Button, Icon, Rating, Step, Confirm, Card, Image, Popup} from 'semantic-ui-react';
+import { Button, Input, Icon, Rating, Step, Confirm, Card, Image, Popup} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -11,10 +11,13 @@ import santaHat from'../Assets/Images/santa_hat_U01_EDITED.png';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
   onAuthStateChanged,
+  PhoneAuthCredential,
   signOut,
 } from "firebase/auth";
 import { db , auth} from '../Assets/Database/firebase-config';
+import { getAuth, RecaptchaVerifier, PhoneAuthProvider } from 'firebase/auth';
 import { red } from '@mui/material/colors';
 
 
@@ -22,7 +25,30 @@ import { red } from '@mui/material/colors';
 
 function UserSettings() {
 
+  const configureCaptcha = () => {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+        'size': 'invisible',
+        'callback': (response) => {
+          console.log("Success");
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          sendOtp();
+        }
+      }, auth);
+    }
+  }
 
+  const [showNumberInput, setShowNumberInput] = useState(true);
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [showSendOtpButton, setShowSendOtpButton] = useState(true);
+  const [showVerifyOtpButton, setShowVerifyOtpButton] = useState(false);
+  const [code, setOtpCode] = useState("");
+  const appVerifier = window.recaptchaVerifier;
+  const phoneRegex = /^[7-9][0-9]{9}$/;
+  const [number, setPhoneNumber] = useState("");
+  const [errorInvalidPhone, setErrorOne] = useState(false);
+  // const [otpSent, setSuccessTwo] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -40,18 +66,83 @@ function UserSettings() {
     console.log("Account deleted with id:", user.uid);
   }
   
- 
+  const sendOtp =  () => {
 
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   if(users) {
-  //   setUser(currentUser);
-  // }
+    if(!phoneRegex.test(number)){
+      setErrorOne(true);
+      // setSuccessTwo(false);
+      
 
-  // else {
-  //   navigate('/login')
-  // }
-  // });
+    }
 
+    else {
+      const phoneNumber = '+91' + number;
+      setErrorOne(false);
+      console.log(phoneNumber);
+      // setSuccessTwo(true);
+      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+        setShowNumberInput(false);
+        setShowOtpInput(true);
+        setShowSendOtpButton(false);
+        setShowVerifyOtpButton(true);
+        setErrorOne(false);
+      console.log('OTP SENT');
+      window.confirmationResult = confirmationResult;
+    }).catch((e) => {
+      console.log(e);
+
+      
+    });
+
+    }
+  }
+
+  const closeDiv = () => {
+    setShowNumberInput(true);
+    setShowOtpInput(false);
+    setShowSendOtpButton(true);
+    setShowVerifyOtpButton(false);
+    setShowModal(false); 
+    setErrorOne(false);
+  }
+
+  const updateButton = () => {
+    setShowModal(true);
+    configureCaptcha()
+  }
+
+  const verifyOtp = () => {
+    window.confirmationResult.confirm(code).then(async result => {
+      
+      
+      // const credential = PhoneAuthProvider.credential(
+      //   window.confirmationResult.verificationId,
+      //   code
+      // );
+      
+      // const cred = await auth.signInWithCredential(credential);
+      // const user = cred.user
+      
+      // await user.linkWithCredential(credential);
+        
+     
+      // const credential = auth.PhoneAuthProvider.credential(window.confirmationResult.verificationId, code);
+      // user.linkWithCredential(credential)
+      //   .then(function(usercred) {
+      //     console.log("Phone number successfully linked to user account.");
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error linking phone number to user account:", error);
+      //   });
+
+      console.log("Correct OTP");
+
+    }).catch((error) => {
+      console.log(error);
+      console.log("Invalid OTP");
+    });
+  }
 
   useEffect(() => {
     document.title = 'GrowthCAP - Settings';
@@ -75,7 +166,9 @@ function UserSettings() {
 
   
   return (
+   
     <div>
+      
       {!users || users.length === 0 ? (
          <div style={{position: 'relative'}}>
          
@@ -105,31 +198,7 @@ function UserSettings() {
                      </div>
                  </div>
                 </div>
-                
-                
-
-
-                  {/* <div className='logoutDiv'>
-                     <button className='logoutButton'>Sign-out</button>
-                  </div> */}
-                 
-
-
-                {/* <div className="basicPad">
-                   <div className='basicPadHeader'>
-                     <p className='basicPadHeaderText'>GENERAL</p>
-                   </div>
-
-                  
-                  <p className="nameTag">Display Name</p>
-                  <p className="nameContent">{user.name}</p>
-                  <p className="passwordTag">Password</p>
-                  <p className="passwordContent">⚪ ⚪ ⚪ ⚪ ⚪ ⚪</p>
-                  <p className="phoneTag">Phone</p>
-                  
-                  <p className={user.phone === "Not registered" ? "phoneContentNotRegistered" : "phoneContent"}>{user.phone}</p>
-                  
-                </div> */}
+      
 
                 <div className="basicPad">
                   <div className='basicPadHeader'>
@@ -152,7 +221,7 @@ function UserSettings() {
                     <p className="phoneTag">Phone</p>
                     <div className="mobileContentContainer">
                       <p className={user.phone === "Not registered" ? "phoneContentNotRegistered" : "phoneContent"}>{user.phone}</p>
-                      <button className="updateButton">Update</button>
+                      <button className="updateButton" onClick={updateButton}>Update</button>
                     </div>
                   </div>
                 </div>
@@ -200,7 +269,38 @@ function UserSettings() {
                   </div>
                 </div>
 
-                
+
+                {showModal && (
+        <div className='phoneAuthDiv'>
+         
+          <div className='phoneAuthContent'>
+          
+            <p className='phoneAuthHeader'>Verify your mobile number!</p>
+            {
+            errorInvalidPhone ? <div >  
+            <p style={{fontSize: '18px', color:'#FF4242',textAlign: 'center', marginBottom: 5}} >Please enter a valid number!</p>
+            </div>:null
+            }
+            {/* {
+            otpSent &&<div >  
+              <p style={{fontSize: '15px', color:'#17912D',textAlign: 'center', marginBottom: 5, marginTop: 5}} >OTP sent!</p>
+              </div>
+            } */}
+           <div className='phoneText'>
+           { showOtpInput && <Input type="text" label='OTP' placeholder='Enter OTP' onChange={(e) => setOtpCode(e.target.value)}  maxLength={6} /> }
+           { showNumberInput && <Input type="text" label='+91' placeholder='9090909090' onChange={(e) => setPhoneNumber(e.target.value)} maxLength={10} /> }
+            </div>
+            
+            { showSendOtpButton && <button className='sendOTP' onClick={sendOtp}>Send OTP</button> }
+            { showVerifyOtpButton && <button className='verifyOTP' onClick={verifyOtp} >Verify OTP</button> }
+             <button className='closePhoneAuthDiv' onClick={closeDiv}>Close</button>
+
+          </div>
+          
+        </div>
+      )}
+
+              <div id='sign-in-button'> </div>
               </header>
             </div>
           );
