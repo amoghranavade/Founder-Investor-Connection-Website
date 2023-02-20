@@ -6,19 +6,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import React, {useEffect, useState } from 'react';
 import founder from'../Assets/Images/founder.png';
-import {  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import {onSnapshot,  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import santaHat from'../Assets/Images/santa_hat_U01_EDITED.png';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import mainLogo from'../Assets/Images/mainlogo.png';
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPhoneNumber,
-  onAuthStateChanged,
-  PhoneAuthCredential,
+  sendPasswordResetEmail,
   linkWithPhoneNumber,
   signOut,
 } from "firebase/auth";
 import { db , auth} from '../Assets/Database/firebase-config';
-import { getAuth, RecaptchaVerifier, PhoneAuthProvider } from 'firebase/auth';
+import { unlink, getAuth, RecaptchaVerifier, PhoneAuthProvider } from 'firebase/auth';
 import { red } from '@mui/material/colors';
 
 
@@ -50,14 +49,26 @@ function UserSettings() {
   const [errorInvalidPhone, setErrorOne] = useState(false);
   // const [otpSent, setSuccessTwo] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showButtonDelink, setShowDelink] = useState(false);
+  const [showButtonUpdate, setShowUpdate] = useState(true);
+  // const [numberValue, setNumber] = useState('');
+  
+  const [showResetAlert, setShowAlert ] = useState(false);
+  const [showErrorAlert, setErrorAlert ] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
   const [users, setUsers] = useState([]);
+
+  const paragraph = document.getElementById('phone');
   const navigate = useNavigate();
 
   const user = auth.currentUser;
 
   useEffect(() => {
     document.title = 'GrowthCAP - Settings';
+    if(user.phone !== 'Not registered'){
+      setShowDelink(true);
+      setShowUpdate(false);
+    }
   });
 
   const usersCollectionRef = collection(db, 'app', 'users', user.uid);
@@ -86,6 +97,10 @@ function UserSettings() {
   const deleteAccount = () => {
     console.log("Account deleted with id:", user.uid);
   }
+
+
+
+
   
   const sendOtp =  () => {
 
@@ -108,6 +123,7 @@ function UserSettings() {
         setShowSendOtpButton(false);
         setShowVerifyOtpButton(true);
         setErrorOne(false);
+     
       console.log('OTP SENT');
       window.confirmationResult = confirmationResult;
     }).catch((e) => {
@@ -119,14 +135,41 @@ function UserSettings() {
     }
   }
 
-  const verifyOtp = () => {
+
+
+
+  const delinkButton = () => {
+    const providerId = PhoneAuthProvider.PROVIDER_ID;
+    unlink(auth.currentUser, providerId).then(() => {
+      console.log('delinked');
+      setShowDelink(false);
+      setShowUpdate(true);
+    }).catch((error) => {
+      console.log(error);
+   
+    });
+    
+  }
+
+  
+  const verifyOtp = async(id) => {
+    const phoneNumber = '+91' + number;
     window.confirmationResult.confirm(code).then(async result => {
       // const phoneNumber = '+91' + number;
-      // const userDoc = doc(db, 'app', 'users', user.uid, id)
-      // const newFields = {number: phoneNumber}
-      // await updateDoc(userDoc, newFields)
-      // navigate('/usersetting');
+      const userDoc = doc(db, 'app', 'users', user.uid, id)
+      const newFields = {phone: phoneNumber}
+      await updateDoc(userDoc, newFields)
+      navigate('/usersetting');
       console.log("Correct OTP");
+      setShowModal(false);
+      setShowDelink(true);
+      setShowUpdate(false);
+      setShowNumberInput(true);
+      setShowOtpInput(false);
+      setShowSendOtpButton(true);
+      setShowVerifyOtpButton(false);
+      // setNumber(phoneNumber);
+      paragraph.textContent = phoneNumber;
 
     }).catch((error) => {
       console.log(error);
@@ -148,6 +191,62 @@ function UserSettings() {
     configureCaptcha()
   }
 
+
+
+
+
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+  const sendResetLink = async(id) => {
+    const userDoc = doc(db, 'app', 'users', user.uid, id);
+    // const [lastreset] = users.map((user) => user.lastreset);
+      const [previousTimestamp] = users.map((user) => user.lastreset);
+      const [previousDateStr, previousTimeStr] = previousTimestamp.split(' ');
+      const [day, month, year] = previousDateStr.split('/');
+      const [hours, minutes, seconds] = previousTimeStr.split(':');
+      const previousDate = new Date(year, month - 1, day, hours, minutes, seconds);
+      const now = new Date();
+      const diffInMs = now - previousDate;
+      const diffInHours = diffInMs / (1000 * 60 * 60);
+
+    if (diffInHours < 2) {
+      setShowAlert(false);
+      setErrorAlert(true);
+    } 
+
+    else {
+      
+      // const userDoc = doc(db, 'app', 'users', user.uid, id)
+      const newFields = {lastreset: formattedDate}
+      await updateDoc(userDoc, newFields)
+      // await sendPasswordResetEmail(auth, user.email)
+    
+      console.log("Reset Mail Sent");
+      setShowAlert(true);
+      
+      // onSnapshot(collection(db, 'app', 'users', user.uid), (querySnapshot) => {
+      //   const updatedUsers = [];
+      //   console.log(querySnapshot);
+      //   querySnapshot.forEach((doc) => {
+      //     updatedUsers.push({ uid: doc.id, ...doc.data() });
+      //   });
+      //   setUsers(updatedUsers);
+      // });
+    }
+    
+  }
+
+  const hideResetAlert = () => {
+    setShowAlert(false);
+  }
+
   
 
   
@@ -159,7 +258,7 @@ function UserSettings() {
       
       {!users || users.length === 0 ? (
          <div style={{position: 'relative'}}>
-         
+         {/* <img style={{marginLeft:'48%',marginTop :"15%", height:'150px', width:'100px'}} src={mainLogo}  alt="GrowthCAP-logo"/> */}
          {/* Contents of your current page */}
          <Box sx={{ display: 'flex', position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', backgroundColor: 'rgba(255, 255, 255, 0.5)', zIndex: 1 }}>
            <CircularProgress style={{ margin: 'auto' }} />
@@ -170,6 +269,18 @@ function UserSettings() {
         
           return (
             <div className="UserSetting">
+              {showResetAlert && (
+                <div onClick={() => hideResetAlert}>
+               <Alert  style={{fontSize: '14px'}} className='passResetAlert' variant="filled" severity="success">
+                A password reset mail was sent on <span style={{fontWeight: 700}}>{user.email}</span>
+              </Alert>
+              </div>
+              )}
+              {showErrorAlert &&(
+                  <Alert  className='passResetAlert' variant="filled" severity="warning" style={{fontSize: '14px'}}>
+                  Too many requests received from this account! Try again in some time!
+                </Alert>
+              )}
               <header className="user-setting">
                 <p className='settingText'>Settings</p>
 
@@ -199,7 +310,7 @@ function UserSettings() {
                     <p className="passwordTag">Password</p>
                     <div className="passwordContentContainer">
                       <p className="passwordContent">⚪ ⚪ ⚪ ⚪ ⚪ ⚪</p>
-                      <button className="resetButton">Reset</button>
+                      <button className="resetButton"  onClick={() => sendResetLink(user.id)}>Reset</button>
                     </div>
                   </div>
 
@@ -208,8 +319,15 @@ function UserSettings() {
                   <div className="mobileUpdateButtonContainer">
                     <p className="phoneTag">Phone</p>
                     <div className="mobileContentContainer">
-                      <p className={user.phone === "Not registered" ? "phoneContentNotRegistered" : "phoneContent"}>{user.phone}</p>
+                      <p id = 'phone' className={user.phone === "Not registered" ? "phoneContentNotRegistered" : "phoneContent"}>{user.phone}</p>
+                      
+                      {showButtonUpdate && (
                       <button className="updateButton" onClick={updateButton}>Update</button>
+                      
+                      )}
+                      {showButtonDelink && (
+                      <button className="delinkButton" onClick={delinkButton}>Delink</button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -235,8 +353,15 @@ function UserSettings() {
                                                      </span> 
                                                      </p>
   
-  {!isHidden && <p className="uidContent">{user.uid}</p>}
-                     <p className="deleteAccount" onClick={deleteAccount}>Delete my account</p>
+                {!isHidden && (
+                  <>
+                    <p className="uidContent">{user.uid}</p>
+                    
+                    <p className="deleteAccount" onClick={deleteAccount}>
+                      Delete my account
+                    </p>
+                  </>
+                )}
                     
                      
                      <p className="userSinceTag">User Since: {user.accountCreatedDate}</p>
@@ -252,8 +377,10 @@ function UserSettings() {
                                                         inverted
                                                        /></p>
                   <p className="statusContent">PENDING</p>
+                  <p className="documentVerifiedTag">Document Verified</p>
+                  <p className="documentVerifiedContent">None</p>
                   <div className='verificationRedirect'>
-                    <p className='verificationDivText'>Get my verification done <Icon name='arrow right' size='small' /></p>
+                    <p className='verificationDivText'>Know why verification is important<Icon name='arrow right' size='small' /></p>
                   </div>
                 </div>
 
@@ -280,7 +407,7 @@ function UserSettings() {
             </div>
             
             { showSendOtpButton && <button className='sendOTP' onClick={sendOtp}>Send OTP</button> }
-            { showVerifyOtpButton && <button className='verifyOTP' onClick={verifyOtp} >Verify OTP</button> }
+            { showVerifyOtpButton && <button className='verifyOTP' onClick={() => verifyOtp(user.id)} >Verify OTP</button> }
              <button className='closePhoneAuthDiv' onClick={closeDiv}>Close</button>
 
           </div>

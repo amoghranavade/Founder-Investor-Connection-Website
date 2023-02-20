@@ -110,7 +110,7 @@ function Register() {
          )
          const user = result.user;
        
-         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email, phone: 'Not registered', accountCreatedDate: formattedDate});
+         await addDoc(usersCollectionRef, {uid: user.uid, name: fullName, email: email, phone: 'Not registered', accountCreatedDate: formattedDate, lastreset: '01/01/2000 12:00:00'});
       
             
         navigate("/verifymail");
