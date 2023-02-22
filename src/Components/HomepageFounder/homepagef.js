@@ -26,6 +26,7 @@ function Homepage() {
 
   const logout = async () => {
     await signOut(auth);
+    localStorage.clear();
     navigate('/login')
   };
 

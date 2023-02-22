@@ -50,26 +50,65 @@ function UserSettings() {
   // const [otpSent, setSuccessTwo] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showButtonDelink, setShowDelink] = useState(false);
-  const [showButtonUpdate, setShowUpdate] = useState(true);
+  const [showButtonUpdate, setShowUpdate] = useState(false);
   // const [numberValue, setNumber] = useState('');
   
   const [showResetAlert, setShowAlert ] = useState(false);
   const [showErrorAlert, setErrorAlert ] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
   const [users, setUsers] = useState([]);
+  const [isResetButtonDisabled, setIsResetButtonDisabled] = useState(false);
+  
 
   const paragraph = document.getElementById('phone');
   const navigate = useNavigate();
 
-  const user = auth.currentUser;
+  // const user = auth.currentUser;
+  let user = JSON.parse(localStorage.getItem('user'));
+      if (!user) {
+        // User is not in localStorage, fetch user from auth
+        user = auth.currentUser;
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+
+
+
+
+
+
 
   useEffect(() => {
     document.title = 'GrowthCAP - Settings';
-    if(user.phone !== 'Not registered'){
-      setShowDelink(true);
-      setShowUpdate(false);
+
+    const user = auth.currentUser;
+    // user = auth.currentUser;
+    // localStorage.setItem('user', JSON.stringify(user));
+    if (user) {
+     
+      user
+        .getIdTokenResult()
+        .then(idTokenResult => {
+          if (idTokenResult.claims.phone_number) {
+            console.log('Reaching IF')
+            // User has a phone number linked to their account
+            setShowUpdate(false);
+            setShowDelink(true);
+           
+          } 
+
+          else {
+            console.log('Reaching ELSE')
+            setShowUpdate(true);
+            setShowDelink(false);
+          }
+         
+        })
+        
+        .catch(error => {
+          console.error('Failed to get ID token result, contact GrowthCAP support if you are a tester. Error:', error);
+        });
     }
-  });
+  }, []);
 
   const usersCollectionRef = collection(db, 'app', 'users', user.uid);
 
@@ -103,6 +142,7 @@ function UserSettings() {
 
   
   const sendOtp =  () => {
+    const user = auth.currentUser;
 
     if(!phoneRegex.test(number)){
       setErrorOne(true);
@@ -138,7 +178,10 @@ function UserSettings() {
 
 
 
-  const delinkButton = () => {
+  const delinkButton = async(id) => {
+    const userDoc = doc(db, 'app', 'users', user.uid, id)
+    const newFields = {phone: 'Not registered'}
+    await updateDoc(userDoc, newFields)
     const providerId = PhoneAuthProvider.PROVIDER_ID;
     unlink(auth.currentUser, providerId).then(() => {
       console.log('delinked');
@@ -205,6 +248,7 @@ function UserSettings() {
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 
   const sendResetLink = async(id) => {
+    
     const userDoc = doc(db, 'app', 'users', user.uid, id);
     // const [lastreset] = users.map((user) => user.lastreset);
       const [previousTimestamp] = users.map((user) => user.lastreset);
@@ -217,6 +261,7 @@ function UserSettings() {
       const diffInHours = diffInMs / (1000 * 60 * 60);
 
     if (diffInHours < 2) {
+      console.log("too many requests hit");
       setShowAlert(false);
       setErrorAlert(true);
     } 
@@ -226,7 +271,7 @@ function UserSettings() {
       // const userDoc = doc(db, 'app', 'users', user.uid, id)
       const newFields = {lastreset: formattedDate}
       await updateDoc(userDoc, newFields)
-      // await sendPasswordResetEmail(auth, user.email)
+      await sendPasswordResetEmail(auth, user.email)
     
       console.log("Reset Mail Sent");
       setShowAlert(true);
@@ -240,6 +285,8 @@ function UserSettings() {
       //   setUsers(updatedUsers);
       // });
     }
+
+    setIsResetButtonDisabled(true);
     
   }
 
@@ -278,7 +325,7 @@ function UserSettings() {
               )}
               {showErrorAlert &&(
                   <Alert  className='passResetAlert' variant="filled" severity="warning" style={{fontSize: '14px'}}>
-                  Too many requests received from this account! Try again in some time!
+                  Too many requests received from this account! Try again in a few hours.
                 </Alert>
               )}
               <header className="user-setting">
@@ -310,7 +357,7 @@ function UserSettings() {
                     <p className="passwordTag">Password</p>
                     <div className="passwordContentContainer">
                       <p className="passwordContent">⚪ ⚪ ⚪ ⚪ ⚪ ⚪</p>
-                      <button className="resetButton"  onClick={() => sendResetLink(user.id)}>Reset</button>
+                      <button  className={`resetButton ${isResetButtonDisabled ? 'disabledButton' : ''}`}  onClick={() => sendResetLink(user.id)}   disabled={isResetButtonDisabled}>Reset</button>
                     </div>
                   </div>
 
@@ -326,7 +373,7 @@ function UserSettings() {
                       
                       )}
                       {showButtonDelink && (
-                      <button className="delinkButton" onClick={delinkButton}>Delink</button>
+                      <button className="delinkButton"  onClick={() => delinkButton(user.id)}>Delink</button>
                       )}
                     </div>
                   </div>
