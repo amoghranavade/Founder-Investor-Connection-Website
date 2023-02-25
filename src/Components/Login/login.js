@@ -41,8 +41,10 @@ const Login = () => {
       const [userType] = users.map((user) => user.type);
     
      if (userType === 'founder') {
+      localStorage.setItem('user', JSON.stringify(user));
         navigate('/homepagef');
      } else if (userType === 'investor') {
+      localStorage.setItem('user', JSON.stringify(user));
        navigate('/homepagei');
       }
   };
@@ -98,6 +100,7 @@ const Login = () => {
      
     })
     .catch((error) => {
+      // console.log(error)
           setError(true);
           setReset(false);
           setErrorEmpty(false);
@@ -175,6 +178,7 @@ const Login = () => {
         {/* lineHeight: 30 */}
        
         </div>
+        <p className='loginFooter'><a href='./' style={{color: 'lightslategrey'}}>GrowthCAP 2023</a> | <a href='./terms' style={{color: 'rgb(218, 232, 245)'}}>Terms & conditions</a></p>
       </header>
     </div>
   );

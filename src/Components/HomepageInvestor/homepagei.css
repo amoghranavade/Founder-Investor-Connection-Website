@@ -1,18 +1,33 @@
-/* .Homepage {
-    text-align: center;
-  } */
-  
-  
-  .Homepage-header {
-    background-color: #0A1929;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+body{
+  background-color: #0A1929;
+}
+
+.startupList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 7%;
+  margin-left: 3%;
+}
+
+.startupList > * {
+  margin: 1rem;
+  flex-basis: calc(33.33% - 2rem);
+}
+
+@media screen and (max-width: 800px) {
+  .startupList > * {
+    flex-basis: calc(50% - 2rem);
   }
+}
+
+@media screen and (max-width: 600px) {
+  .startupList > * {
+    flex-basis: calc(100% - 2rem);
+  }
+}
+  
+
 
   /* body {
 background-color: aqua;

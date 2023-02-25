@@ -1,28 +1,68 @@
-import './homepagei.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, Icon, Rating, Step, Confirm, Card, Image} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import React, { useEffect, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+
+import StartupCard from './startupcard';
+import InvestorNavbar from './investornavbar';
+import './homepagei.css';
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { auth } from '../Assets/Database/firebase-config';
+import { db,  auth } from '../Assets/Database/firebase-config';
+import {  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 
 function Homepage() {
+  const [startups, setStartups] = useState([]);
+ 
+  
 
+  useEffect(()=> {
+    onAuthStateChanged(auth, (currentUser) => {
+      if(currentUser) {
+        setUser(currentUser);
+      } else {
+        navigate('/login');
+      }
+    });
+  }, []);
+
+  // rest of the compon
+  
+
+  useEffect(() => {
+    const fetchStartups = async () => {
+      // const startupCollection = collection(db, "startups");
+      const startupCollection = collection(db, 'startups');
+      const startupSnapshot = await getDocs(startupCollection);
+      const startupData = startupSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        
+      }));
+      // console.log(startupData);
+      setStartups(startupData);
+    };
+
+    fetchStartups();
+  }, []);
   const [user, setUser] = useState({});
-  onAuthStateChanged(auth, (currentUser) => {
-    if(user) {
-    setUser(currentUser);
+  let users = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    // User is not in localStorage, fetch user from auth
+    user = auth.currentUser;
+    localStorage.setItem('user', JSON.stringify(user));
   }
+  
 
-  // else {
-  //   navigate('/login')
-  // }
-  });
+ 
 
   const logout = async () => {
     await signOut(auth);
@@ -39,55 +79,42 @@ function Homepage() {
   useEffect(() => {
     document.title = 'GrowthCAP - Investor';
   });
+
+ 
+
   
   return (
+   <header>
     
-    
-    <div className="Homepage">
-      <header className="Homepage-header">
+
+    <InvestorNavbar />
+  
+    {!users || users.length === 0 ? (
+         <div style={{position: 'relative'}}>
         
-        <p>
-          GrowthCAP Inc. <code>- The Investor Module</code>  
-        </p>
-        <h4> User Logged In: {user?.email} </h4>
-        
+         <Box sx={{ display: 'flex', position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', backgroundColor: 'rgba(255, 255, 255, 0.5)', zIndex: 1 }}>
+           <CircularProgress style={{ margin: 'auto' }} />
+         </Box>
+       </div>
+      ) :(
+  
+      <div className="startupList">
+        {startups.map((startup) => (
+          <StartupCard key={startup.id} data={startup} />
+         
+          
+        ))}
+         
+       
+     </div>
+        )} 
+    </header> 
+  );
+}
 
-        <Step.Group size='small'>
-    <Step active>
-      <Icon name='code' />
-      <Step.Content>
-        <Step.Title>Coding Phase</Step.Title>
-        <Step.Description>Website under inital coding phase.</Step.Description>
-      </Step.Content>
-    </Step>
+export default Homepage;
 
-    <Step disabled>
-      <Icon name='bug' />
-      <Step.Content>
-        <Step.Title>Bug fixes and debugging</Step.Title>
-        <Step.Description>Improving overall quality by fixing bugs. </Step.Description>
-      </Step.Content>
-    </Step>
-
-    <Step disabled>
-      <Icon name='code branch' />
-      <Step.Content>
-        <Step.Title>Project Finalization</Step.Title>
-        <Step.Description>Testing phase and project finalization.</Step.Description>
-      </Step.Content>
-    </Step>
-
-    <Step disabled>
-      <Icon name='bullhorn' />
-      <Step.Content>
-        <Step.Title>Go Live</Step.Title>
-        <Step.Description>Deploy project to live customers.</Step.Description>
-      </Step.Content>
-    </Step>
-  </Step.Group>
-
-
-
+   {/* 
         <Button.Group>
         <Button animated='vertical' async onClick={userSettings}>
        
@@ -104,12 +131,4 @@ function Homepage() {
           </Button.Content>
         </Button>
         </Button.Group>
-        <br/>
-
-      </header>
-
-    </div>  
-  );
-}
-
-export default Homepage;
+        <br/> */}

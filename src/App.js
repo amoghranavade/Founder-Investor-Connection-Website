@@ -12,6 +12,7 @@ import Terms from "./Components/Misc/terms"
 import Who from "./Components/Register/who"
 import UserSettings from "./Components/UserSettings/usersetting"
 
+
 function App() {
   return (
     <BrowserRouter>

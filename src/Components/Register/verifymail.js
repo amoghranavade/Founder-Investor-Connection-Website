@@ -19,132 +19,135 @@ import { convertLength } from '@mui/material/styles/cssUtils';
 
 
 
-function VerifyMail() {
-    const [user, setUser] = useState({});
-    onAuthStateChanged(auth, (currentUser) => {
-      if(user) {
-      setUser(currentUser);
-    }
+// function VerifyMail() {
+//     const [user, setUser] = useState({});
+//     onAuthStateChanged(auth, (currentUser) => {
+//       if(user) {
+//       setUser(currentUser);
+//     }
   
-    else {
-      navigate('/register')
-    }
-    });
-    const [checked, setChecked] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(120);
-    const navigate = useNavigate();
+//     else {
+//       navigate('/register')
+//     }
+//     });
+//     const [checked, setChecked] = useState(false);
+//     const [disabled, setDisabled] = useState(false);
+//     const [timeLeft, setTimeLeft] = useState(120);
+//     const navigate = useNavigate();
 
-    useEffect(() => {
-      if (disabled) {
-        const intervalId = setInterval(() => {
-          setTimeLeft(timeLeft - 1);
-        }, 1000);
-        return () => clearInterval(intervalId);
-      }
-    }, [disabled, timeLeft]);
+//     useEffect(() => {
+//       if (disabled) {
+//         const intervalId = setInterval(() => {
+//           setTimeLeft(timeLeft - 1);
+//         }, 1000);
+//         return () => clearInterval(intervalId);
+//       }
+//     }, [disabled, timeLeft]);
   
-    useEffect(() => {
-      if (timeLeft === 0) {
-        setDisabled(false);
-        setTimeLeft(120);
-      }
-    }, [timeLeft]);
+//     useEffect(() => {
+//       if (timeLeft === 0) {
+//         setDisabled(false);
+//         setTimeLeft(120);
+//       }
+//     }, [timeLeft]);
 
-    const sendVerificationMail = () => {
+//     const sendVerificationMail = () => {
     
    
-      sendEmailVerification(auth.currentUser)
-           .then(() => {
-               console.log("Sent");  
-               setDisabled(true);        
-           })
-           .catch((error) => {
-               console.log('Email verification error', error);
-           });
-      // console.log("test");
-      // setDisabled(true);  
+//       sendEmailVerification(auth.currentUser)
+//            .then(() => {
+//                console.log("Sent");  
+//                setDisabled(true);        
+//            })
+//            .catch((error) => {
+//                console.log('Email verification error', error);
+//            });
+  
  
-  }
+//   }
   
-    useEffect(() => {
-      document.title = 'GrowthCAP - Register';
-    }, []);
+//     useEffect(() => {
+//       document.title = 'GrowthCAP - Register';
+//     }, []);
 
 
-    useEffect(() => {
-      const emailVerificationListener = onAuthStateChanged(auth, (user) => {
-        if (user?.emailVerified) {
-          navigate('/who');
-        }
-      });
-    
-      return () => {
-        emailVerificationListener();
-      };
-    }, [navigate]);
-
-
-
-
-// function VerifyMail() {
-//   const [user, setUser] = useState({});
-//   onAuthStateChanged(auth, (currentUser) => {
-//     if(user) {
-//     setUser(currentUser);
-//   }
-//   else {
-//     navigate('/register')
-//   }
-//   });
-//   const [checked, setChecked] = useState(false);
-//   const [disabled, setDisabled] = useState(JSON.parse(localStorage.getItem('disabled')) || false);
-//   const [timeLeft, setTimeLeft] = useState(JSON.parse(localStorage.getItem('timeLeft')) || 120);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     if (disabled) {
-//       const intervalId = setInterval(() => {
-//         setTimeLeft(timeLeft - 1);
-//       }, 1000);
-//       return () => clearInterval(intervalId);
-//     }
-//   }, [disabled, timeLeft]);
-
-//   useEffect(() => {
-//     if (timeLeft === 0) {
-//       setDisabled(false);
-//       setTimeLeft(120);
-//     }
-//   }, [timeLeft]);
-
-//   const sendVerificationMail = () => {
-//     sendEmailVerification(auth.currentUser)
-//       .then(() => {
-//         console.log("Sent");  
-//         setDisabled(true);
-//         localStorage.setItem('disabled', true);
-//       })
-//       .catch((error) => {
-//         console.log('Email verification error', error);
+//     useEffect(() => {
+//       const emailVerificationListener = onAuthStateChanged(auth, (user) => {
+//         if (user?.emailVerified) {
+//           navigate('/who');
+//         }
 //       });
-//   }
+    
+//       return () => {
+//         emailVerificationListener();
+//       };
+//     }, [navigate]);
 
-//   useEffect(() => {
-//     document.title = 'GrowthCAP - Register';
-//   }, []);
 
-//   useEffect(() => {
-//     const emailVerificationListener = onAuthStateChanged(auth, (user) => {
-//       if (user?.emailVerified) {
-//         navigate('/who');
-//       }
-//     });
+
+
+function VerifyMail() {
+  const [user, setUser] = useState({});
+  onAuthStateChanged(auth, (currentUser) => {
+    if(user) {
+    setUser(currentUser);
+  }
+  else {
+    navigate('/register')
+  }
+  });
+  const [checked, setChecked] = useState(false);
+  const [disabled, setDisabled] = useState(JSON.parse(localStorage.getItem('disabled')) || false);
+  const [timeLeft, setTimeLeft] = useState(JSON.parse(localStorage.getItem('timeLeft')) || 120);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (disabled) {
+      const intervalId = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+  }, [disabled, timeLeft]);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setDisabled(false);
+      setTimeLeft(120);
+    }
+  }, [timeLeft]);
+
+  const sendVerificationMail = () => {
+    sendEmailVerification(auth.currentUser)
+      .then(() => {
+        console.log("Sent");  
+        setDisabled(true);
+        localStorage.setItem('disabled', true);
+      })
+      .catch((error) => {
+        console.log('Email verification error', error);
+      });
+  }
+
+  useEffect(() => {
+    document.title = 'GrowthCAP - Register';
+  }, []);
+
+  useEffect(() => {
+    const emailVerificationListener = onAuthStateChanged(auth, (user) => {
+      if (user?.emailVerified) {
+        navigate('/who');
+      }
+    });
   
-//     return () => {
-//       emailVerificationListener();
-//     };
-//   }, [navigate]);
+    return () => {
+      emailVerificationListener();
+    };
+  }, [navigate]);
+
+
+
+  
 
   useEffect(() => {
     localStorage.setItem('timeLeft', timeLeft);

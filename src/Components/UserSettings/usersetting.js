@@ -8,7 +8,7 @@ import React, {useEffect, useState } from 'react';
 import founder from'../Assets/Images/founder.png';
 import {onSnapshot,  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import santaHat from'../Assets/Images/santa_hat_U01_EDITED.png';
-import Alert from '@mui/material/Alert';
+// import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import mainLogo from'../Assets/Images/mainlogo.png';
 import {
@@ -16,14 +16,37 @@ import {
   linkWithPhoneNumber,
   signOut,
 } from "firebase/auth";
-import { db , auth} from '../Assets/Database/firebase-config';
+import { storage, db , auth} from '../Assets/Database/firebase-config';
 import { unlink, getAuth, RecaptchaVerifier, PhoneAuthProvider } from 'firebase/auth';
 import { red } from '@mui/material/colors';
+
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import Avatar from '@mui/material/Avatar';
+
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
+
 
 
 
 
 function UserSettings() {
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenWarning(false);
+
+  };
 
   const configureCaptcha = () => {
     if (!window.recaptchaVerifier) {
@@ -37,7 +60,8 @@ function UserSettings() {
       }, auth);
     }
   }
-
+  const [openWarning, setOpenWarning] = React.useState(false);
+  const [openSuccess, setOpenSuccess] = React.useState(false);
   const [showNumberInput, setShowNumberInput] = useState(true);
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [showSendOtpButton, setShowSendOtpButton] = useState(true);
@@ -61,6 +85,9 @@ function UserSettings() {
   
 
   const paragraph = document.getElementById('phone');
+
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
   const navigate = useNavigate();
 
   // const user = auth.currentUser;
@@ -83,13 +110,16 @@ function UserSettings() {
     const user = auth.currentUser;
     // user = auth.currentUser;
     // localStorage.setItem('user', JSON.stringify(user));
+
+
+
     if (user) {
      
       user
         .getIdTokenResult()
         .then(idTokenResult => {
           if (idTokenResult.claims.phone_number) {
-            console.log('Reaching IF')
+            // console.log('Reaching IF')
             // User has a phone number linked to their account
             setShowUpdate(false);
             setShowDelink(true);
@@ -97,7 +127,7 @@ function UserSettings() {
           } 
 
           else {
-            console.log('Reaching ELSE')
+            // console.log('Reaching ELSE')
             setShowUpdate(true);
             setShowDelink(false);
           }
@@ -109,6 +139,21 @@ function UserSettings() {
         });
     }
   }, []);
+
+
+  useEffect(() => {
+   
+    const imageRef = ref(storage, user.uid + '/profilepicture');
+
+    getDownloadURL(imageRef)
+      .then((url) => {
+        setUrl(url);
+      })
+      .catch((error) => {
+        console.error('Failed to retrieve profile picture:', error);
+      });
+  }, []);
+
 
   const usersCollectionRef = collection(db, 'app', 'users', user.uid);
 
@@ -264,6 +309,8 @@ function UserSettings() {
       console.log("too many requests hit");
       setShowAlert(false);
       setErrorAlert(true);
+      setOpenWarning(true);
+      setOpenSuccess(false);
     } 
 
     else {
@@ -275,6 +322,7 @@ function UserSettings() {
     
       console.log("Reset Mail Sent");
       setShowAlert(true);
+      setOpenSuccess(true);
       
       // onSnapshot(collection(db, 'app', 'users', user.uid), (querySnapshot) => {
       //   const updatedUsers = [];
@@ -290,10 +338,37 @@ function UserSettings() {
     
   }
 
-  const hideResetAlert = () => {
-    setShowAlert(false);
-  }
 
+
+  
+  
+  const handleImageChange = (e) => {
+    if(e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  // console.log(image);
+
+  const handleSubmit = () => {
+
+    const imageRef = ref(storage, user.uid + '/profilepicture');
+    uploadBytes(imageRef, image)
+    .then(() => {
+      getDownloadURL(imageRef)
+      .then((url) => {
+        setUrl(url);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+      setImage(null);
+    })
+    .catch(error => {
+      console.log(error.message);
+    });
+
+  };
   
 
   
@@ -315,26 +390,56 @@ function UserSettings() {
         users.map((user) => {
         
           return (
+
             <div className="UserSetting">
               {showResetAlert && (
-                <div onClick={() => hideResetAlert}>
-               <Alert  style={{fontSize: '14px'}} className='passResetAlert' variant="filled" severity="success">
+                // <div onClick={() => hideResetAlert}>
+              //  <Alert  style={{fontSize: '14px'}} className='passResetAlert' variant="filled" severity="success">
+              //   A password reset mail was sent on <span style={{fontWeight: 700}}>{user.email}</span>
+              // </Alert>
+              // </div>
+
+              <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 A password reset mail was sent on <span style={{fontWeight: 700}}>{user.email}</span>
-              </Alert>
-              </div>
+                </Alert>
+              </Snackbar>
               )}
               {showErrorAlert &&(
-                  <Alert  className='passResetAlert' variant="filled" severity="warning" style={{fontSize: '14px'}}>
-                  Too many requests received from this account! Try again in a few hours.
+                //   <Alert  className='passResetAlert' variant="filled" severity="warning" style={{fontSize: '14px'}}>
+                //   Too many requests received from this account! Try again in a few hours.
+                // </Alert>
+
+                <Snackbar open={openWarning} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+                Too many requests received from this account! Try again in a few hours.
                 </Alert>
+              </Snackbar>
               )}
               <header className="user-setting">
                 <p className='settingText'>Settings</p>
 
                 <div className="user-pic-container">
-                  <div className="user-pic-circle">
+
+
+
+
+                <Avatar
+                    alt={user.type}
+                    src={url}
+                    sx={{ width: 110, height: 110 }}
+                />
+                    <input type='file' onChange={handleImageChange}/>
+                    <button onClick={handleSubmit}>Upload Pic</button>
+                  {/* <div className="user-pic-circle">
                     <img  src={founder}  alt="GrowthCAP-founder"/>
-                  </div>
+                 
+                  </div> */}
+
+
+
+
+
 
                   <div className="parent">
                      <p className="mainName">{user.name}</p>

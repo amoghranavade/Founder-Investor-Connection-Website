@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,4 +25,5 @@ const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 // export const captcha = new RecaptchaVerifier(app);
 export const db = getFirestore(app)
+export const storage = getStorage(app);
 export default app;
