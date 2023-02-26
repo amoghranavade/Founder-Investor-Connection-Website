@@ -96,7 +96,7 @@
     margin-right: 48%;
     /* margin-top: -9.4%; */
     transform: translateY(-45%);
-    color:#4A45FF ;
+    color:#FF6E15 ;
   }
   
   .registerFooter{
@@ -105,6 +105,29 @@
     color:lightslategrey;
     transform: translateY(50%);
     top: 95%;
+  }
+
+  @media (max-width: 600px) {
+
+   .register{
+    overflow: hidden;
+   }
+    .infoCard {
+      display: none;
+    }
+
+    .registerFooter{
+ 
+      top: 95%;
+    }
+
+    .registerCard{
+      border-radius: 40px;
+    }
+
+    .nameField{
+      font-size: 10px;
+    }
   }
 
   

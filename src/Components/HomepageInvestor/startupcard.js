@@ -76,6 +76,10 @@ export default function StartupCard(props) {
           });
       }, []);
 
+    
+       
+
+
 
 
 
@@ -112,12 +116,23 @@ export default function StartupCard(props) {
       />
      <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-          <Typography sx={{ marginRight: '20%' }} variant="body2" color="text.secondary">Members: {data.members}</Typography>
+          
+          <Typography sx={{ marginRight: '10%' }} variant="body2" color="text.secondary">Members: {data.members}</Typography>
+          <Typography sx={{ marginRight: '10%' }} variant="body2" color="text.secondary">ROI: {data.roi}</Typography>
           <Typography variant="body2" color="text.secondary">Field: {data.industry}</Typography>
         </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', marginTop:'-0.6rem' }}>
+          
+        <Typography sx={{ marginRight: '5%' }} variant="body2" color="text.secondary">Equity offered: {data.equity}</Typography>
+          <Typography sx={{ marginRight: '0%' }} variant="body2" color="text.secondary">At amount: {data.amount}</Typography>
+          
+        </div>
+        
         <Typography variant="body1" color="text.primary">
           {data.startupdesc}
         </Typography>
+
+        
     </CardContent>
 
 

@@ -145,7 +145,7 @@ const Login = () => {
 
         <Input
             className={`input ${emailFocus ? 'focused' : ''}`}
-            style={{ width: '80%', fontSize: '16px' }}
+            style={{ width: '80%', fontSize: '15px' }}
             icon='users'
             iconPosition='left'
             placeholder='Email'
@@ -156,7 +156,7 @@ const Login = () => {
         <br />
         <Input
             className={`input ${passwordFocus ? 'focused' : ''}`}
-            style={{ width: '80%', fontSize: '16px' }}
+            style={{ width: '80%', fontSize: '15px' }}
             icon='key'
             iconPosition='left'
             placeholder='Password'

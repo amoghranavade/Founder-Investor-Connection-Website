@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import founder from'../Assets/Images/founder.png';
 import mainLogo from'../Assets/Images/mainlogo.png';
 import flyer from'../Assets/Images/GrowthCap-Register.jpg';
+import HandshakeTwoToneIcon from '@mui/icons-material/HandshakeTwoTone';
 import investor from'../Assets/Images/investor.png';
 
 // import Button from '@mui/material/Button';
@@ -213,12 +214,12 @@ function Register() {
   return (
     
     
-    <div className="Register">
+    <div className="register">
     
       <header className="Register-header">
         <div className='parentDiv'>
         <div className='infoCard' style={{backgroundImage: `url(${flyer})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-          <p className='infoCardHeader'>GrowthCAP - Gr</p>
+          <p className='infoCardHeader'>GrowthCAP Inc.</p>
         
           
           {/* <div className='insideDivInfo'>
@@ -228,18 +229,18 @@ function Register() {
       <div className="registerCard" >
         <br/>
         <br/>
-        <p className='registerCardHeader'>ow With Us!</p> 
-        {/* <p style={{fontSize: '28px', display: 'flex', alignItems: 'center'}}>
+        {/* <p className='registerCardHeader'>ow With Us!</p>  */}
+        <p style={{fontSize: '28px', display: 'flex', alignItems: 'center'}}>
           
           <img style={{ height:'80px', width:'80px'}} src={founder}  alt="GrowthCAP-founder"/>
-           &nbsp;<Icon name='handshake outline'/>
+           &nbsp;<HandshakeTwoToneIcon  fontSize="large"/>
           <img style={{ height:'80px', width:'80px'}} src={investor}  alt="GrowthCAP-investor"/>
-          =
+          {/* =
           &nbsp;
-          <img style={{ height:'100px', width:'75px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+          <img style={{ height:'100px', width:'75px'}} src={mainLogo}  alt="GrowthCAP-logo"/> */}
           
         
-        </p> */}
+        </p>
         
         {
         errorUniqueEmail ? <div style={{ border: '1px solid red', borderRadius: '5px', width:'80%', backgroundColor:'#FCDCE0', marginBottom: 20}} >  
@@ -268,44 +269,34 @@ function Register() {
         }
         
         
-        <Input style={{width:'80%', fontSize:'16px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
-        {/* <TextField
-        style={{width:'80%', fontSize:'19px', color:'white'}}
-          required
-          id="filled-required"
-          label="Email"
-          defaultValue="john@mail.com"
-          // variant="filled"
-          onChange = {(e) => setEmail(e.target.value)}
-        /> */}
+        <Input style={{width:'80%', fontSize:'15px'}} icon='envelope' iconPosition='left' placeholder='Email' onChange = {(e) => setEmail(e.target.value)}/>
+     
         <br/>
-        <div style={{ display: 'flex', marginBottom:'4%'}}>
-          <Input maxLength={15} style={{ width: '40%', flexBasis: '40%',  transform: 'translateX(25%)', marginRight: '10px', fontSize: '16px' }} icon='user' iconPosition='left' placeholder='Firstname' onChange={(e) => setFirstname(e.target.value)} />
-          <Input maxLength={15} style={{ width: '40%', flexBasis: '40%',  transform: 'translateX(25%)', paddingRight:'10px', fontSize: '16px' }}  placeholder='Surname' onChange={(e) => setSurname(e.target.value)} />
+        <div style={{marginBottom:'5%'}}>
+          <Input maxLength={15} style={{ width: '40%', flexBasis: '40%',  transform: 'translateX(25%)', marginRight: '10px', fontSize: '15px' }} icon='user' iconPosition='left' placeholder='Firstname' onChange={(e) => setFirstname(e.target.value)} />
+          <Input maxLength={15} style={{ width: '40%', flexBasis: '40%',  transform: 'translateX(25%)', paddingRight:'10px', fontSize: '15px' }}  placeholder='Surname' onChange={(e) => setSurname(e.target.value)} />
         </div>
 
-        <Input maxLength={20} style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
+        <Input maxLength={20} style={{width: "80%", fontSize: '15px'}} icon='key' iconPosition='left' placeholder='Password' type='password' onChange = {(e) => setPassword(e.target.value)}/>
         <br/>
-        <Input maxLength={20} style={{width: "80%", fontSize: '16px'}} icon='key' iconPosition='left' placeholder='Re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
+        <Input maxLength={20} style={{width: "80%", fontSize: '15px'}} icon='key' iconPosition='left' placeholder='Re-enter password' type='password' onChange = {(e) => setRPassword(e.target.value)}/>
         <br/>
         
 
 
         <label style={{display: "flex", alignItems: "center", fontSize: "16px"}}>
-      <input
-        type="checkbox"
-        style={{width: "17px", height: "17px", marginRight: "10px"}}
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-      />
-      I accept the&nbsp; 
-        <a onClick={handleClickOpen('paper')} >
-         Terms & Conditions
-        </a>
-      {/* <a href="./terms" target="_blank" rel="noopener noreferrer">
-         Terms & Conditions
-      </a> */}
-    </label>
+            <input
+              type="checkbox"
+              style={{width: "17px", height: "17px", marginRight: "10px"}}
+              checked={checked}
+              onChange={() => setChecked(!checked)}
+            />
+               I accept the&nbsp; 
+                  <a onClick={handleClickOpen('paper')} >
+                  Terms & Conditions
+                  </a>
+   
+        </label>
 
     <Dialog
         open={open}

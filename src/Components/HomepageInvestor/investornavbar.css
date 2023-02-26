@@ -1,0 +1,12 @@
+.websiteLogo {
+    height:70px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+
+@media (max-width: 600px) {
+   .websiteLogo{
+    display: none;
+   }
+  }

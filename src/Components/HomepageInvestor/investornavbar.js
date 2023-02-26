@@ -16,6 +16,7 @@ import Badge from '@mui/material/Badge';
 import mainLogo from '../Assets/Images/mainlogo.png'
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import './investornavbar.css';
 
 import {useEffect, useState} from 'react';
 import { storage, db , auth} from '../Assets/Database/firebase-config';
@@ -109,7 +110,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <img  style={{ height:'70px', width:'50px', marginRight:'10px'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+          <img  className='websiteLogo' style={{ }} src={mainLogo}  alt="GrowthCAP-logo"/>
           <Typography
             variant="h5"
             noWrap
@@ -120,7 +121,7 @@ function ResponsiveAppBar() {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'poppins',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -176,7 +177,8 @@ function ResponsiveAppBar() {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              paddingLeft:'6%',
+              letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
             }}

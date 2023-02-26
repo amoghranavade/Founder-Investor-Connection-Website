@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input, Icon, Rating, Step, Confirm, Card, Image, Popup} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import CircularProgress from '@mui/material/CircularProgress';
+
 import Box from '@mui/material/Box';
 import React, {useEffect, useState } from 'react';
 import founder from'../Assets/Images/founder.png';
@@ -391,7 +392,7 @@ function UserSettings() {
         
           return (
 
-            <div className="UserSetting">
+            <div className="userSetting">
               {showResetAlert && (
                 // <div onClick={() => hideResetAlert}>
               //  <Alert  style={{fontSize: '14px'}} className='passResetAlert' variant="filled" severity="success">
@@ -423,19 +424,39 @@ function UserSettings() {
 
 
 
+                  <div>
+                    <label id='avatarInput'>
+                    <Avatar
+                      alt={user.type}
+                      src={url}
+                      sx={{ 
+                        width: 110, 
+                        height: 110, 
+                        cursor: 'pointer',
+                        transition: 'opacity 0.3s ease-in-out',
+                        '&:hover': {
+                          opacity: 0.4,
+                        },
+                      }}
+                    />
 
-                <Avatar
-                    alt={user.type}
-                    src={url}
-                    sx={{ width: 110, height: 110 }}
-                />
-                    <input type='file' onChange={handleImageChange}/>
-                    <button onClick={handleSubmit}>Upload Pic</button>
-                  {/* <div className="user-pic-circle">
-                    <img  src={founder}  alt="GrowthCAP-founder"/>
+                  
+                    <input
+                      id="avatarInput"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      style={{ display: 'none' }}
+                    />
+                    </label>
+                  </div>
+
+
+                
+                    {/* <input type='file' onChange={handleImageChange}/> */}
+                    
+                    {/* <button >Upload Pic</button>  */}
                  
-                  </div> */}
-
 
 
 
@@ -449,6 +470,7 @@ function UserSettings() {
                      </div>
                  </div>
                 </div>
+                <button onClick={handleSubmit} className="ui primary button save-and-upload" fdprocessedid="74s44">Save</button>
       
 
                 <div className="basicPad">

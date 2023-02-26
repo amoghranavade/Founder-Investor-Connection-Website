@@ -24,6 +24,7 @@ body{
 @media screen and (max-width: 600px) {
   .startupList > * {
     flex-basis: calc(100% - 2rem);
+    margin-top: 10%;
   }
 }
   
