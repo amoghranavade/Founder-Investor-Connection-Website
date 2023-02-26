@@ -39,3 +39,6 @@ Mouse cursor Types - https://www.digitalocean.com/community/tutorials/css-cursor
 5--> `firebase deploy`  
 
 6--> Disable by `firebase hosting:disable`
+
+
+##If already deployed earlier and then disabled, simply follow from step 4 onwards
