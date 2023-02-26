@@ -1,4 +1,4 @@
-# GrowthCAP - SEM VII Major Project
+# GrowthCAP - SEM VII + VIII Major Project
 
 This is a project under Computer Engineering, SEM VII Major-Project.  
 
@@ -41,4 +41,4 @@ Mouse cursor Types - https://www.digitalocean.com/community/tutorials/css-cursor
 6--> Disable by `firebase hosting:disable`
 
 
-## If already deployed earlier and then disabled, simply follow from step 4 & 5 to deploy again
+# If already deployed earlier and then disabled, simply follow step 4 & 5 to deploy again.
