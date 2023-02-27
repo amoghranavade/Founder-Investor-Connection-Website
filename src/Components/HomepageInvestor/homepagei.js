@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Icon, Rating, Step, Confirm, Card, Image} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
@@ -35,6 +36,9 @@ function Homepage() {
   }, []);
 
   
+  // StartupCard.propTypes = {
+  //   loading: PropTypes.bool,
+  // };
   
 
   useEffect(() => {
@@ -42,7 +46,9 @@ function Homepage() {
       // const startupCollection = collection(db, "startups");
       const startupCollection = collection(db, 'startups');
       const startupSnapshot = await getDocs(startupCollection);
+      
       const startupData = startupSnapshot.docs.map((doc) => ({
+        
         id: doc.id,
         ...doc.data(),
         
@@ -81,7 +87,7 @@ function Homepage() {
   });
 
  
-
+ 
   
   return (
    <header>
@@ -94,13 +100,16 @@ function Homepage() {
        </div>
       ) :(
   <div>
+     
     <InvestorNavbar />
    
   
     
   
       <div className="startupList">
+      {/* <StartupCard true /> */}
         {startups.map((startup) => (
+          
           <StartupCard key={startup.id} data={startup} />
          
           

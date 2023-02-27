@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import { styled } from '@mui/material/styles';
+import Skeleton from '@mui/material/Skeleton';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -42,8 +43,17 @@ const ExpandMore = styled((props) => {
 
 export default function StartupCard(props) {
 
+  // const { loading = false } = props;
+  const [loading, setLoading] = useState(true);
+
   const {data} = props;
   const [expanded, setExpanded] = React.useState(false);
+
+  useEffect(()=> {
+     setTimeout(()=> {
+      setLoading(false);
+  }, 1300);
+  },[])
 
 
 
@@ -97,25 +107,59 @@ export default function StartupCard(props) {
     <Card sx={{ maxWidth: 345}}>
       <CardHeader
         avatar={
+          loading ? (
+            <Skeleton animation="wave" variant="circular" width={40} height={40} />
+          ) : (
           <Avatar  src={url} sx={{ bgcolor: purple[500] }} aria-label="recipe">
             GC
           </Avatar>
+          )
         }
+  
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title={data.startupfounder}
-        subheader={data.postedon}
+        title={
+          loading ? (
+            <Skeleton
+              animation="wave"
+              height={10}
+              width="80%"
+              style={{ marginBottom: 6 }}
+            />
+          ) : (
+            data.startupfounder
+          )
+        }
+        subheader={
+          loading ? (
+            <Skeleton animation="wave" height={10} width="40%" />
+          ) : (
+            data.postedon
+
+            )
+          }
       />
+       {loading ? (
+        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+      ) : (
       <CardMedia
         component="img"
         height="194"
         image={urlStartup}
         alt="startupImage"
       />
+      )}
      <CardContent>
+     {loading ? (
+          <React.Fragment>
+            <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+            <Skeleton animation="wave" height={10} width="80%" />
+          </React.Fragment>
+        ) : (
+          <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
           
           <Typography sx={{ marginRight: '10%' }} variant="body2" color="text.secondary">Members: {data.members}</Typography>
@@ -132,8 +176,9 @@ export default function StartupCard(props) {
         <Typography variant="body1" color="text.primary">
           {data.startupdesc}
         </Typography>
+        </div>
 
-        
+)}
     </CardContent>
 
 
