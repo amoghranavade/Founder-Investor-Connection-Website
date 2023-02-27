@@ -116,15 +116,17 @@
       display: none;
     }
 
+    .registerCard{
+      min-width: 95vw;
+      border-radius: 3%;
+    }
+
     .registerFooter{
  
       top: 95%;
     }
 
-    .registerCard{
-      border-radius: 40px;
-    }
-
+   
     .nameField{
       font-size: 10px;
     }

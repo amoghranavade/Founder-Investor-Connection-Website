@@ -3,7 +3,7 @@
     background-color: #0D1117;
   } */
   @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-  .Register-header {
+  .verify-header {
     font-family: 'Poppins';
     background-color: #0A1929;
     min-height: 100vh;
@@ -19,7 +19,9 @@
     font-size: 1;
   }
 
-  .RegisterCard {
+ 
+
+  .verifyCard {
     background-color: #082038;
     min-height: 20rem;
     min-width: 30rem;
@@ -36,5 +38,18 @@
     font-size: 18px;
     padding-top: 10px;
     color: rgb(187, 65, 89);
+  }
+
+  @media (max-width: 600px) {
+    .verifyCard{
+      min-width: 95vw;
+      min-height: 45vh;
+    }
+
+    .timeLeft{
+      font-size: 16px;
+    }
+
+   
   }
   

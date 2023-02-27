@@ -34,7 +34,7 @@ function Homepage() {
     });
   }, []);
 
-  // rest of the compon
+  
   
 
   useEffect(() => {
@@ -85,10 +85,6 @@ function Homepage() {
   
   return (
    <header>
-    
-
-    <InvestorNavbar />
-  
     {!users || users.length === 0 ? (
          <div style={{position: 'relative'}}>
         
@@ -97,6 +93,11 @@ function Homepage() {
          </Box>
        </div>
       ) :(
+  <div>
+    <InvestorNavbar />
+   
+  
+    
   
       <div className="startupList">
         {startups.map((startup) => (
@@ -107,7 +108,8 @@ function Homepage() {
          
        
      </div>
-        )} 
+     </div>
+         )}  
     </header> 
   );
 }

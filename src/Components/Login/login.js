@@ -16,9 +16,33 @@ import {  updateDoc, addDoc, collection, getDocs, doc, setDoc } from 'firebase/f
 import { db , auth} from '../Assets/Database/firebase-config';
 import { ImCross } from "react-icons/im";
 import { async } from '@firebase/util';
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/material/styles';
 
 
 const Login = () => {
+
+  // const CustomTextField = styled(TextField)({
+  //   '& .MuiOutlinedInput-root': {
+  //     '& fieldset': {
+  //       borderColor: 'white', // customize border color here
+  //     },
+  //     '&:hover fieldset': {
+  //       borderColor: 'white', // customize border color on hover here
+  //     },
+  //     '&.Mui-focused fieldset': {
+  //       borderColor: '2px solid rgb(13, 109, 200)', // customize border color when focused here
+  //     },
+  //     backgroundColor: '#CDD8F5',
+  //     fontSize: '15px',
+  //     width: '16vw',
+    
+  //   },
+  // });
+
+
+
+
   let [users, setUsers] = useState([]);
   const [emailFocus, setEmailFocus] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);  
@@ -145,7 +169,7 @@ const Login = () => {
 
         <Input
             className={`input ${emailFocus ? 'focused' : ''}`}
-            style={{ width: '80%', fontSize: '15px' }}
+            style={{ width: '80%', fontSize: '15px', backgroundColor: '#CDD8F5' }}
             icon='users'
             iconPosition='left'
             placeholder='Email'
@@ -153,6 +177,7 @@ const Login = () => {
             onBlur={() => setEmailFocus(false)}
             onChange={(e) => setEmail(e.target.value)}
         />
+        {/* <CustomTextField id="outlined-basic" label="Outlined" variant="outlined" /> */}
         <br />
         <Input
             className={`input ${passwordFocus ? 'focused' : ''}`}

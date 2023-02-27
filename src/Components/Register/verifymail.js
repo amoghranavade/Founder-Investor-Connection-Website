@@ -154,9 +154,9 @@ function VerifyMail() {
   }, [timeLeft]);
   
     return (
-      <div className="VerifyMail">
-    <header className="Register-header">
-      <div className="RegisterCard">
+      <div className="verifyMail">
+    <header className="verify-header">
+      <div className="verifyCard">
         <br />
         <br />
         <p style={{ fontSize: '28px' }}>
@@ -180,7 +180,7 @@ function VerifyMail() {
         >
           <Button.Content visible>Send verification link!</Button.Content>
         </Button>
-        {disabled && <div className="timeLeft" style={{ fontSize: 18 }}>Resend in: {timeLeft} seconds</div>}
+        {disabled && <div className="timeLeft">Resend in: {timeLeft} seconds</div>}
    
    
             <br />

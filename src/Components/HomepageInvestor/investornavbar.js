@@ -48,12 +48,7 @@ const settings = [
 
 
 
-let user = JSON.parse(localStorage.getItem('user'));
-if (!user) {
- 
-  user = auth.currentUser;
-  localStorage.setItem('user', JSON.stringify(user));
-}
+
 
 
 
@@ -61,6 +56,15 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
   const [url, setUrl] = useState(null);
     useEffect(() => {
+
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+ 
+        const user = auth.currentUser;
+        
+          localStorage.setItem('user', JSON.stringify(user));
+        }
+
    
         const imageRef = ref(storage, user.uid + '/profilepicture');
     
@@ -94,8 +98,9 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = ({id,path}) => () => {
 
     if(id === 6){
+      localStorage.clear();
       signOut(auth);
-    localStorage.clear();
+   
     }
 
     else{

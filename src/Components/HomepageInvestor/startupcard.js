@@ -10,6 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { purple } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
@@ -141,6 +142,7 @@ export default function StartupCard(props) {
       <div class="ui heart rating large-heart-rating" data-rating="0" data-max-rating="1">
         <Rating icon="heart" defaultRating={0} maxRating={1} />
       </div>
+      <Button sx={{marginLeft: '65%'}}size="small">More Info.</Button>
     </CardActions>
     </Card>
   );

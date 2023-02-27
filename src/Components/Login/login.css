@@ -52,6 +52,8 @@
   .input {
     border: 2px solid #082038;
     border-radius: 6px;
+    /* background-color: #CDD8F5; */
+    
    
   }
   
@@ -67,6 +69,13 @@
     color:lightslategrey;
     transform: translateY(50%);
     top: 95%;
+  }
+
+  @media (max-width: 600px) { 
+
+    .Card{
+      min-width: 95vw;
+    }
   }
  
   
