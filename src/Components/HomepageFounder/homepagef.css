@@ -1,10 +1,10 @@
 /* .Homepage {
     text-align: center;
   } */
-  
-  
-  .Homepage-header {
-    background-color: #0A1929;
+
+  .founder-homepage-header {
+    background-color: #101827;
+    /* margin-top: 10%; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,15 @@
     color: white;
   }
 
-  /* body {
-background-color: aqua;
+  .nameHeader{
+    color: #B8BCC1;
+
   }
-  */
+
+  @media (max-width: 600px) {
+
+    .nameHeader{
+      padding-top: 20%;
+    }
+
+  }

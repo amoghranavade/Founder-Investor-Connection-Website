@@ -21,6 +21,13 @@ import { Rating } from 'semantic-ui-react';
 import testPicture from'../Assets/Images/GrowthCap-Register.jpg';
 import { storage, db , auth} from '../Assets/Database/firebase-config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { addDoc, getDocs, collection, query, where, onSnapshot, doc } from "firebase/firestore"; 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
 import './startupcard.css';
 
 const ExpandMore = styled((props) => {
@@ -42,11 +49,12 @@ const ExpandMore = styled((props) => {
 // }
 
 export default function StartupCard(props) {
-
+  const [liked, setLiked] = useState(false);
   // const { loading = false } = props;
   const [loading, setLoading] = useState(true);
 
   const {data} = props;
+  const {id} = props;
   const [expanded, setExpanded] = React.useState(false);
 
   useEffect(()=> {
@@ -87,8 +95,37 @@ export default function StartupCard(props) {
           });
       }, []);
 
-    
+
+
+
+
+
+
+
+
+
+      // let likeCollectionRef = null;
+      let startupCollectionRef = null;
+
+      onAuthStateChanged(auth, (user) => {
+        if(user) { 
+          
+          // likeCollectionRef = collection(db, 'likes', user.uid+'-'+data.id, data.id)
+          startupCollectionRef = doc(db, 'startups', data.id);
+
+        }
+      });
        
+      
+
+
+      const handleLikeClick = async () => {
+        // await addDoc(startupCollectionRef, {likes: '2'});
+       
+        console.log('Startup liked with startupID: '+ data.id+' & founder: '+data.startupfounder)
+        
+      }
+
 
 
 
@@ -156,7 +193,9 @@ export default function StartupCard(props) {
      {loading ? (
           <React.Fragment>
             <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+            <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
             <Skeleton animation="wave" height={10} width="80%" />
+            {/* <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} /> */}
           </React.Fragment>
         ) : (
           <div>
@@ -180,15 +219,21 @@ export default function StartupCard(props) {
 
 )}
     </CardContent>
-
+    <CardActions disableSpacing>
+      <div className="ui heart rating large-heart-rating" data-rating='0' data-max-rating="1" onClick={handleLikeClick}>
+        <Rating icon="heart" defaultRating={liked ? "1" : "0"} maxRating={1} />
+      </div>
+      <Typography sx={{ marginRight: '10%' }} variant="body1" color="text.primary">{data.likes}</Typography>
+      <Button sx={{marginLeft: '50%'}}size="small">More Info.</Button>
+    </CardActions>
 
   
-    <CardActions disableSpacing >
+    {/* <CardActions disableSpacing >
       <div class="ui heart rating large-heart-rating" data-rating="0" data-max-rating="1">
-        <Rating icon="heart" defaultRating={0} maxRating={1} />
+        <Rating icon="heart" defaultRating={1} maxRating={1} />
       </div>
       <Button sx={{marginLeft: '65%'}}size="small">More Info.</Button>
-    </CardActions>
+    </CardActions> */}
     </Card>
   );
 }

@@ -1,7 +1,10 @@
-body{
+/* body{
+  background-color: #0A1929;
+} */
+
+.investorHomepage{
   background-color: #0A1929;
 }
-
 .startupList {
   display: flex;
   flex-wrap: wrap;

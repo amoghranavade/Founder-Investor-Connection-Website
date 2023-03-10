@@ -11,6 +11,7 @@ import VerifyMail from './Components/Register/verifymail'
 import Terms from "./Components/Misc/terms"
 import Who from "./Components/Register/who"
 import UserSettings from "./Components/UserSettings/usersetting"
+import AddStartup from'./Components/HomepageFounder/addstartup'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<HomepageGuest/>}/>
         <Route exact path="/homepagei" element={<HomepageInvestor/>}/>
         <Route exact path="/homepagef" element={<HomepageFounder/>}/>
+        <Route exact path="/addstartup" element={<AddStartup/>}/>
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} /> 
         <Route path='/verifymail' element={<VerifyMail/>} />

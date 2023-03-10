@@ -2,7 +2,10 @@ import './homepagef.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, Icon, Rating, Step, Confirm, Card, Image} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import React, { useEffect, useState } from 'react';
+import FounderNavbar from './foundernavbar';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -11,17 +14,40 @@ import {
 } from "firebase/auth";
 import { auth } from '../Assets/Database/firebase-config';
 
+
+
+
 function Homepage() {
 
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+
+  const [openKYCWarning, setOpenWarning] = React.useState(true);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenWarning(false);
+
+  };
+
+
+
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
+
+
   onAuthStateChanged(auth, (currentUser) => {
     if(user) {
     setUser(currentUser);
   }
 
-  // else {
-  //   navigate('/login')
-  // }
+  else {
+    navigate('/login')
+  }
   });
 
   const logout = async () => {
@@ -34,22 +60,34 @@ function Homepage() {
     
     navigate('/usersetting')
   };
-  const navigate = useNavigate();
-  // const navigateToLogin = () => {
-  //   navigate("/login");
-  // };
+ 
+
   useEffect(() => {
     document.title = 'GrowthCAP - Founder';
   });
   
   return (
+   
     
-    
-    <div className="Homepage">
-      <header className="Homepage-header">
+    <div className="founderHomepage">
+           
+                  <Snackbar open={openKYCWarning} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+                    Please complete your KYC in settings before listing your startup!
+                    </Alert>
+                  </Snackbar>
+              
+            
+
+
+                  <div>
+                      <FounderNavbar/>
+                  </div>
+
+      <header className="founder-homepage-header">
         
-        <p>
-          GrowthCAP Inc. <code>- The Founder Module</code>  
+        <p className='nameHeader'>
+          GrowthCAP Inc. - The Founder Module 
         </p>
         <h4> User Logged In: {user?.email} </h4>
         
@@ -107,7 +145,8 @@ function Homepage() {
         </Button>
         </Button.Group>
         <br/>
-
+        
+             
       </header>
 
     </div>  

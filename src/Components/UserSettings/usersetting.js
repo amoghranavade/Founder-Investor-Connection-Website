@@ -4,6 +4,14 @@ import { Button, Input, Icon, Rating, Step, Confirm, Card, Image, Popup} from 's
 import 'semantic-ui-css/semantic.min.css'
 import CircularProgress from '@mui/material/CircularProgress';
 
+import MenuOpenIcon from '@mui/icons-material/Menu';
+import ClearIcon from '@mui/icons-material/Clear';
+import PersonIcon from '@mui/icons-material/Person';
+import HomeIcon from '@mui/icons-material/Home';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import InfoIcon from '@mui/icons-material/Info';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import Box from '@mui/material/Box';
 import React, {useEffect, useState } from 'react';
 import founder from'../Assets/Images/founder.png';
@@ -72,8 +80,11 @@ function UserSettings() {
   const phoneRegex = /^[7-9][0-9]{9}$/;
   const [number, setPhoneNumber] = useState("");
   const [errorInvalidPhone, setErrorOne] = useState(false);
+  const [errorInvalidOTP, setErrorTwo] = useState(false);
   // const [otpSent, setSuccessTwo] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showPhoneNav, setShowPhoneNav] = useState(false);
+
   const [showButtonDelink, setShowDelink] = useState(false);
   const [showButtonUpdate, setShowUpdate] = useState(false);
   // const [numberValue, setNumber] = useState('');
@@ -89,6 +100,8 @@ function UserSettings() {
 
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
+
+  const navbarPhoneLayout = document.querySelector('.navbarPhoneLayout');
   const navigate = useNavigate();
 
   // const user = auth.currentUser;
@@ -192,6 +205,7 @@ function UserSettings() {
 
     if(!phoneRegex.test(number)){
       setErrorOne(true);
+      setErrorTwo(false);
       // setSuccessTwo(false);
       
 
@@ -200,6 +214,7 @@ function UserSettings() {
     else {
       const phoneNumber = '+91' + number;
       setErrorOne(false);
+      setErrorTwo(false);
       console.log(phoneNumber);
       // setSuccessTwo(true);
       linkWithPhoneNumber(user, phoneNumber, appVerifier)
@@ -209,10 +224,12 @@ function UserSettings() {
         setShowSendOtpButton(false);
         setShowVerifyOtpButton(true);
         setErrorOne(false);
+        setErrorTwo(false);
      
       console.log('OTP SENT');
       window.confirmationResult = confirmationResult;
     }).catch((e) => {
+     
       console.log(e);
 
       
@@ -263,6 +280,7 @@ function UserSettings() {
     }).catch((error) => {
       console.log(error);
       console.log("Invalid OTP");
+      setErrorTwo(true);
     });
   }
 
@@ -273,9 +291,11 @@ function UserSettings() {
     setShowVerifyOtpButton(false);
     setShowModal(false); 
     setErrorOne(false);
+    
   }
 
   const updateButton = () => {
+    setErrorTwo(false);
     setShowModal(true);
     configureCaptcha()
   }
@@ -371,8 +391,37 @@ function UserSettings() {
 
   };
   
-
+  const openPhoneNav = () => {
+    setShowPhoneNav(true);
+    // navbarPhoneLayout?.classList.add('visible');
+  }
   
+  const hidePhoneNav = () => {
+    setShowPhoneNav(false);
+  }
+
+  const goToProfile = () => {
+    navigate('/profile');
+  }
+
+  const goToHomepage = () => {
+    window.history.back()
+  }
+
+  const goToSupport = () => {
+    navigate('/contact');
+  }
+
+  const goToAbout = () => {
+    navigate('/about');
+  }
+
+  const logout = async() => {
+    await signOut(auth);
+    localStorage.clear();
+    navigate('/login')
+  }
+
 
   
   return (
@@ -418,7 +467,10 @@ function UserSettings() {
               </Snackbar>
               )}
               <header className="user-setting">
-                <p className='settingText'>Settings</p>
+                <div className='settingTextMobileView'>
+                   <p className='settingText'>Settings</p>
+                   <MenuOpenIcon onClick={openPhoneNav} sx={{display: { xs: 'flex', md: 'none' },fontSize:'30px', marginRight:'2%', marginBottom:'1%'}}/>
+                </div>
 
                 <div className="user-pic-container">
 
@@ -427,11 +479,29 @@ function UserSettings() {
                   <div>
                     <label id='avatarInput'>
                     <Avatar
+                      className='avatarMobileView'
                       alt={user.type}
                       src={url}
                       sx={{ 
+                        display: { xs: 'none', md: 'flex' },
                         width: 110, 
                         height: 110, 
+                        cursor: 'pointer',
+                        transition: 'opacity 0.3s ease-in-out',
+                        '&:hover': {
+                          opacity: 0.4,
+                        },
+                      }}
+                    />
+                    <Avatar
+                      className='avatarMobileView'
+                      alt={user.type}
+                      src={url}
+                      sx={{ 
+                        display: { xs: 'flex', md: 'none' },
+                        flexGrow: 1,
+                        width: 90, 
+                        height: 90, 
                         cursor: 'pointer',
                         transition: 'opacity 0.3s ease-in-out',
                         '&:hover': {
@@ -470,12 +540,14 @@ function UserSettings() {
                      </div>
                  </div>
                 </div>
-                <button onClick={handleSubmit} className="ui primary button save-and-upload" fdprocessedid="74s44">Save</button>
+
+
+                {/* <button onClick={handleSubmit} className="ui primary button save-and-upload" fdprocessedid="74s44">Save</button> */}
       
 
                 <div className="basicPad">
                   <div className='basicPadHeader'>
-                    <p className='basicPadHeaderText'>GENERAL</p>
+                    <p className='basicPadHeaderText'>General</p>
                   </div>
 
                   <p className="nameTag">Display Name</p>
@@ -510,7 +582,7 @@ function UserSettings() {
 
                 <div className='accountPad'>
                     <div className='accountPadHeader'>
-                       <p className='accountPadHeaderText'>ACCOUNT</p>
+                       <p className='accountPadHeaderText'>Account</p>
                    </div>
                      <p className="emailTag">Email</p>
                      <p className="emailContent">{user.email}</p>
@@ -559,7 +631,7 @@ function UserSettings() {
                 </div>
 
 
-                {showModal && (
+      {showModal && (
         <div className='phoneAuthDiv'>
          
           <div className='phoneAuthContent'>
@@ -567,7 +639,12 @@ function UserSettings() {
             <p className='phoneAuthHeader'>Verify your mobile number!</p>
             {
             errorInvalidPhone ? <div >  
-            <p style={{fontSize: '18px', color:'#FF4242',textAlign: 'center', marginBottom: 5}} >Please enter a valid number!</p>
+            <p style={{fontSize: '18px', color:'#FF4242',textAlign: 'center', marginBottom: '-5%'}} >Please enter a valid number!</p>
+            </div>:null
+            }
+             {
+            errorInvalidOTP ? <div >  
+            <p style={{fontSize: '18px', color:'#FF4242',textAlign: 'center', marginBottom: '-5%'}} >Entered OTP is incorrect!</p>
             </div>:null
             }
             {/* {
@@ -585,9 +662,66 @@ function UserSettings() {
              <button className='closePhoneAuthDiv' onClick={closeDiv}>Close</button>
 
           </div>
+
+         
           
         </div>
       )}
+      {showPhoneNav && (
+          <div className='navbarPhoneLayout'>
+            <div className='navbarPhoneLayoutBrief'>
+              <p className='navbarPhoneHeading'>Where to?</p>
+              <ClearIcon onClick={hidePhoneNav} sx={{display: { xs: 'flex', md: 'none' },color:'#A8A8A8', fontSize:'30px', marginTop:'10%', marginLeft:'50%'}}/>
+            </div>
+            <div className='navbarPhoneButtons'>
+             
+              <div style={{ display: 'flex'}}>
+               <HomeIcon sx={{display: { xs: 'flex', md: 'none' },color:'#024E6A', fontSize:'35px', marginTop:'0%', marginLeft:'3%'}}/>
+           
+               <button onClick={goToHomepage} style={{backgroundColor:'whitesmoke', border:'none', color:'black', marginTop:'1%', marginLeft:'2%', fontFamily:'poppins', fontWeight:'500'}}>Homepage</button>
+              </div> 
+              <div style={{ display: 'flex'}}>
+               <ContactSupportIcon sx={{display: { xs: 'flex', md: 'none' },color:'#78BDC4', fontSize:'35px', marginTop:'2%', marginLeft:'3%'}}/>
+           
+               <button onClick={goToSupport} style={{backgroundColor:'whitesmoke', border:'none', color:'black', marginTop:'1%', marginLeft:'2%', fontFamily:'poppins', fontWeight:'500'}}>Contact us</button>
+              </div> 
+              <div style={{ display: 'flex'}}>
+               <InfoIcon sx={{display: { xs: 'flex', md: 'none' },color:'#4A45FF', fontSize:'35px', marginTop:'2%', marginLeft:'3%'}}/>
+            
+               <button onClick={goToAbout} style={{backgroundColor:'whitesmoke', border:'none', color:'black', marginTop:'1%', marginLeft:'2%', fontFamily:'poppins', fontWeight:'500'}}>About us</button>
+              </div> 
+
+              <div style={{ display: 'flex'}}>
+               <PersonIcon sx={{display: { xs: 'flex', md: 'none' },color:'#2A6877', fontSize:'35px', marginTop:'2%', marginLeft:'3%'}}/>
+               {/* <p style={{color:'black', marginTop:'2%', marginLeft:'4%', fontFamily:'poppins', fontWeight:'500'}}>Profile</p> */}
+               <button onClick={goToProfile} style={{backgroundColor:'whitesmoke', border:'none', color:'black', marginTop:'1%', marginLeft:'2%', fontFamily:'poppins', fontWeight:'500'}}>Profile</button>
+              </div> 
+            
+              <div style={{ display: 'flex'}}>
+               <LogoutIcon sx={{display: { xs: 'flex', md: 'none' },color:'#F35959', fontSize:'35px', marginTop:'6%', marginLeft:'3%'}}/>
+              
+               <button onClick={logout} style={{backgroundColor:'whitesmoke', border:'none', color:'black', marginTop:'6%', marginLeft:'2%', fontFamily:'poppins', fontWeight:'500'}}>Logout</button>
+              </div> 
+
+            </div>
+          </div>
+      )}
+
+      <div className='mobileViewDeleteAndSince'>
+      <button className='deleteAccountMobileViewButton' onClick={deleteAccount}>Delete my account</button>
+        <p className="userSinceTagMobileView">User Since: {user.accountCreatedDate}</p>
+        
+      </div>
+      {/* <div className='colorGradient'>
+        <p>h</p>
+
+      </div> */}
+      <div className='mobileViewFooter'>
+        <p className='footerHeading'>#GROW<span className='headingSpan'>WITH</span>US</p>
+        <p className='footerHeadingDot'>⚪</p>
+        <p className='footerDescription'>Welcome to GrowthCAP, a mutual connection app for innovative startup founders & well established investors.</p>
+        <p className='footerDescriptionDesign'>/\/\/\/\/\/\</p>
+      </div>
 
               <div id='sign-in-button'> </div>
               </header>

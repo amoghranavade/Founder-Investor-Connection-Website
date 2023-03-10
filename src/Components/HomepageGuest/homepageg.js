@@ -1,73 +1,170 @@
 import React, { useState, useEffect } from 'react';
-import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
-import logo from '../Assets/Images/mainlogo.png';
 
-import ai from '../Assets/Images/ai.png';
-import './header.css';
-import './navbar.css';
 
-const Navbar = () => {
-  const [toggleMenu, setToggleMenu] = useState(false);
+import mainLogo from '../Assets/Images/mainlogo.png';
+import imageOne from '../Assets/Images/guestpagePicOne.jpg';
+import imageTwo from '../Assets/Images/guestpagePicTwo.jpg';
+import imageThree from '../Assets/Images/guestpagePicThree.jpg';
+import Menu from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
+
+import './homepageg.css';
+
+const HomepageGuest = () => {
+
+  const navigate = useNavigate();
+  const [showMenuOfNav, setShowMenu] = useState(false);
+  // const [hideFirstFlyer, setHideFlyer] = useState(true);
+  
   useEffect(() => {
     document.title = 'GrowthCAP - Home';
   });
+
+  const goToLogin = () => {
+    navigate('./login');
+  }
+
+  const openNavMenu= () => {
+    setShowMenu(true);
+  }
+
+ const closeNavMenu = () => {
+  setShowMenu(false);
+ }
+
+
+
+ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ 
+ function runTextEffect() {
+   const h1 = document.querySelector("h1");
+   h1.dataset.value = h1.innerText;
+   
+   let iteration = 0;
+   let interval = setInterval(() => {
+     h1.innerText = h1.innerText
+       .split("")
+       .map((letter, index) => {
+         if(index < iteration) {
+           return h1.dataset.value[index];
+         }
+         return letters[Math.floor(Math.random() * 26)]
+       })
+       .join("");
+     
+     if(iteration >= h1.dataset.value.length){ 
+       clearInterval(interval);
+     }
+     
+     iteration += 1 / 3;
+   }, 50);
+ }
+ 
+ window.onload = () => {
+   runTextEffect();
+ };
+
+ const [showSecondBody, setShowSecondBody] = useState(true);
+ const [showThirdBody, setShowThirdBody] = useState(true);
+ const [hideFirstBody, setHideFirstBody] = useState(true);
+
+ useEffect(() => {
+ 
+   const timeoutId = setTimeout(() => {
+     setHideFirstBody(false);
+     
+    //  setHideFlyer(false);
+   }, 2000);
+
+   const timeoutSecond = setTimeout(() => {
+    setShowThirdBody(false);
+    setShowSecondBody(false);
+   //  setHideFlyer(false);
+  }, 2000);
+
+
+
+   return () => {
+    clearTimeout(timeoutSecond);
+    clearTimeout(timeoutId);
+   };
+ }, []);
+ 
+
   return (
-    <div className="gpt3__navbar">
-      <div className="gpt3__navbar-links">
-        <div className="gpt3__navbar-links_logo">
-          <img src={logo} />
-        </div>
-        <div className="gpt3__navbar-links_container">
-          <p><a href="#home">Home</a></p>
-          <p><a href="#wgpt3">About GrowthCap</a></p>
-          {/* <p><a href="#possibility">Open AI</a></p>
-          <p><a href="#features">Case Studies</a></p>
-          <p><a href="#blog">Library</a></p> */}
-        </div>
-      </div>
-      <div className="gpt3__navbar-sign">
-        <button type="button">Sign up / Login </button>
-      </div>
-      <div className="gpt3__navbar-menu">
-        {toggleMenu
-          ? <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
-          : <RiMenu3Line color="#fff" size={27} onClick={() => setToggleMenu(true)} />}
-        {toggleMenu && (
-        <div className="gpt3__navbar-menu_container scale-up-center">
-          <div className="gpt3__navbar-menu_container-links">
-            <p><a href="#home">Home</a></p>
-            <p><a href="#wgpt3">What is GPT3?</a></p>
-            <p><a href="#possibility">Open AI</a></p>
-            <p><a href="#features">Case Studies</a></p>
-            <p><a href="#blog">Library</a></p>
-          </div>
-          <div className="gpt3__navbar-menu_container-links-sign">
-            <p>Sign in</p>
-            <button type="button">Sign up</button>
-          </div>
-        </div>
-        )}
-      </div>
-{/* 
-      <div className="gpt3__header section__padding" id="home">
-    <div className="gpt3__header-content">
-      <h1 className="gradient__text">Build , Lead & {'\n'} Invest </h1>
-      <p>Where great businesses and great people meet. We bring together Start-ups looking for investment and investors with the capital, contacts and knowledge to help them succeed.</p>
-
-      <div className="gpt3__header-content__input">
-        <input type="email" placeholder="Your Email Address" />
-        <button type="button">Get Started</button>
-      </div>
+   <header className='homepageGuest'>
+    <div className='webView'>
+      <p>Web View</p>
     </div>
 
-    <div className="gpt3__header-image">
-      <img src={ai} />
+
+
+    {/* {hideFirstFlyer && ( */}
+
+    
+    {/* )} */}
+    
+    <div className='mobileView' >
+
+    <div className={`firstBody ${hideFirstBody ? '' : 'hidden'}`}>
+        <h1 data-value="GrowthCAP">GrowthCAP</h1>
+   
     </div>
-  </div> */}
+
+    <div className={`secondBody ${showSecondBody ? '' : 'appear'}`}>
+    
+      <div className='navbarMobileView'> {/*First Layout*/}
+          <img  style={{ height:'50px', width:'40px', marginTop:'4%', marginLeft:'2%'}} src={mainLogo}  alt="GrowthCAP-logo"/>
+            
+            <p className='growthCapNavText'>GrowthCAP</p>
+            {/* <h1 data-value="GrowthCAP">GrowthCAP</h1> */}
+            <Menu
+            sx={{fontSize:'30px', marginTop:'5%', marginLeft:'23%'}}
+            onClick={openNavMenu}
+            />
+
+        
+      
+
+      </div>
+      
+
+      <div className='secondLayout' onClick={closeNavMenu}>
+        <p className='headingText'>Welcome to <span style={{color:'#2D4C6D'}}>GrowthCAP</span>, a connection app for 
+          startup founders & investors.
+        </p>
+        <button onClick={goToLogin} className='toLoginButton'> Let's Go</button> 
+
+      </div>
+      <div className='imageDivGuest' style={{ position: 'relative', marginTop: '-50px' }}>
+        <img style={{ marginLeft:'1%',position: 'absolute', top: '-20px', left: '0', height:'150px', width:'112px', borderRadius:'6px', marginTop: '-20px' }} src={imageOne}  alt="GrowthCAP-logo"/>
+        <img style={{ position: 'absolute', top: '-80px', left: '46%', transform: 'translateX(-40%)', height:'225px', width:'150px', borderRadius:'6px' }} src={imageTwo}  alt="GrowthCAP-logo"/>
+        <img style={{ marginLeft:'70%',position: 'absolute', top: '-20px', left: '0', height:'150px', width:'112px', borderRadius:'6px', marginTop: '-20px' }} src={imageThree}  alt="GrowthCAP-logo"/>
+      </div>
+
     </div>
+
+    <div className={`thirdBody ${showThirdBody ? '' : 'appear'}`}>
+      <p className='headerOne'>Easy</p>
+      <p className='headerTwo'>Fast</p>
+    </div>
+
+
+    </div>
+    {showMenuOfNav && (
+      <div className='menuOfNav'>
+          <p className='aboutUsText'>About us</p>
+          <p className='contactUsText'>Contact us</p>
+          <p className='documentationText'>Documentation</p>
+          <button onClick={goToLogin}className='signupLoginButton'>Signup/ Login</button>
+
+      </div>
+      )}
+
+   </header>
 
     
   );
 };
 
-export default Navbar;
+export default HomepageGuest;

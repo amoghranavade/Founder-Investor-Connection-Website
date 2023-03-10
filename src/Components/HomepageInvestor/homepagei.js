@@ -59,6 +59,7 @@ function Homepage() {
 
     fetchStartups();
   }, []);
+
   const [user, setUser] = useState({});
   let users = JSON.parse(localStorage.getItem('user'));
   if (!user) {
@@ -67,19 +68,6 @@ function Homepage() {
     localStorage.setItem('user', JSON.stringify(user));
   }
   
-
- 
-
-  const logout = async () => {
-    await signOut(auth);
-    localStorage.clear();
-    navigate('/login')
-  };
-
-  const userSettings = async () => {
-    
-    navigate('/usersetting')
-  };
   const navigate = useNavigate();
  
   useEffect(() => {
@@ -90,7 +78,7 @@ function Homepage() {
  
   
   return (
-   <header>
+   <header className='investorHomepage'>
     {!users || users.length === 0 ? (
          <div style={{position: 'relative'}}>
         
@@ -104,13 +92,12 @@ function Homepage() {
     <InvestorNavbar />
    
   
-    
   
       <div className="startupList">
       {/* <StartupCard true /> */}
         {startups.map((startup) => (
           
-          <StartupCard key={startup.id} data={startup} />
+          <StartupCard key={startup.id} id={startup.id} data={startup} />
          
           
         ))}
@@ -118,7 +105,10 @@ function Homepage() {
        
      </div>
      </div>
+   
          )}  
+
+         
     </header> 
   );
 }

@@ -14,9 +14,10 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Badge from '@mui/material/Badge';
 import mainLogo from '../Assets/Images/mainlogo.png'
+
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import './investornavbar.css';
+import './foundernavbar.css';
 
 import {useEffect, useState} from 'react';
 import { storage, db , auth} from '../Assets/Database/firebase-config';
@@ -33,17 +34,18 @@ import { useNavigate, Link } from 'react-router-dom';
 import { fontSize } from '@mui/system';
 
 const pages = [
-    { id: 1, text: 'Lets Invest', path: '/homepagei' },
+    { id: 1, text: 'My Startup', path: '/addstartup' },
     { id: 2, text: 'About', path: '/about' },
-    { id: 3,text: 'Contact', path: '/' },
+    { id: 3,text: 'Contact', path: '/contact' },
+    { id: 4,text: 'Documentation', path: '/usage' },
   ];
   
 // const pages = ['Lets invest', 'About', 'Contact'];
 // const settings = ['Profile', 'Settings', 'Dashboard', 'Logout'];
 const settings = [
-  { id: 4, text: 'Account', path: '/usersetting' },
-  { id: 5, text: 'Profile', path: '/about' },
-  { id: 6,text: 'Logout', path: '/login' },
+  { id: 5, text: 'Account', path: '/usersetting' },
+  { id: 6, text: 'Profile', path: '/about' },
+  { id: 7,text: 'Logout', path:'/login'},
 ];
 
 
@@ -52,7 +54,9 @@ const settings = [
 
 
 
-function ResponsiveAppBar() {
+function FounderNavbar ()  {
+  // const { openKYCWarning, setOpenWarning } = props;
+
   const navigate = useNavigate();
   const [url, setUrl] = useState(null);
     useEffect(() => {
@@ -88,18 +92,33 @@ function ResponsiveAppBar() {
   };
 
   const handleCloseNavMenu = (path) => () => {
-   
+    // const userkyc = false
     
+    // if (id === 1) {
+    //   if(userkyc=== false){
+
+    //     console.log(userkyc);
+    //   setOpenWarning(true);
+    //   }
+
+    //   else{
+    //     setAnchorElNav(null);
+    // navigate('/addstartup');
+    //   }
+    // }
+    // else{
     setAnchorElNav(null);
-    
     navigate(path);
+    // }
   };
 
   const handleCloseUserMenu = ({id,path}) => () => {
 
-    if(id === 6){
+    if(id === 7){
+      // setAnchorElUser(null);
       localStorage.clear();
-      signOut(auth);
+      signOut(auth)
+     
    
     }
 
@@ -111,8 +130,8 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="fixed" sx={{ background: "#063970", paddingTop:'10px', paddingBottom:'10px' }}>
-      <Container maxWidth="xl">
+    <AppBar position="fixed" sx={{ background: "#1F2937", paddingTop:'10px', paddingBottom:'10px'}}>
+      <Container maxWidth="xxl">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <img  className='websiteLogo' style={{ }} src={mainLogo}  alt="GrowthCAP-logo"/>
@@ -120,7 +139,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="/homepagei"
+            href="/homepagef"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -143,7 +162,7 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon sx={{fontSize:'30px'}}/>
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -175,9 +194,10 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/homepagef"
             sx={{
               mr: 2,
+              
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
@@ -186,26 +206,28 @@ function ResponsiveAppBar() {
               letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
+              fontSize: '20px' // add this line to increase the font size
             }}
           >
             GrowthCAP
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } , justifyContent: 'center' }}>
             {pages.map((page) => (
               <Button
                 key={page.id}
                 // component={Link}
                 // to={page.path}
                 onClick={handleCloseNavMenu(page.path)}
-                sx={{ my: 2, color: 'white', display: 'block', fontWeight:'600' }}
+                sx={{ my: 2, color: 'white', display: 'block', fontWeight:'600', fontSize: '15px',fontFamily:'poppins', marginRight:'5%'}}
               >
                 {page.text}
               </Button>
             ))}
           </Box>
 
+
         
-          <Box sx={{paddingRight:'30px',display: { xs: 'none', md: 'flex' } }}>
+          {/* <Box sx={{paddingRight:'30px',display: { xs: 'none', md: 'flex' } }}>
           <IconButton sx={{ fontSize: '30px' }} size="large" aria-label="new-mail" color="inherit">
             <Badge badgeContent={4} color="error">
               <MailIcon />
@@ -221,7 +243,7 @@ function ResponsiveAppBar() {
               </Badge>
             </IconButton>
            
-          </Box>
+          </Box> */}
         
 
           
@@ -231,7 +253,7 @@ function ResponsiveAppBar() {
                 <Avatar 
                     alt='profilepic'
                     src={url}
-                    sx={{ width: 60, height: 60}}
+                    sx={{ width: 60, height: 60, imageRendering: 'auto' }}
                  />
               </IconButton>
             </Tooltip>
@@ -260,7 +282,9 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
+      
     </AppBar>
+    
   );
 }
-export default ResponsiveAppBar;
+export default FounderNavbar;

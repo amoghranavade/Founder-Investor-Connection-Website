@@ -107,17 +107,17 @@
     background-color: #FF4242;
   }
   
-  /* Use media queries to adjust the layout for different screen sizes */
-  @media (max-width: 1400px) {
+ 
+  /* @media (max-width: 1400px) {
     .phoneAuthDiv {
-      width: 50%; /* Make the div wider for smaller screens */
+      width: 50%; 
       height: 40%;
     }
   }
   
     .blur {
       filter: blur(5px);
-    }
+    } */
 
 
 
@@ -396,6 +396,7 @@
     margin-left: 30%;
     padding-top: 5%;
     font-size: 30px;
+   
   }
 
   .user-pic-container {
@@ -494,7 +495,182 @@
   margin-bottom: 1%;
 }
 
+.settingTextMobileView{
+ margin-bottom: 2%;
+}
+
+.navbarPhoneLayout{
+  opacity: 0;
+}
+.navbarPhoneHeading{
+  font-family:Poppins;
+  color:black;
+  font-weight:900;
+  padding-top:10%;
+  font-size:23px;
+  margin-left:5%;
+  display: none;
+}
+
+.mobileViewDeleteAndSince{
+  display: none;
+}
+.mobileViewFooter{
+  display: none;
+}
+
+/* .colorGradient{
+  display: none;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 600px) {
+
+/* .colorGradient{
+  display: block;
+  width: 100vw;
+  height: 20vh;
+  margin-left: 26%;
+  margin-top: 10%;
+  background-image: linear-gradient(to bottom, #17181e, #15161b, #131418, #111215, #0e0f12);
+  
+} */
+  
+.mobileViewFooter{
+  display: block;
+  background-color: #0e0f12;
+  width: 100vw;
+  height: 30vh;
+  margin-left: 26%;
+  /* margin-top: 10%; */
+}
+
+.footerHeading{
+  font-family: poppins;
+  font-weight: 700;
+  margin-left: 28%;
+  font-size: 22px;
+  padding-top: 10%;
+}
+
+.headingSpan{
+  color: #aba4a4;
+}
+
+.footerHeadingDot{
+  font-size: 8px;
+  margin-top: -4%;
+  margin-left: 48%;
+}
+
+.footerDescription{
+  font-size: 16px;
+  color: #c8c0c0;
+  text-align:center;
+}
+
+.footerDescriptionDesign{
+  color: white;
+  margin-left: 39.5%;
+}
+  
+.mobileViewDeleteAndSince{
+  background-image: linear-gradient(to bottom, #17181e, #15161b, #131418, #111215, #0e0f12);
+  display: block;
+  /* font-family: poppins; */
+}
+
+.userSinceTagMobileView{
+  font-family: poppins;
+  margin-left: 48%;
+  font-size: 16px;
+  color: #70707c;
+  padding-top: 4%;
+  padding-bottom: 1%;
+}
+
+.deleteAccountMobileViewButton{
+  margin-top: 4%;
+  font-size: 16px;
+  margin-left: 28%;
+  font-family: poppins;
+  background-color: #FF4242;
+  color: rgb(230, 223, 223);
+  border-radius: 8px;
+  border: none;
+  width: 94vw;
+  height: 5vh;
+}
+
+
+.navbarPhoneLayout{
+  opacity: 1;
+  background-color: whitesmoke;
+  width: 100vw;
+  height: 45vh;
+  margin-left: 26%;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  position: fixed;
+  top: 70%;
+  left: 30%;
+  transform: translate(-56%, -25%);
+  
+  
+}
+
+.navbarPhoneLayoutBrief{
+  display: flex;
+  /* align-items: center; */
+}
+
+.navbarPhoneHeading{
+  display: block;
+}
+.settingTextMobileView{
+  background-color: #20212C;
+  margin-top: 0%;
+  margin-bottom: 5%;
+  height: 8vh;
+  position: sticky;
+  top: 0;
+  width: 100;
+  z-index: 9999;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+
+}
+
+.settingText{
+  transform: translate(0%, -20%);
+  font-size: 25px;
+  margin-right: auto;
+  padding-top: 12%;
+
+}
+
+.mainName{
+  font-size: 22px;
+}
+
+.userType{
+  font-size: 16px;
+}
+
+
   .userSetting {
     /* background-color: #0D1117; */
     background-color: #17181E;
@@ -517,36 +693,49 @@
   }
 
   .basicPad{
-    min-width: 90vw;
+    min-width: 94vw;
+    margin-left: 28%;
+    
+
+
   }
 
   .accountPad{
-    min-width: 90vw;
+    min-width: 94vw;
+    min-height: 32vh;
+    margin-left: 28%;
     margin-top: 4%;
   }
 
   .otherVerification{
-    min-width: 90vw;
+    min-width: 94vw;
+    margin-left: 28%;
     margin-top: 4%;
   }
 
       .basicPadHeaderText{
         margin-left: 4%;
+        font-size: 19px;
       }
       .nameTag{
         margin-left: 4%;
         margin-bottom: 1%;
+        font-size: 16px;
       }
       .nameContent{
+        font-size: 16px;
         margin-left: 4%;
       }
 
       .passwordTag{
         margin-left: 4%;
         margin-bottom: 1%;
+        font-size: 16px;
       }
 
       .passwordContent{
+        font-size: 16px;
+        font-size: 6px;
         margin-left: 4%;
       }
       .resetButton{
@@ -560,11 +749,13 @@
       }
 
       .phoneTag{
+        font-size: 16px;
         margin-left: 4%;
         margin-bottom: 1%;
       }
 
       .phoneContent{
+        font-size: 16px;
         margin-left: 4%;
       }
             
@@ -591,18 +782,22 @@
                   }
 
       .phoneContentNotRegistered{
+        font-size: 16px;
         margin-left: 4%;
       }
 
           .accountPadHeaderText{
             margin-left: 4%;
+            font-size: 19px;
           }
           .emailTag{
+            font-size: 16px;
             margin-left: 4%;
             margin-bottom: 1%;
           }
           .emailContent{
             margin-left: 4%;
+            margin-bottom: 5%;
           }
           .typeTag{
             margin-left: 4%;
@@ -614,18 +809,23 @@
 
           .uidTag{
             margin-left: 4%;
+            /* padding-bottom: 5%; */
             margin-bottom: 3%;
           }
           .uidContent{
             margin-left: 4%;
+            padding-bottom: 4%;
+           
           }
           .userSinceTag{
-            margin-left: 4%;
-            margin-bottom: 1%;
+            /* margin-left: 4%;
+            margin-bottom: 1%; */
+            display: none;
             
           }
           .deleteAccount{
-            margin-left: 4%;
+            /* margin-left: 4%; */
+            display: none;
           }
 
               .statusTag{
@@ -634,6 +834,7 @@
               }
               .statusContent{
                 margin-left: 4%;
+                margin-top: -2%;
               }
               .documentVerifiedTag{
                 margin-left: 4%;
@@ -641,6 +842,7 @@
               }
               .documentVerifiedContent{
                 margin-left: 4%;
+                margin-top: -2%;
               }
               .verificationDivText{
                 font-size: 15px;
