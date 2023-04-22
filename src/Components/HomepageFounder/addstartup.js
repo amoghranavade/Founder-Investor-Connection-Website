@@ -103,7 +103,7 @@ function Homepage() {
   
   return (
    
-    <header className="add-startup-header">
+ <header className="add-startup-header">
      {/* {!users || users.length === 0 ? (
          <div style={{position: 'relative'}}>
         
@@ -116,19 +116,20 @@ function Homepage() {
           <FounderNavbar/>
      
     
+  <p className='heading'>Showcase your startup for better reach</p>
 
+{/* <div class="form-group">
 
-<div class="form-group">
   <label for='startupName'className="input-label">Startup Name</label>
   <input maxLength={30} className='primary-input' placeholder='Startup Name' onChange={(e) => setStartupName(e.target.value)} ></input>
 
   <label for='startupName'className="input-label"  >Startup Founder</label>
   <input maxLength={30} className='primary-input' placeholder='Name of Founder' onChange={(e) => setStartupFounder(e.target.value)} ></input>
-</div>
+</div> */}
 
       
 
-         <SpeedDial
+         {/* <SpeedDial
         ariaLabel="SpeedDial basic example"
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
@@ -141,9 +142,9 @@ function Homepage() {
             onClick={() => handleActionClick(action.name)}
           />
         ))}
-      </SpeedDial>
+      </SpeedDial> */}
       </div>
- {/* )}   */}
+ 
       </header>
 
   

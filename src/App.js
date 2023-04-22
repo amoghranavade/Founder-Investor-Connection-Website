@@ -12,6 +12,7 @@ import Terms from "./Components/Misc/terms"
 import Who from "./Components/Register/who"
 import UserSettings from "./Components/UserSettings/usersetting"
 import AddStartup from'./Components/HomepageFounder/addstartup'
+import KYC from "./Components/UserSettings/kyc.js"
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path='/who' element={<Who/>} />
         <Route path='/maintenance' element={<Misc/>} />
         <Route path='/usersetting' element={<UserSettings/>} />
+        <Route path='/kyc' element={<KYC/>} />
         
       </Routes>
     </BrowserRouter>

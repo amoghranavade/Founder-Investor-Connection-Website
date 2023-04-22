@@ -276,7 +276,7 @@ const HomepageGuest = () => {
               {" "}
               Let's Go
             </button>
-            <p className="viewDocText">View documentation</p>
+            <p className="viewDocText"><a href>View documentation</a></p>
           </div>
 
           <div

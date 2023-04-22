@@ -199,6 +199,11 @@
         translate: -50% -50%;
         z-index: 3;
       }
+
+      .viewDocText{
+        padding-left: 33%;
+        margin-top: 5%;
+      }
       
 
 
