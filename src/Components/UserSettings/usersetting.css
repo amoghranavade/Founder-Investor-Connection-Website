@@ -300,6 +300,30 @@
     cursor: pointer;
   }
 
+  .verifykycButton {
+    position: relative;
+    top: -20px;
+    left: 560px;
+    background-color: #5c5c66;
+    border-radius: 12px;
+    border: #5c5c66;
+    color: whitesmoke;
+    font-size: 15px;
+    font-family: Poppins;
+    /* padding: 7px; */
+    width: 80px;
+    height: 40px;
+    padding-left: 17px;
+    padding-right: 55px;
+    cursor: pointer;
+  }
+
+  .kycButtonDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .disabledButton {
     opacity: 0.5;
     cursor: not-allowed;
@@ -349,7 +373,9 @@
   .statusTag {
     font-size: 16px;
     color: #7E839A;
-    margin-bottom: 0px;
+    padding-bottom: 3%;
+    cursor: pointer;
+    text-decoration: underline;
     margin-left: 30px;
     padding-top: 15px;
     }
@@ -830,7 +856,8 @@
 
               .statusTag{
                 margin-left: 4%;
-                margin-bottom: 3%;
+                padding-bottom: 5%;
+                text-decoration: underline;
               }
               .statusContent{
                 margin-left: 4%;

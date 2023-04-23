@@ -29,6 +29,7 @@ import {
   signOut,
 } from "firebase/auth";
 import './startupcard.css';
+import { useNavigate } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -52,6 +53,8 @@ export default function StartupCard(props) {
   const [liked, setLiked] = useState(false);
   // const { loading = false } = props;
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const {data} = props;
   const {id} = props;
@@ -174,7 +177,7 @@ export default function StartupCard(props) {
           loading ? (
             <Skeleton animation="wave" height={10} width="40%" />
           ) : (
-            data.postedon
+            data.startuplisteddate
 
             )
           }
@@ -203,17 +206,17 @@ export default function StartupCard(props) {
           
           <Typography sx={{ marginRight: '10%' }} variant="body2" color="text.secondary">Members: {data.members}</Typography>
           <Typography sx={{ marginRight: '10%' }} variant="body2" color="text.secondary">ROI: {data.roi}</Typography>
-          <Typography variant="body2" color="text.secondary">Field: {data.industry}</Typography>
+          <Typography variant="body2" color="text.secondary">Field: {data.field}</Typography>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', marginTop:'-0.6rem' }}>
           
-        <Typography sx={{ marginRight: '5%' }} variant="body2" color="text.secondary">Equity offered: {data.equity}</Typography>
-          <Typography sx={{ marginRight: '0%' }} variant="body2" color="text.secondary">At amount: {data.amount}</Typography>
+        <Typography sx={{ marginRight: '5%' }} variant="body2" color="text.secondary">Equity offered: {data.equitygiven}</Typography>
+          <Typography sx={{ marginRight: '0%' }} variant="body2" color="text.secondary">At amount: {data.equitygivenamount}</Typography>
           
         </div>
         
         <Typography variant="body1" color="text.primary">
-          {data.startupdesc}
+          {data.about}
         </Typography>
         </div>
 
@@ -224,7 +227,13 @@ export default function StartupCard(props) {
         <Rating icon="heart" defaultRating={liked ? "1" : "0"} maxRating={1} />
       </div>
       <Typography sx={{ marginRight: '10%' }} variant="body1" color="text.primary">{data.likes}</Typography>
-      <Button sx={{marginLeft: '50%'}}size="small">More Info.</Button>
+      <Button onClick={() => {
+        navigate('/portfolio', {
+          state: {
+            data: props.data
+          }
+        });
+      }} sx={{marginLeft: '50%'}}size="small">More Info.</Button>
     </CardActions>
 
   

@@ -13,6 +13,10 @@ import Who from "./Components/Register/who"
 import UserSettings from "./Components/UserSettings/usersetting"
 import AddStartup from'./Components/HomepageFounder/addstartup'
 import KYC from "./Components/UserSettings/kyc.js"
+import About from "./Components/Other/about"
+import Contact from "./Components/Other/contact"
+// import Documentation from "./Components/HomepageFounder/docFounder"
+import StartupPortfolio from "./Components/HomepageInvestor/startupportfolio"
 
 
 function App() {
@@ -31,6 +35,10 @@ function App() {
         <Route path='/maintenance' element={<Misc/>} />
         <Route path='/usersetting' element={<UserSettings/>} />
         <Route path='/kyc' element={<KYC/>} />
+        <Route path='/about' element={<About/>} />
+        <Route path='/contact' element={<Contact/>} />
+        {/* <Route path='/documentation' element={<Documentation/>} /> */}
+        <Route path='/portfolio' element={<StartupPortfolio/>} />
         
       </Routes>
     </BrowserRouter>

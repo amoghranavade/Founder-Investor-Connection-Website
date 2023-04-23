@@ -395,6 +395,11 @@ function UserSettings() {
     setShowPhoneNav(true);
     // navbarPhoneLayout?.classList.add('visible');
   }
+
+  const goToKyc = () => {
+   
+    navigate('/kyc');
+  }
   
   const hidePhoneNav = () => {
     setShowPhoneNav(false);
@@ -523,9 +528,9 @@ function UserSettings() {
 
 
                 
-                    {/* <input type='file' onChange={handleImageChange}/> */}
+                    {/* <input type='file' onChange={handleImageChange}/> 
                     
-                    {/* <button >Upload Pic</button>  */}
+                     <button >Upload Pic</button>  */}
                  
 
 
@@ -542,7 +547,7 @@ function UserSettings() {
                 </div>
 
 
-                {/* <button onClick={handleSubmit} className="ui primary button save-and-upload" fdprocessedid="74s44">Save</button> */}
+                <button onClick={handleSubmit} className="ui primary button save-and-upload" fdprocessedid="74s44">Save</button>
       
 
                 <div className="basicPad">
@@ -615,14 +620,21 @@ function UserSettings() {
                 </div>
 
                 <div className='otherVerification'>
-                
-                  <p className="statusTag">KYC Status <Popup
+                <div className='kycButtonDiv'>
+                  <p className="statusTag" onClick={goToKyc}>Complete KYC <Popup
                                                         trigger={<button className='infoPopup'>i</button>}
                                                         content='Identity document verification is a mandatory process in accessing most of the GrowthCAP features.'
                                                         style={style}
                                                         inverted
                                                        /></p>
-                  <p className="statusContent">PENDING</p>
+
+                      
+                      {/* <button className="verifykycButton" onClick={goToKyc}>Verify</button> */}
+                      
+                     
+                      
+                  {/* <p className="statusContent">PENDING</p> */}
+                  </div>
                   <p className="documentVerifiedTag">Document Verified</p>
                   <p className="documentVerifiedContent">None</p>
                   <div className='verificationRedirect'>

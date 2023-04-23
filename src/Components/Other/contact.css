@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .box {
+    flex-basis: 30%;
+    height: 200px;
+    background-color: #1F2937;
+    margin-top: 5%;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 20px;
+  }
+
+  .contactText{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 10%;
+  }

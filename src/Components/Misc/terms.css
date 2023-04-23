@@ -1,0 +1,19 @@
+.terms-header{
+    background-color: #0A1929;
+    height: 100vh;
+}
+
+.back-button{
+    background-color: #4EBBE0;
+    color: #000;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.buttonDiv{
+    padding-top: 1%;
+    padding-left: 25%;
+}

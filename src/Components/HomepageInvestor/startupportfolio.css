@@ -5,12 +5,16 @@
   background-color: #0A1929;
   height: 100vh;
 }
+
+
+
+
 .container {
   font-family: Poppins;
   background-color: #2a3745;
   padding: 30px;
   margin-left: 20%;
-  margin-top: 50%;
+  margin-top: 0%;
   margin-right: 20%;
 
   border-radius: 5px;
@@ -63,45 +67,24 @@ input {
   margin-top: 12px;
 }
 
-.cancel-button {
-  background-color: #082461;
-  color: #f2e9e9;
+.primary-button {
+  background-color: #9c0000;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  border: none;
-  padding: 8px 35px;
+  border-radius: 4px;
+  padding: 8px 16px;
   cursor: pointer;
   margin-right: 8px;
-  
 }
 
-.add-startup-button {
-  background-color: #082461;
+.secondary-button {
+  background-color: #009c15;
   color: #ffffff;
-  border: none;
-  border-radius: 6px;
+  border: 1px solid #009c15;
+  border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
 }
-.add-startup-button:hover {
-    background-color: #083667;
-  }
-
-
-.button {
-    display: inline-block;
-    padding: "10px";
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  
 
 .textarea-style {
   width: 100%;
@@ -110,16 +93,3 @@ input {
   background-color: #65778a;
   color: #fff;
 }
-
-.add-startup-image{
-  margin-left: 21%;
-  margin-bottom: 1%;
-  background-color: #007bff;
-  padding: 5px;
-  color: white;
-  border-color: #007bff;
-  border-radius: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-

@@ -37,14 +37,14 @@ const pages = [
     { id: 1, text: 'My Startup', path: '/addstartup' },
     { id: 2, text: 'About', path: '/about' },
     { id: 3,text: 'Contact', path: '/contact' },
-    { id: 4,text: 'Documentation', path: '/usage' },
+    { id: 4,text: 'Documentation', path: '/documentation' },
   ];
   
 // const pages = ['Lets invest', 'About', 'Contact'];
 // const settings = ['Profile', 'Settings', 'Dashboard', 'Logout'];
 const settings = [
   { id: 5, text: 'Account', path: '/usersetting' },
-  { id: 6, text: 'Profile', path: '/about' },
+  // { id: 6, text: 'Profile', path: '/about' },
   { id: 7,text: 'Logout', path:'/login'},
 ];
 
