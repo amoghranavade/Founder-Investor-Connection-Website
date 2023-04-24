@@ -352,7 +352,7 @@ function Register() {
         </Button.Content>
       </Button>
         <br/>
-        <text style={{fontSize: 17}}>Already a member?<Link to="/login"> Login now!</Link></text>
+        <text style={{fontSize: 17}}>Already a member?<Link to="/login" style={{color:'#3783DF'}}> Login now!</Link></text>
         <br/>
         <br/>
         

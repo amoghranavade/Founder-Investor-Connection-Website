@@ -8,27 +8,13 @@ import Menu from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
-
+import mainlogo from "../Assets/Images/mainlogo.png";
+import people from "../Assets/Images/people.png";
+import guesticon from "../Assets/Images/guesticon.png";
+import icon from "../Assets/Images/mainlogo.png";
+import Feature from "./Feature";
 import "./homepageg.css";
 
-const featuresData = [
-  {
-    title: "Better reach",
-    text: "Connecting the new generation of founders and investors by providing them with the interface that they need to launch and scale a start-up.",
-  },
-  {
-    title: "Discover start-ups",
-    text: "Can find start-ups that match your ideal target prospects ",
-  },
-  {
-    title: "Angel investors",
-    text: "Angel investors are highly beneficial for startups who need access to funding in the early stages of growth.",
-  },
-  {
-    title: "Opportunites",
-    text: "We actively support our portfolio companies and give them access to leading software and community that help them get an edge during their journey",
-  },
-];
 const HomepageGuest = () => {
   const navigate = useNavigate();
   const [showMenuOfNav, setShowMenu] = useState(false);
@@ -42,6 +28,10 @@ const HomepageGuest = () => {
   const goToLogin = () => {
     navigate("./login");
   };
+
+  const goToRegister = () => {
+    navigate('./register');
+  }
 
   const openNavMenu = () => {
     setShowMenu(true);
@@ -106,138 +96,50 @@ const HomepageGuest = () => {
 
   return (
     //this is the code
-    <header className="homepageGuest">
-      <div className="webView">
+    <div className="webView">
+    <div className="App">
+      <div className="gradient__bg">
         <div className="gpt3__navbar">
-          <div className="gpt3__navbar-links_logo">
-            {/* <img src={logo} /> */}
-            <p>Growth Cap</p>
+          <div className="gpt3__navbar-links_container">
+            <img src={icon} width={50} style={{marginRight:'20%'}} />
+            <p style={{marginTop:'10%', fontSize:'28px', paddingLeft:'-2%', fontWeight:'700'}}>GrowthCAP</p>
           </div>
           <div className="gpt3__navbar-links_container">
-            <p>
-              <a href="#home">Home</a>
-            </p>
-            <p>
-              <a href="#wgpt3">About GrowthCAP</a>
-            </p>
+          
           </div>
         </div>
-        <div className="gpt3__navbar-sign">
-          <button type="button">Sign up/ Login</button>
+        <div className="gpt3__navbar-sign" style={{marginRight:'5%', marginTop:'-5%'}}>
+          <p onClick={goToLogin}>Sign in</p>
+          <button type="button" onClick={goToRegister}>Sign up</button>
         </div>
-        <div className="gpt3__navbar-menu">
-          {toggleMenu ? (
-            <RiCloseLine
-              color="#fff"
-              size={27}
-              onClick={() => setToggleMenu(false)}
-            />
-          ) : (
-            <RiMenu3Line
-              color="#fff"
-              size={27}
-              onClick={() => setToggleMenu(true)}
-            />
-          )}
-          {toggleMenu && (
-            <div className="gpt3__navbar-menu_container scale-up-center">
-              <div className="gpt3__navbar-menu_container-links">
-                <p>
-                  <a href="#home">Home</a>
-                </p>
-                <p>
-                  <a href="#wgpt3">What is GPT3?</a>
-                </p>
-                <p>
-                  <a href="#possibility">Open AI</a>
-                </p>
-                <p>
-                  <a href="#features">Case Studies</a>
-                </p>
-                <p>
-                  <a href="#blog">Library</a>
-                </p>
-              </div>
-              <div className="gpt3__navbar-menu_container-links-sign">
-                <p>Sign in</p>
-                <button type="button">Sign up</button>
-              </div>
-            </div>
-          )}
-        </div>
+       
         <div className="gpt3__header section__padding" id="home">
           <div className="gpt3__header-content">
-            <h1 className="gradient__text">Build, Lead & {"\n"} Invest</h1>
+            <h1 className="text-color">GrowthCAP</h1>
             <p>
               Where great businesses and great people meet. We bring together
-              Start-ups looking for investment and investors with the capital,
+              Start-ups looking for investment and investors with the captial,
               contacts and knowledge to help them succeed.
             </p>
+            <div className="gpt3__header-content__people">
+              <img src={people} />
+              <p>2000 people have visited in last 24 hours</p>
+            </div>
             <div className="gpt3__header-content__input">
-              <input type="email" placeholder="Your email address" />
-              <button type="button">Get Started</button>
+              <button type="button" onClick={goToRegister}>Sign Up</button>
             </div>
           </div>
-          {/* <div className="gpt3__header-image">
-            <img src={ai}/>
-          </div> */}
-        </div>
-        <div className="gpt3__possibility section__padding" id="possibility">
-          {/* <div className="gpt3__possibility-image">
-            <img src={possibilityImage} alt="possibility" />
-          </div> */}
-          <div className="gpt3__possibility-content">
-            <h4>Request Early Access to get started</h4>
-            <h1 className="gradient__text">
-              The possibilities are <br /> beyond your imagination
-            </h1>
-            <p>
-              Yet bed any for travelling assistance indulgence unpleasing. Not
-              thoughts all exercise blessing. Indulgence way everything joy
-              alteration boisterous the attachment. Party we years to order
-              allow asked of.
-            </p>
-            <h4>Requeset Early Access to Get Started</h4>
+          <div className="gpt3__header-image">
+            <img src={guesticon}/>
           </div>
         </div>
-
-        {/* footer */}
-        <div className="gpt3__footer section__padding">
-          <div className="gpt3__footer-heading">
-            <h1 className="gradient__text">Invest in the future</h1>
-          </div>
-          <div className="gpt3__footer-links">
-            <div className="gpt3__footer-links_logo">
-              {/* <img src={gpt3Logo} alt="gpt3_logo" /> */}
-              <p>
-                B9 Major Project <br /> All Rights reserved
-              </p>
-            </div>
-            <div className="gpt3__footer-links_div">
-              <h4>Links</h4>
-              <p>Social Media</p>
-              <p>Counters</p>
-              <p>Contact</p>
-            </div>
-            <div className="gpt3__footer-links_div">
-              <h4>Company</h4>
-              <p>Terms & Conditions </p>
-              <p>Privacy Policy</p>
-              <p>Contact</p>
-            </div>
-            <div className="gpt3__footer-links_div">
-              <h4>Get in touch</h4>
-              <p>Terna Engineering College</p>
-              <p>2222745841</p>
-              <p>growthCap@in.net</p>
-            </div>
-          </div>
-          <div className="gpt3__footer-copyright">
-            <p>@2023 GrowthCAP. All rights reserved</p>
-          </div>
-        </div>
+        
       </div>
-
+      <div style={{marginLeft:"40%"}}>
+      <p className='loginFooter'><a href='./' style={{color: '#FF4820'}}>GrowthCAP 2023</a> | <a href='./terms' style={{color: 'rgb(218, 232, 245)'}}>Terms & conditions</a></p>
+      </div>
+    
+    </div>
       <div className="mobileView">
         {/* <div className={`firstBody ${hideFirstBody ? '' : 'hidden'}`}>
         <h1 data-value="GrowthCAP">GrowthCAP</h1>
@@ -276,7 +178,9 @@ const HomepageGuest = () => {
               {" "}
               Let's Go
             </button>
-            <p className="viewDocText"><a href>View documentation</a></p>
+            <p className="viewDocText">
+              <a href>View documentation</a>
+            </p>
           </div>
 
           <div
@@ -344,7 +248,7 @@ const HomepageGuest = () => {
           </button>
         </div>
       )}
-    </header>
+    </div>
   );
 };
 

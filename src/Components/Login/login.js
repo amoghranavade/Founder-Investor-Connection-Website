@@ -199,7 +199,7 @@ const Login = () => {
           </Button.Content>
         </Button>
         <br/>
-        <text style={{fontSize: 17, position: 'relative', top:'50%'}}>New here?<Link to="/register"> Register now!</Link></text>
+        <text style={{fontSize: 17, position: 'relative', top:'50%'}}>New here?<Link to="/register" style={{color:'#3783DF'}}> Register now!</Link></text>
         {/* lineHeight: 30 */}
        
         </div>

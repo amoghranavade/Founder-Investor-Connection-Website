@@ -3,12 +3,13 @@ import "./startupportfolio.css";
 import InvestorNavbar from "../HomepageInvestor/investornavbar";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Startuppf = () => {
   const loc = useLocation();
 
   const data = loc.state.data;
-
+  const navigate = useNavigate();
   const [headingText, setHeadingText] = useState(data.startupname);
   const [startupFounderName, setstartupFounderName] = useState(data.startupfounder);
   const [founderContact, setfounderContact] = useState("john.doe@example.com");
@@ -30,6 +31,10 @@ const Startuppf = () => {
 
   const [founderConnections, setFounderConnections] = useState([]);
 
+
+  const goBack = () => {
+    navigate("/homepagei");
+  }
   useEffect(() => {
     let connections = JSON.parse(localStorage.getItem('connections'));
     console.log(connections)
@@ -55,7 +60,7 @@ const Startuppf = () => {
     } else {
       return (
         <div className="button-group">
-          <button type="submit" className="primary-button">
+          <button type="submit" className="primary-button"  onClick={goBack}>
             Cancel
           </button>
           <button type="submit" className="secondary-button" onClick={connectFounder}>
