@@ -26,6 +26,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Typography } from '@mui/material';
 
+
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -36,11 +40,13 @@ import {
 
 const Startuppf = () => {
 
+
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
 
   const [startupName, setstartupName] = useState("");
   const [startupFounderName, setstartupFounderName] = useState("");
+  const [startupFounderContact, setstartupFounderContact] = useState("");
  
   const [membersCount, setMembersCount] = useState("");
   const [fieldOfStartup, setfieldOfStartup] = useState("");
@@ -55,6 +61,8 @@ const Startuppf = () => {
   const [founderContact, setFounderContact] = useState("");
   const [about, setAbout] = useState("");
 
+  const [users, setUsers] = useState([]);
+
   let usersCollectionRef = null;
 
   let user = JSON.parse(localStorage.getItem('user'));
@@ -63,6 +71,22 @@ const Startuppf = () => {
     user = auth.currentUser;
     localStorage.setItem('user', JSON.stringify(user));
   }
+
+  const userCollectionRef = collection(db, 'app', 'users', user.uid);
+
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(userCollectionRef);
+      // console.log(data);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      // setUsers(data.docs.map((doc) => (doc.data())));
+        
+  
+
+    };
+    getUsers();
+  }, []);
 
       
       usersCollectionRef = collection(db, 'startups')
@@ -92,7 +116,7 @@ function getOrdinalSuffix(day) {
 }
   
  const addStartup = async () => {
-  await addDoc(usersCollectionRef, {startuplisteddate: formattedDate, founderuid: user.uid, startupname: startupName, startupfounder: startupFounderName, foundercontact: founderContact, members: membersCount, 
+  await addDoc(usersCollectionRef, {foundercontact: startupFounderContact, startuplisteddate: formattedDate, founderuid: user.uid, startupname: startupName, startupfounder: startupFounderName, foundercontact: founderContact, members: membersCount, 
     field: fieldOfStartup, location: location, startupyear: startupYear, roi: roi, pastequity: pastEquity, totalEquity: totalEquity, equityremain: equityRemaining,
   equitygiven:equityOffered, equitygivenamount: equityAmount, about: about});
  }
@@ -130,10 +154,23 @@ function getOrdinalSuffix(day) {
 
   return (
     <header className="portfolioHeader">
+       {!users || users.length === 0 ? (
+         <div style={{position: 'relative'}}>
+         {/* <img style={{marginLeft:'48%',marginTop :"15%", height:'150px', width:'100px'}} src={mainLogo}  alt="GrowthCAP-logo"/> */}
+         {/* Contents of your current page */}
+         <Box sx={{ display: 'flex', position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', backgroundColor: 'rgba(255, 255, 255, 0.5)', zIndex: 1 }}>
+           <CircularProgress style={{ margin: 'auto' }} />
+         </Box>
+       </div>
+      ) : (
+   users.map((user) => {
+    return (
     <div>
       
       <FounderNavbar />
       <h1 style={{fontSize:'35px', paddingTop:'8%', paddingLeft:'42%', color:'white'}}>List your startup!</h1>
+      
+      <div style={{display:'flex'}}>
       <label id='avatarInput'>
                     <Avatar
                       className='avatarMobileView'
@@ -143,8 +180,8 @@ function getOrdinalSuffix(day) {
                         display: { xs: 'none', md: 'flex' },
                         width: 110, 
                         height: 110, 
-                        marginLeft:'20%',
-                        marginBottom:'1%',
+                        marginLeft:'350%',
+                        marginBottom:'15%',
                         cursor: 'pointer',
                         transition: 'opacity 0.3s ease-in-out',
                         '&:hover': {
@@ -164,6 +201,7 @@ function getOrdinalSuffix(day) {
                     </label>
 
       <button onClick={handleSubmit} className="add-startup-image" >Save</button>
+      </div>
       <div className="container">
         <form className="form-stye">
 
@@ -172,6 +210,7 @@ function getOrdinalSuffix(day) {
             <label htmlFor="name">Start-Up Name</label>
             <input
               type="text"
+              
               id="name"
      
               onChange={(e) => setstartupName(e.target.value)}
@@ -184,8 +223,22 @@ function getOrdinalSuffix(day) {
             <input
               type="text"
               id="name"
+              // value={user.name}
+              
         
               onChange={(e) => setstartupFounderName(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="name">Start-up Founder Contact</label>
+            <input
+              type="text"
+              id="name"
+              // value={user.phone}
+           
+        
+              onChange={(e) => setstartupFounderContact(e.target.value)}
             />
           </div>
 
@@ -394,6 +447,9 @@ function getOrdinalSuffix(day) {
 
       <button onClick={handleSubmit} className="ui primary button save-and-upload" fdprocessedid="74s44">Save</button> */}
     </div>
+    );
+  })
+)}
     </header>
   );
 };

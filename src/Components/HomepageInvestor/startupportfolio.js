@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+
 const Startuppf = () => {
   const loc = useLocation();
 
@@ -12,6 +13,7 @@ const Startuppf = () => {
   const navigate = useNavigate();
   const [headingText, setHeadingText] = useState(data.startupname);
   const [startupFounderName, setstartupFounderName] = useState(data.startupfounder);
+  const [startupFounderContact, setstartupFounderContact] = useState(data.foundercontact);
   const [founderContact, setfounderContact] = useState("john.doe@example.com");
   const [membersCount, setMembersCount] = useState(data.members);
   const [fieldOfStartup, setfieldOfStartup] = useState(
@@ -30,6 +32,8 @@ const Startuppf = () => {
   );
 
   const [founderConnections, setFounderConnections] = useState([]);
+  
+
 
 
   const goBack = () => {
@@ -85,6 +89,7 @@ const Startuppf = () => {
 
   return (
     <header className="portfolioHeader">
+        
     <div>
       <InvestorNavbar />
       <h1 style={{fontSize:'35px', paddingTop:'8%', paddingLeft:'45%', color:'white'}}>{headingText}</h1>
@@ -97,16 +102,19 @@ const Startuppf = () => {
               id="name"
               value={startupFounderName}
               onChange={(e) => setstartupFounderName(e.target.value)}
+              readOnly
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="contact">Contact:</label>
+            <label htmlFor="name">Start-up Founder Contact</label>
             <input
-              type="email"
-              id="contact"
-              value={founderContact}
-              onChange={(e) => setfounderContact(e.target.value)}
+              type="text"
+              id="name"
+          
+              readOnly
+              value={startupFounderContact}
+              onChange={(e) => setstartupFounderContact(e.target.value)}
             />
           </div>
 
@@ -117,6 +125,7 @@ const Startuppf = () => {
               id="members-count"
               value={membersCount}
               onChange={(e) => setMembersCount(e.target.value)}
+              readOnly
             />
           </div>
 
@@ -127,6 +136,7 @@ const Startuppf = () => {
               id="field-startup"
               value={fieldOfStartup}
               onChange={(e) => setfieldOfStartup(e.target.value)}
+              readOnly
             />
           </div>
 
@@ -137,6 +147,7 @@ const Startuppf = () => {
               id="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -149,6 +160,7 @@ const Startuppf = () => {
               id="startupYear"
               value={startupYear}
               onChange={(e) => setStartupYear(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -160,6 +172,7 @@ const Startuppf = () => {
               id="roi"
               value={roi}
               onChange={(e) => setRoi(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -171,6 +184,7 @@ const Startuppf = () => {
               id="pastEquity"
               value={pastEquity}
               onChange={(e) => setPastEquity(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -184,6 +198,7 @@ const Startuppf = () => {
               id="totalEquity"
               value={totalEquity}
               onChange={(e) => setTotalEquity(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -195,6 +210,7 @@ const Startuppf = () => {
               id="equityRemaining"
               value={equityRemaining}
               onChange={(e) => setEquityRemaining(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -207,6 +223,7 @@ const Startuppf = () => {
               id="equityOffered"
               value={equityOffered}
               onChange={(e) => setEquityOffered(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -217,6 +234,7 @@ const Startuppf = () => {
               id="equityAmount"
               value={equityAmount}
               onChange={(e) => setEquityAmount(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -228,6 +246,7 @@ const Startuppf = () => {
               id="about"
               value={about}
               onChange={(e) => setAbout(e.target.value)}
+              readOnly
               required
             />
           </div>
@@ -235,6 +254,7 @@ const Startuppf = () => {
       </div>
       {isConnected()}
     </div>
+
     </header>
   );
 };
