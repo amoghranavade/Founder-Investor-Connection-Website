@@ -1,4 +1,4 @@
-# GrowthCAP - SEM VII + VIII Major Project
+# Founder-Investor Connection Webapp - SEM VII + VIII Major Project
 
 This is a project under Computer Engineering, SEM VII & VIII Major-Project.  
 
